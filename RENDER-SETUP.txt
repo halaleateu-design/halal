@@ -28,3 +28,34 @@ Environment variables (Settings → Environment):
 
 After deploy, test:
   https://YOUR-SERVICE.onrender.com/api/v1/health
+
+
+Email alerts (new merchant / rider) + how YOU handle leads
+===========================================================
+
+1) RENDER ENV (required for any email)
+   - NOTIFY_TO          = halaleateu@gmail.com   (comma = several inboxes)
+   - API_PUBLIC_URL      = your Render URL        (email me admin link banane ke liye)
+
+2) Sending method — pick ONE:
+
+   A) RESEND (recommended for production)
+      - resend.com signup → API key
+      - RESEND_API_KEY     = re_...
+      - RESEND_FROM        = "GO <onboarding@resend.dev>"  (testing)
+        or your domain after DNS verify: "GO <orders@yourdomain.com>"
+      - Deploy → test form submit → check NOTIFY_TO inbox + spam
+
+   B) GMAIL SMTP
+      - Google Account → Security → 2‑Step → App passwords → generate
+      - SMTP_HOST=smtp.gmail.com  SMTP_PORT=587
+      - SMTP_USER=halaleateu@gmail.com  SMTP_PASS=<app password>
+      - NOTIFY_FROM=halaleateu@gmail.com
+
+3) Tum operator ho — daily flow
+   - Email aate hi: subject line se “merchant” vs “rider” pehchano
+   - Admin /admin/#applications open karo → same lead list (ADMIN_API_KEY se)
+   - Applicant ko 24–48h mein reply — approve / more info / decline
+   - Status future: PATCH /api/v1/admin/merchants/:id/status (approved/rejected)
+   - FREE RENDER: SQLite restart par data reset — important leads email/CRM mein copy karo
+

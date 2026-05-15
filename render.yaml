@@ -29,3 +29,19 @@ services:
         value: ./data/go.db
       - key: UPLOAD_DIR
         value: ./data/uploads
+      - key: NOTIFY_TO
+        sync: false
+      - key: RESEND_API_KEY
+        sync: false
+      - key: RESEND_FROM
+        sync: false
+      - key: SMTP_HOST
+        sync: false
+      - key: SMTP_PORT
+        sync: false
+      - key: SMTP_USER
+        sync: false
+      - key: SMTP_PASS
+        sync: false
+      - key: NOTIFY_FROM
+        sync: false

@@ -7,6 +7,7 @@ import {
   promoteUserRole,
   upsertRiderProfile,
 } from "../profiles.js";
+import { notifyNewApplication } from "../notify-email.js";
 
 const router = Router();
 
@@ -59,6 +60,16 @@ router.post("/apply", (req, res) => {
         payload: { ...payload, lastApplicationId: id },
       });
     }
+
+    notifyNewApplication("rider", {
+      applicationId: id,
+      fullName,
+      phone,
+      baseCity,
+      vehicle,
+      riderEmail: riderEmail || null,
+      profileLinked: Boolean(userId),
+    }).catch((e) => console.error("[notify rider]", e));
 
     return res.status(201).json({
       ok: true,

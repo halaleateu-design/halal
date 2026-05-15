@@ -11,6 +11,7 @@ import {
   promoteUserRole,
   upsertMerchantProfile,
 } from "../profiles.js";
+import { notifyNewApplication } from "../notify-email.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const uploadRoot = path.resolve(
@@ -95,6 +96,15 @@ router.post("/apply", upload.any(), (req, res) => {
         payload: { ...payload, lastApplicationId: id },
       });
     }
+
+    notifyNewApplication("merchant", {
+      applicationId: id,
+      tradingName,
+      contactEmail,
+      city: city || null,
+      category: category || null,
+      profileLinked: Boolean(userId),
+    }).catch((e) => console.error("[notify merchant]", e));
 
     return res.status(201).json({
       ok: true,
