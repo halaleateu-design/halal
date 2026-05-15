@@ -23,6 +23,7 @@
     </div>
     <nav class="admin-nav">
       <a class="is-active" href="#dash">Overview</a>
+      <a href="#applications">Merchant &amp; rider inbox</a>
       <a href="#shops">Shops &amp; partners</a>
       <a href="#menus">Price lists / menus</a>
       <a href="#orders">Orders (mock)</a>
@@ -34,14 +35,81 @@
     <div class="admin-topbar">
       <div>
         <h1 id="dash">Operator desk</h1>
-        <p class="admin-lead">Use this area to onboard halal restaurants &amp; shops, collect their real price lists, and track business — <strong>customers never see this URL</strong> in the product flow. Wire authentication + database before production.</p>
+        <p class="admin-lead">
+          Apply / waitlist forms save to the GO API. Below: open <strong>Merchant &amp; rider inbox</strong> with your Render
+          <code>ADMIN_API_KEY</code> to see who applied.
+        </p>
       </div>
       <a href="../index.html">← Exit to portal</a>
     </div>
 
     <p class="admin-banner">
-      <strong>No login yet.</strong> Anyone with this link can see the prototype. In production: password / SSO, HTTPS, role-based access, audit logs.
+      <strong>Customers should not use this page.</strong> Keep your admin key secret. For a quick count without the key, open
+      <a href="#" id="admin-ready-link" style="color: inherit; text-decoration: underline;">/api/v1/ready</a> on the same host as the API.
     </p>
+
+    <section class="admin-card" id="applications" style="margin-bottom: 20px;">
+      <h2>Merchant &amp; rider inbox (live API)</h2>
+      <p class="admin-muted" style="color: var(--adm-muted); font-size: 0.9rem; margin-top: 0;">
+        Render → Environment → copy <code>ADMIN_API_KEY</code>. Paste below and load lists. Merchants and riders who submitted the website forms appear here.
+      </p>
+      <div class="admin-field" style="max-width: 100%;">
+        <label for="adm-api-base">API base (usually auto)</label>
+        <input id="adm-api-base" type="url" placeholder="https://halall-dm79.onrender.com/api/v1">
+      </div>
+      <div class="admin-field" style="max-width: 560px;">
+        <label for="adm-api-key">Admin key (<code>x-admin-key</code>)</label>
+        <input id="adm-api-key" type="password" autocomplete="off" placeholder="From Render ADMIN_API_KEY">
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 18px;">
+        <button type="button" class="admin-btn" id="adm-load-stats">Load counts</button>
+        <button type="button" class="admin-btn" id="adm-load-merchants">Load merchants</button>
+        <button type="button" class="admin-btn" id="adm-load-riders">Load riders</button>
+      </div>
+      <p id="adm-api-msg" class="admin-muted" style="color: var(--adm-muted); font-size: 0.88rem; min-height: 1.5em;" aria-live="polite"></p>
+      <div class="admin-grid" style="margin-bottom: 16px;">
+        <div class="admin-card" style="margin: 0; box-shadow: none; border: 1px solid var(--adm-line);">
+          <h3 style="margin-top: 0; font-size: 0.95rem;">Stats</h3>
+          <pre id="adm-stats-out" style="margin: 0; white-space: pre-wrap; font-size: 0.82rem; color: var(--adm-muted);">—</pre>
+        </div>
+      </div>
+      <h3 style="font-size: 1rem;">Merchant applications</h3>
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>When</th>
+              <th>Trading name</th>
+              <th>Email</th>
+              <th>City</th>
+              <th>Category</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="adm-merch-tbody">
+            <tr><td colspan="6">Load merchants after entering the key.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3 style="font-size: 1rem; margin-top: 24px;">Rider applications</h3>
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>When</th>
+              <th>Name</th>
+              <th>Phone</th>
+              <th>City</th>
+              <th>Vehicle</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="adm-rider-tbody">
+            <tr><td colspan="6">Load riders after entering the key.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
 
     <div class="admin-grid" style="margin-bottom: 28px;">
       <div class="admin-card">
@@ -52,7 +120,7 @@
       <div class="admin-card">
         <h2>Pending onboarding</h2>
         <p style="font-size: 2rem; font-weight: 800; color: #fff; margin: 0;">0</p>
-        <p>Connect a DB to populate</p>
+        <p>Use “Merchant &amp; rider inbox” above for real leads.</p>
       </div>
       <div class="admin-card">
         <h2>Open issues</h2>
@@ -149,6 +217,7 @@
     </section>
   </div>
 
+  <script src="../site-config.js"></script>
   <script>
     function admToast(msg) {
       const t = document.createElement("div");
@@ -170,6 +239,132 @@
       document.body.appendChild(t);
       setTimeout(() => t.remove(), 3500);
     }
+
+    function admApiBase() {
+      const input = document.getElementById("adm-api-base");
+      const fromConfig = window.GOSite?.apiBaseUrl?.replace(/\/$/, "");
+      let base = (input?.value || fromConfig || "").trim().replace(/\/$/, "");
+      if (!base) {
+        if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
+          base = `${location.protocol}//${location.hostname}:3001/api/v1`;
+        } else {
+          base = `${location.origin}/api/v1`;
+        }
+      }
+      return base;
+    }
+
+    function admHeaders() {
+      const key = document.getElementById("adm-api-key")?.value?.trim();
+      const headers = { Accept: "application/json", ...(key ? { "x-admin-key": key } : {}) };
+      return { headers };
+    }
+
+    function admSetReadyLink() {
+      const link = document.getElementById("admin-ready-link");
+      if (!link) return;
+      const base = admApiBase().replace(/\/api\/v1\/?$/, "") || window.location.origin;
+      link.href = `${base}/api/v1/ready`;
+      link.textContent = "/api/v1/ready";
+    }
+
+    async function admFetch(path) {
+      const msg = document.getElementById("adm-api-msg");
+      const base = admApiBase();
+      const res = await fetch(`${base}${path}`, admHeaders());
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error || `HTTP ${res.status}`);
+      return data;
+    }
+
+    document.getElementById("adm-load-stats")?.addEventListener("click", async () => {
+      const msg = document.getElementById("adm-api-msg");
+      const out = document.getElementById("adm-stats-out");
+      try {
+        msg.textContent = "Loading…";
+        const data = await admFetch("/admin/stats");
+        out.textContent = JSON.stringify(data.stats, null, 2);
+        msg.textContent = "Stats loaded.";
+        admToast(`Users: ${data.stats.users}, merchants: ${data.stats.merchantApplications}, riders: ${data.stats.riderApplications}`);
+      } catch (e) {
+        msg.textContent = e.message || String(e);
+        admToast("Failed — check API base and admin key.");
+      }
+    });
+
+    document.getElementById("adm-load-merchants")?.addEventListener("click", async () => {
+      const msg = document.getElementById("adm-api-msg");
+      const tbody = document.getElementById("adm-merch-tbody");
+      try {
+        msg.textContent = "Loading merchants…";
+        const data = await admFetch("/admin/merchants");
+        tbody.innerHTML = "";
+        const rows = data.applications || [];
+        if (!rows.length) tbody.innerHTML = "<tr><td colspan=\"6\">No merchant applications yet.</td></tr>";
+        else {
+          rows.forEach((r) => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `<td>${r.created_at || "—"}</td><td>${escapeHtml(r.trading_name)}</td><td>${escapeHtml(r.contact_email)}</td><td>${escapeHtml(r.city || "—")}</td><td>${escapeHtml(r.category || "—")}</td><td>${escapeHtml(r.status)}</td>`;
+            tbody.appendChild(tr);
+          });
+        }
+        msg.textContent = `${rows.length} merchant row(s).`;
+      } catch (e) {
+        msg.textContent = e.message || String(e);
+      }
+    });
+
+    document.getElementById("adm-load-riders")?.addEventListener("click", async () => {
+      const msg = document.getElementById("adm-api-msg");
+      const tbody = document.getElementById("adm-rider-tbody");
+      try {
+        msg.textContent = "Loading riders…";
+        const data = await admFetch("/admin/riders");
+        tbody.innerHTML = "";
+        const rows = data.applications || [];
+        if (!rows.length) tbody.innerHTML = "<tr><td colspan=\"6\">No rider applications yet.</td></tr>";
+        else {
+          rows.forEach((r) => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `<td>${r.created_at || "—"}</td><td>${escapeHtml(r.full_name)}</td><td>${escapeHtml(r.phone)}</td><td>${escapeHtml(r.base_city)}</td><td>${escapeHtml(r.vehicle)}</td><td>${escapeHtml(r.status)}</td>`;
+            tbody.appendChild(tr);
+          });
+        }
+        msg.textContent = `${rows.length} rider row(s).`;
+      } catch (e) {
+        msg.textContent = e.message || String(e);
+      }
+    });
+
+    function escapeHtml(s) {
+      const div = document.createElement("div");
+      div.textContent = s ?? "";
+      return div.innerHTML;
+    }
+
+    (function initAdmInbox() {
+      const input = document.getElementById("adm-api-base");
+      if (input && !input.value.trim() && window.GOSite?.apiBaseUrl) {
+        input.value = window.GOSite.apiBaseUrl.replace(/\/$/, "");
+      }
+      admSetReadyLink();
+
+      try {
+        const sk = sessionStorage.getItem("go_admin_key_saved");
+        const keyInput = document.getElementById("adm-api-key");
+        if (sk && keyInput && !keyInput.value) keyInput.value = sk;
+      } catch { /* ignore */ }
+
+      document.getElementById("adm-api-base")?.addEventListener("change", admSetReadyLink);
+      document.getElementById("adm-api-key")?.addEventListener("blur", () => {
+        try {
+          const v = document.getElementById("adm-api-key")?.value;
+          if (v) sessionStorage.setItem("go_admin_key_saved", v);
+        } catch { /* ignore */ }
+      });
+
+      console.info("GO Admin: /api/v1/ready = quick counts; ADMIN_API_KEY + Load = full lists.");
+    })();
 
     document.getElementById("admin-shop-form")?.addEventListener("submit", (e) => {
       e.preventDefault();

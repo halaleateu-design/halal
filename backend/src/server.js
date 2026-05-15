@@ -42,6 +42,7 @@ app.use(
       }
     },
     credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization", "x-admin-key"],
   })
 );
 app.use(express.json({ limit: "1mb" }));
