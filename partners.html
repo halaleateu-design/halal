@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5">
+  <meta name="theme-color" content="#003399">
+  <meta name="apple-mobile-web-app-title" content="Tayy">
+  <title>Merchant portal — Tayy partners</title>
+  <meta name="description" content="Tayy merchant portal: onboard your halal business, upload a structured price list, and prepare for web &amp; app listing.">
+  <link rel="icon" href="assets/halaleat-mark.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@9..144,500;9..144,650;9..144,800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="halaleat-premium.css">
+  <link rel="stylesheet" href="halaleat-uber.css">
+  <link rel="stylesheet" href="halaleat-luxury.css">
+  <link rel="stylesheet" href="halaleat-merchant.css">
+  <link rel="stylesheet" href="eathalal-responsive.css">
+  <script src="site-config.js"></script>
+</head>
+<body class="prem-page ue-partners">
+  <div class="prem-toast" id="prem-toast" role="status" aria-live="polite"></div>
+
+  <dialog id="auth-choice-dialog" class="ue-dialog ue-dialog--auth" aria-labelledby="auth-choice-title">
+    <h2 id="auth-choice-title" class="ue-dialog-title" data-i18n="auth_choice_title">How would you like to continue?</h2>
+    <p class="ue-dialog-lead" data-i18n="auth_choice_lead">
+      Sign in to your account, create a new one, or keep browsing the halal marketplace without logging in.
+    </p>
+    <div class="ue-auth-choice-stack">
+      <a class="ue-auth-choice-btn ue-auth-choice-btn--primary" href="signin.html" data-i18n="nav_signin">Sign in</a>
+      <a class="ue-auth-choice-btn ue-auth-choice-btn--secondary" href="signup.html" data-i18n="nav_signup">Sign up</a>
+      <button type="button" class="ue-auth-choice-btn ue-auth-choice-btn--ghost" id="auth-choice-guest" data-i18n="nav_guest">Continue as guest</button>
+    </div>
+    <div class="ue-dialog-actions">
+      <button type="button" class="btn-nav-ghost ue-dialog-cancel" id="auth-choice-cancel" data-i18n="location_cancel">Cancel</button>
+    </div>
+  </dialog>
+
+  <header class="topbar topbar--eats merchant-shell-header">
+    <div class="container topbar-inner topbar-inner--customer">
+      <div class="ue-topbar-cluster">
+        <div class="ue-topbar-brand-row">
+        <details class="ue-menu">
+          <summary class="ue-menu-burger" aria-label="Open menu"><span class="ue-menu-burger__lines" aria-hidden="true"></span></summary>
+          <div class="ue-menu-panel ue-menu-panel--drawer">
+            <div class="ue-menu-drawer-head">
+              <span class="visually-hidden" data-i18n="drawer_menu_title">Menu</span>
+              <button type="button" class="ue-menu-close" aria-label="Close menu">×</button>
+            </div>
+            <div class="ue-menu-drawer-cta">
+              <a class="ue-drawer-btn ue-drawer-btn--primary" href="signup.html" data-i18n="nav_signup">Sign up</a>
+              <button type="button" class="ue-drawer-btn ue-drawer-btn--secondary js-open-auth-dialog" data-i18n="nav_login">Log in</button>
+            </div>
+            <nav class="ue-menu-drawer-links" aria-label="Partners">
+              <a href="partners.html#apply" data-i18n="drawer_business">Create a business account</a>
+              <a href="partners.html#merch-catalog" data-i18n="drawer_restaurant">Add your restaurant</a>
+              <a href="rider/index.html#apply" data-i18n="drawer_deliver">Sign up to deliver</a>
+              <a href="https://wa.me/351931430970" target="_blank" rel="noopener noreferrer" data-i18n="menu_whatsapp">WhatsApp order</a>
+            </nav>
+            <p class="ue-menu-drawer-divider" role="presentation"></p>
+            <p class="ue-menu-drawer-section" data-i18n="footer_links_title">Explore</p>
+            <nav class="ue-menu-drawer-links ue-menu-drawer-links--compact" aria-label="Main">
+              <a href="index.html#verticals" data-i18n="nav_categories">Categories</a>
+              <a href="index.html#menu" data-i18n="nav_menu">Menu</a>
+              <a href="index.html#order" data-i18n="nav_order">Order</a>
+              <a href="partners.html" data-i18n="nav_sell">Sell</a>
+              <a href="rider/index.html" data-i18n="nav_riders">Riders</a>
+            </nav>
+            <p class="ue-menu-drawer-divider" role="presentation"></p>
+            <nav class="ue-menu-drawer-links ue-menu-drawer-links--compact" aria-label="Account">
+              <a href="signin.html#orders" data-i18n="nav_orders">Orders</a>
+            </nav>
+            <div class="ue-menu-drawer-app">
+              <div class="ue-menu-drawer-app__mark" aria-hidden="true">H</div>
+              <p class="ue-menu-drawer-app__line" data-i18n="drawer_app_line">There's more to love in the Tayy app — coming soon.</p>
+              <div class="ue-menu-drawer-app__badges">
+                <span class="ue-app-pill" data-i18n="drawer_app_iphone">iPhone</span>
+                <span class="ue-app-pill" data-i18n="drawer_app_android">Android</span>
+              </div>
+            </div>
+          </div>
+        </details>
+        <a class="brand-wordmark brand-wordmark--with-logo brand-wordmark--home" href="index.html">
+          <img class="brand-logo-mark" src="assets/halaleat-mark.svg" width="40" height="40" alt="" decoding="async">
+          <span class="brand-text-stack">
+            <span class="brand-name">Tayy</span>
+            <span class="brand-tag" data-i18n="merch_brand_tag">Merchant portal</span>
+          </span>
+        </a>
+        </div>
+        <nav class="nav-links nav-links--eats nav-links--cluster" aria-label="Main">
+          <a href="index.html#verticals" data-i18n="nav_categories">Categories</a>
+          <a href="index.html#menu" data-i18n="nav_menu">Menu</a>
+          <a href="index.html#order" data-i18n="nav_order">Order</a>
+          <a href="partners.html" data-i18n="nav_sell">Sell</a>
+          <a href="rider/index.html" data-i18n="nav_riders">Riders</a>
+        </nav>
+      </div>
+      <div class="topbar-mid">
+        <select id="lang-select" class="topbar-lang-select" aria-label="Interface language" title="Language">
+          <option value="en">English</option>
+        </select>
+      </div>
+      <div class="topbar-actions topbar-actions--customer">
+        <a class="btn-nav-ghost" href="signin.html#orders" data-i18n="nav_orders">Orders</a>
+        <button type="button" class="btn-nav-solid btn-nav-solid--eu-ink js-open-auth-dialog" data-i18n="nav_login">Log in</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="prem-hero prem-hero--merchant prem-hero--compact">
+      <div class="container">
+        <a class="prem-back" href="index.html" data-i18n="merch_back_home">← Home</a>
+        <p class="prem-kicker" data-i18n="merch_hero_kicker">Merchant portal · prototype</p>
+        <h1 data-i18n="merch_hero_title">Onboard your halal business A → Z</h1>
+        <p class="prem-lead prem-lead--short" data-i18n-html="merch_hero_lead">
+          One structured flow: business profile, <strong>machine-readable price list</strong> (CSV we publish), optional PDF/XLSX, halal proofs, operations, and payout readiness.
+          Wire storage + import jobs before production — this page is UX only.
+        </p>
+        <div class="prem-cta-row">
+          <a class="prem-btn prem-btn--gold" href="#apply" data-i18n="merch_hero_btn_profile">Business profile</a>
+          <a class="prem-btn prem-btn--outline" href="#merch-catalog" data-i18n="merch_hero_btn_catalog">Catalogue &amp; prices</a>
+        </div>
+        <div class="merch-hero-business" data-i18n-html="merch_contact_banner_html"></div>
+      </div>
+    </section>
+
+    <section class="prem-section prem-section--tight">
+      <div class="container merch-wrap merch-layout">
+        <aside class="merch-sidebar" aria-label="Merchant portal sections">
+          <nav class="merch-toc merch-toc--sidebar">
+            <a href="#merch-overview" data-i18n="merch_nav_overview">Overview</a>
+            <a href="#apply" data-i18n="merch_nav_business">Business</a>
+            <a href="#merch-catalog" data-i18n="merch_nav_catalogue">Catalogue</a>
+            <a href="#merch-halal" data-i18n="merch_nav_halal">Halal</a>
+            <a href="#merch-ops" data-i18n="merch_nav_ops">Operations</a>
+            <a href="#merch-payouts" data-i18n="merch_nav_payouts">Payouts</a>
+            <a href="#merch-legal" data-i18n="merch_nav_legal">Contract</a>
+            <a href="#merch-submit" data-i18n="merch_nav_submit">Submit</a>
+          </nav>
+        </aside>
+        <div class="merch-main">
+        <form class="prem-form-grid" id="partner-form" enctype="multipart/form-data" novalidate>
+          <fieldset class="merch-fieldset" id="merch-overview">
+            <legend>Overview — what this portal covers</legend>
+            <span class="merch-badge">A → Z checklist</span>
+            <p class="merch-help">
+              <strong>Identity &amp; legal</strong> · <strong>Category</strong> (restaurant, grocery, butcher, halal food, snacks, <strong>bakery</strong>) ·
+              <strong>Structured menu import</strong> (CSV template = how we ingest to web + app) · optional scans ·
+              <strong>Halal evidence</strong> · <strong>Opening &amp; prep</strong> · <strong>Payout readiness</strong> (PSP / KYC later) ·
+              <strong>Agreements</strong>. After API: you re-login here to manage catalogue, orders, settlements, and support tickets.
+            </p>
+          </fieldset>
+
+          <fieldset class="merch-fieldset" id="apply">
+            <legend>Business profile &amp; legal</legend>
+            <p class="merch-help">Official names as they should appear on invoices and in the customer app.</p>
+            <div class="merch-grid-2">
+              <div class="prem-field">
+                <label for="biz-name">Trading name</label>
+                <input id="biz-name" name="biz-name" required placeholder="e.g. Al-Noor Groceries">
+              </div>
+              <div class="prem-field">
+                <label for="biz-legal">Legal entity name</label>
+                <input id="biz-legal" name="biz-legal" required placeholder="Registered company / sole trader name">
+              </div>
+              <div class="prem-field">
+                <label for="biz-vat">VAT / tax ID (if applicable)</label>
+                <input id="biz-vat" name="biz-vat" placeholder="EU VAT or local tax number">
+              </div>
+              <div class="prem-field">
+                <label for="biz-city">City &amp; country</label>
+                <input id="biz-city" name="biz-city" required placeholder="Porto, Portugal">
+              </div>
+              <div class="prem-field">
+                <label for="biz-email">Work email</label>
+                <input id="biz-email" name="biz-email" type="email" required placeholder="ops@yourshop.com">
+              </div>
+              <div class="prem-field">
+                <label for="biz-phone">Phone (WhatsApp)</label>
+                <input id="biz-phone" name="biz-phone" type="tel" required placeholder="+351 …">
+              </div>
+              <div class="prem-field" style="grid-column: 1 / -1;">
+                <label for="biz-website">Website or social</label>
+                <input id="biz-website" name="biz-website" type="url" placeholder="https://… or Instagram link">
+              </div>
+              <div class="prem-field" style="grid-column: 1 / -1;">
+                <label for="biz-type">Primary category</label>
+                <select id="biz-type" name="biz-type" required>
+                  <option value="">Select…</option>
+                  <option>Restaurant / kitchen</option>
+                  <option>Grocery</option>
+                  <option>Butcher</option>
+                  <option>Halal food (ready meals / staples)</option>
+                  <option>Snacks / café</option>
+                  <option>Bakery</option>
+                </select>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="merch-fieldset" id="merch-catalog">
+            <legend>Catalogue &amp; price list (for web + app import)</legend>
+            <p class="merch-help">
+              <strong>Preferred:</strong> fill our CSV template — same columns our importer will use in production (item name, category, EUR price, description, halal source, optional SKU, availability).
+              You may also attach a PDF or Excel for humans to cross-check. Manual rows below are optional if you are still preparing the file.
+            </p>
+            <div class="merch-actions-row">
+              <a class="prem-btn prem-btn--outline" href="assets/menu-import-template.csv" download>Download CSV template</a>
+            </div>
+            <div class="merch-upload">
+              <label for="menu-csv">Primary import — CSV (UTF-8)</label>
+              <input id="menu-csv" name="menu-csv" type="file" accept=".csv,text/csv">
+            </div>
+            <div class="merch-upload">
+              <label for="menu-extra">Supporting file — PDF / Excel (optional)</label>
+              <input id="menu-extra" name="menu-extra" type="file" accept=".pdf,.xlsx,.xls,application/pdf">
+            </div>
+            <p class="prem-muted" id="partner-file-status" style="min-height: 1.25em;"></p>
+
+            <p class="merch-help"><strong>Optional:</strong> up to 5 lines for a quick preview (we still need the CSV for bulk import).</p>
+            <div class="merch-table-wrap">
+              <table class="merch-table">
+                <thead>
+                  <tr>
+                    <th>Item name</th>
+                    <th>Category</th>
+                    <th>Price (EUR)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><input name="line-1-name" placeholder="e.g. Lamb tagine" autocomplete="off"></td>
+                    <td><input name="line-1-cat" placeholder="Restaurant" autocomplete="off"></td>
+                    <td><input name="line-1-price" inputmode="decimal" placeholder="12.90" autocomplete="off"></td>
+                  </tr>
+                  <tr>
+                    <td><input name="line-2-name" placeholder=""></td>
+                    <td><input name="line-2-cat" placeholder=""></td>
+                    <td><input name="line-2-price" inputmode="decimal" placeholder=""></td>
+                  </tr>
+                  <tr>
+                    <td><input name="line-3-name" placeholder=""></td>
+                    <td><input name="line-3-cat" placeholder=""></td>
+                    <td><input name="line-3-price" inputmode="decimal" placeholder=""></td>
+                  </tr>
+                  <tr>
+                    <td><input name="line-4-name" placeholder=""></td>
+                    <td><input name="line-4-cat" placeholder=""></td>
+                    <td><input name="line-4-price" inputmode="decimal" placeholder=""></td>
+                  </tr>
+                  <tr>
+                    <td><input name="line-5-name" placeholder=""></td>
+                    <td><input name="line-5-cat" placeholder=""></td>
+                    <td><input name="line-5-price" inputmode="decimal" placeholder=""></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="prem-field" style="grid-column: 1 / -1;">
+              <label for="biz-notes">Extra notes for our onboarding team</label>
+              <textarea id="biz-notes" name="biz-notes" rows="4" placeholder="Allergen matrix, combo deals, languages on packaging, seasonal items, links to existing menu tools…"></textarea>
+            </div>
+          </fieldset>
+
+          <fieldset class="merch-fieldset" id="merch-halal">
+            <legend>Halal compliance &amp; documents</legend>
+            <p class="merch-help">Upload scans or photos. In production these go to secure storage with audit trail.</p>
+            <div class="merch-upload">
+              <label for="halal-cert">Halal certificate or audit letter (PDF / image)</label>
+              <input id="halal-cert" name="halal-cert" type="file" accept=".pdf,image/*">
+            </div>
+            <div class="merch-upload">
+              <label for="halal-supplier">Supplier halal declarations (optional)</label>
+              <input id="halal-supplier" name="halal-supplier" type="file" accept=".pdf,image/*" multiple>
+            </div>
+            <div class="prem-field">
+              <label for="halal-policy">Short halal handling summary</label>
+              <textarea id="halal-policy" name="halal-policy" rows="3" placeholder="Separate prep areas, supplier names, batch traceability…"></textarea>
+            </div>
+          </fieldset>
+
+          <fieldset class="merch-fieldset" id="merch-ops">
+            <legend>Operations &amp; service</legend>
+            <div class="merch-grid-2">
+              <div class="prem-field">
+                <label for="biz-hours">Opening hours (free text)</label>
+                <textarea id="biz-hours" name="biz-hours" rows="3" placeholder="Mon–Fri 11:00–22:00, Sat 12:00–23:00…"></textarea>
+              </div>
+              <div class="prem-field">
+                <label for="biz-prep">Typical prep time (minutes)</label>
+                <input id="biz-prep" name="biz-prep" type="number" min="5" max="180" placeholder="25">
+              </div>
+              <div class="prem-field" style="grid-column: 1 / -1;">
+                <label for="biz-radius">Delivery / pickup radius you can honour</label>
+                <input id="biz-radius" name="biz-radius" placeholder="e.g. 5 km from shop / pickup only">
+              </div>
+              <div class="prem-field" style="grid-column: 1 / -1;">
+                <label for="biz-closures">Planned closures (holidays, Ramadan hours)</label>
+                <textarea id="biz-closures" name="biz-closures" rows="2" placeholder="Optional"></textarea>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="merch-fieldset" id="merch-payouts">
+            <legend>Payouts &amp; finance readiness</legend>
+            <p class="merch-help">Tayy will use a licensed PSP (e.g. Stripe Connect) for splits. Nothing sensitive is stored on this static demo.</p>
+            <label class="prem-check">
+              <input type="checkbox" name="payout-psp" value="yes">
+              <span>We can complete KYC with your chosen payment partner when invited.</span>
+            </label>
+            <label class="prem-check">
+              <input type="checkbox" name="payout-vat" value="yes">
+              <span>We issue or can receive correct VAT invoices for Portugal / EU rules.</span>
+            </label>
+            <div class="prem-field" style="margin-top: 12px;">
+              <label for="payout-note">Notes for finance (no bank details here)</label>
+              <textarea id="payout-note" name="payout-note" rows="2" placeholder="Preferred settlement currency, invoicing email, etc."></textarea>
+            </div>
+          </fieldset>
+
+          <fieldset class="merch-fieldset" id="merch-legal">
+            <legend>Contrato comercial (Portugal)</legend>
+            <p class="merch-help">
+              Ao registar a sua loja, deve aceitar a minuta do contrato alinhada com o ordenamento português e normas da UE (RGPD, comércio eletrónico). Imprima ou envie o PDF ao seu advogado antes da assinatura definitiva.
+            </p>
+            <p class="merch-help" style="margin-top: 8px;">
+              <a class="prem-inline-link" href="legal/contrato-parceiro-comerciante.html" target="_blank" rel="noopener">Abrir contrato completo (nova página)</a>
+              · <a class="prem-inline-link" href="legal/contrato-parceiro-comerciante.html" download="tayy-minuta-contrato-parceiro.html">Descarregar minuta (HTML)</a>
+            </p>
+            <label class="prem-check">
+              <input type="checkbox" name="accept-partner-contract" id="partner-accept-contract" value="yes" required>
+              <span>Li a minuta do <strong>Contrato de parceria comercial Tayy</strong> (PT/EU) e aceito que a minha candidatura pressupõe aceitação destes termos; confirmarei a assinatura final (PDF ou assinatura digital) quando a Tayy enviar o instrumento definitivo.</span>
+            </label>
+            <label class="prem-check">
+              <input type="checkbox" name="accept-contract-not-advice" id="partner-accept-not-advice" value="yes" required>
+              <span>Compreendo que esta minuta <strong>não substitui aconselhamento de um advogado em Portugal</strong> e que devo adaptar cláusulas (IVA, ASAE, seguros, comarca) ao meu caso.</span>
+            </label>
+          </fieldset>
+
+          <fieldset class="merch-fieldset" id="merch-submit">
+            <legend>Review &amp; submit</legend>
+            <label class="prem-check">
+              <input type="checkbox" required>
+              <span>I can fulfil from my premises, prices above are good-faith, and I will sign the countersigned merchant &amp; halal representation agreement (PDF) after legal review.</span>
+            </label>
+            <label class="prem-check">
+              <input type="checkbox" name="data-accuracy" required>
+              <span>I confirm the CSV (when attached) matches what we sell; I will update Tayy when prices or halal sources change.</span>
+            </label>
+            <button type="submit" class="prem-btn prem-btn--gold" style="width: fit-content; margin-top: 14px;">Submit merchant application</button>
+          </fieldset>
+        </form>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer--eats merchant-shell-footer">
+    <div class="container footer-inner">
+      <p class="footer-brand">Tayy</p>
+      <p data-i18n="merch_footer_note">Merchant portal prototype — connect API + object storage for real submissions.</p>
+      <div class="merchant-footer-contact" data-i18n-html="footer_business_html"></div>
+      <div class="merchant-footer-contact" data-i18n-html="footer_social_html"></div>
+    </div>
+  </footer>
+
+  <script src="site-config.js"></script>
+  <script src="api-client.js"></script>
+  <script src="i18n.js"></script>
+  <script src="forms-landing.js"></script>
+  <script>
+    if (window.location.hash === "#merch-legal") {
+      document.getElementById("merch-legal")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  </script>
+</body>
+</html>

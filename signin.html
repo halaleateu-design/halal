@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5">
+  <meta name="theme-color" content="#003399">
+  <meta name="apple-mobile-web-app-title" content="Tayy">
+  <title>Sign in — Tayy</title>
+  <meta name="description" content="Sign in to Tayy. Guest browsing and WhatsApp orders work without login.">
+  <link rel="icon" href="assets/halaleat-mark.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@9..144,500;9..144,650;9..144,800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="halaleat-premium.css">
+  <link rel="stylesheet" href="halaleat-uber.css">
+  <link rel="stylesheet" href="halaleat-luxury.css">
+  <link rel="stylesheet" href="eathalal-responsive.css">
+  <script src="site-config.js"></script>
+</head>
+<body class="prem-page ue-customer auth-page">
+  <div class="prem-toast" id="prem-toast" role="status" aria-live="polite"></div>
+  <header class="topbar topbar--eats auth-shell-header">
+    <div class="container topbar-inner topbar-inner--customer">
+      <div class="ue-topbar-cluster">
+        <a class="brand-wordmark brand-wordmark--with-logo" href="index.html">
+          <img class="brand-logo-mark" src="assets/halaleat-mark.svg" width="40" height="40" alt="" decoding="async">
+          <span class="brand-text-stack">
+            <span class="brand-name">Tayy</span>
+            <span class="brand-tag" data-i18n="eu_brand_tagline">Halal · EU</span>
+          </span>
+        </a>
+        <nav class="nav-links nav-links--eats nav-links--cluster" aria-label="Main">
+          <a href="index.html" data-i18n="auth_nav_home">Home</a>
+          <a href="index.html#menu" data-i18n="auth_nav_menu">Menu</a>
+          <a href="signup.html" data-i18n="auth_nav_signup">Sign up</a>
+        </nav>
+      </div>
+      <div class="topbar-end-cluster">
+        <div class="topbar-mid topbar-mid--auth">
+          <select id="lang-select" class="topbar-lang-select" aria-label="Interface language" title="Language">
+            <option value="en">English</option>
+          </select>
+        </div>
+        <div class="topbar-actions">
+          <a class="btn-nav-ghost" href="index.html" data-i18n="auth_guest">Continue as guest</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="auth-main">
+    <div class="auth-business-strip">
+      <div data-i18n-html="footer_business_html"></div>
+    </div>
+    <div class="container auth-grid">
+      <section class="auth-card" id="orders">
+        <h1 class="auth-title" data-i18n="auth_signin_title">Sign in</h1>
+        <p class="auth-lead" data-i18n-html="auth_signin_lead_html">Access saved carts, reorder favourites, and rider-tracked deliveries when the account service is connected.</p>
+        <form id="signin-form" class="prem-form-grid auth-form" novalidate>
+          <div class="prem-field">
+            <label for="si-email" data-i18n="auth_email">Email</label>
+            <input id="si-email" name="email" type="email" autocomplete="username" required placeholder="you@example.com">
+          </div>
+          <div class="prem-field">
+            <label for="si-pass" data-i18n="auth_password">Password</label>
+            <input id="si-pass" name="password" type="password" autocomplete="current-password" required placeholder="••••••••">
+          </div>
+          <p class="auth-meta" data-i18n-html="auth_forgot_html"><a href="#">Forgot password</a> <span aria-hidden="true">·</span> OTP login ships with app</p>
+          <button type="submit" class="prem-btn prem-btn--gold" style="width: fit-content;" data-i18n="auth_submit_signin">Sign in</button>
+        </form>
+        <p class="auth-foot" data-i18n-html="auth_foot_new_html">New here? <a href="signup.html">Create an account</a></p>
+      </section>
+      <aside class="auth-aside">
+        <h2 data-i18n="auth_aside_login_title">Without login</h2>
+        <p data-i18n-html="auth_aside_login_body_html">Use <strong>Find food</strong> on the home page, pick dishes, and complete checkout on WhatsApp — same halal partner, no account required.</p>
+        <a class="prem-btn prem-btn--outline" href="index.html#menu" data-i18n="auth_aside_login_btn">Order as guest</a>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="footer--eats auth-footer auth-shell-footer">
+    <div class="container footer-inner">
+      <p class="footer-brand">Tayy</p>
+      <p data-i18n-html="auth_footer_signin_html">Secure sign-in is on the way. Until then, use the home page to order as a guest — WhatsApp checkout, no password required.</p>
+    </div>
+  </footer>
+
+  <script src="site-config.js"></script>
+  <script src="api-client.js"></script>
+  <script src="i18n.js"></script>
+  <script src="forms-landing.js"></script>
+</body>
+</html>

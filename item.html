@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dish details · Tayy</title>
+  <meta name="description" content="Tayy partner dish — price, ingredients, and WhatsApp order in one place.">
+  <meta name="keywords" content="halal dish, Tayy, halal delivery porto">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="Dish details · Tayy">
+  <meta property="og:description" content="Verified halal partner dish on Tayy.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_PT">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Dish details · Tayy">
+  <meta name="twitter:description" content="Tayy partner menu item.">
+  <link rel="canonical" href="https://fanciful-moxie-6b5bba.netlify.app/item.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="halaleat-uber.css">
+  <link rel="icon" href="assets/halaleat-mark.svg" type="image/svg+xml">
+</head>
+<body class="ue-customer">
+  <header class="shell-mini-topbar" role="banner">
+    <div class="container shell-mini-inner">
+      <a class="shell-mini-brand" href="index.html">Tayy</a>
+      <select id="lang-select" class="topbar-lang-select" aria-label="Interface language" title="Language">
+        <option value="en">English</option>
+      </select>
+    </div>
+  </header>
+  <main class="item-page">
+    <div class="container">
+      <a class="back-link" href="index.html#menu" data-i18n="shell_item_back">← Back to menu</a>
+      <article class="item-detail-card">
+        <div class="item-media-wrap">
+          <img id="detail-image" src="" alt="Selected food item">
+          <span class="media-badge" data-i18n="shell_item_chef">Chef Pick</span>
+        </div>
+        <div class="item-detail-content">
+          <p class="partner-chip" data-i18n="shell_item_partner">Tayy · partner dish</p>
+          <h1 id="detail-title">Loading item…</h1>
+          <p class="item-price" id="detail-price">Price: --</p>
+          <div class="item-meta">
+            <span data-i18n="shell_item_delivery">Delivery: 25-35 min</span>
+            <span data-i18n="shell_item_fresh">Freshly Prepared</span>
+            <span data-i18n="shell_item_home">Home Delivery Only</span>
+          </div>
+          <h3 data-i18n="shell_item_included">What's Included</h3>
+          <ul id="detail-points"></ul>
+          <a id="detail-order-link" class="btn primary" href="https://wa.me/351931430970" target="_blank" rel="noopener noreferrer" data-i18n="shell_item_whatsapp">Order on WhatsApp</a>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <script src="i18n.js"></script>
+  <script src="menu-data.js"></script>
+  <script src="image-utils.js"></script>
+  <script src="item.js"></script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5">
+  <meta name="theme-color" content="#003399">
+  <meta name="apple-mobile-web-app-title" content="Tayy">
+  <title>Sign up — Tayy</title>
+  <meta name="description" content="Create an Tayy customer account. Guest checkout stays available without login.">
+  <link rel="icon" href="assets/halaleat-mark.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@9..144,500;9..144,650;9..144,800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="halaleat-premium.css">
+  <link rel="stylesheet" href="halaleat-uber.css">
+  <link rel="stylesheet" href="halaleat-luxury.css">
+</head>
+<body class="prem-page ue-customer auth-page">
+  <div class="prem-toast" id="prem-toast" role="status" aria-live="polite"></div>
+  <header class="topbar topbar--eats auth-shell-header">
+    <div class="container topbar-inner topbar-inner--customer">
+      <div class="ue-topbar-cluster">
+        <a class="brand-wordmark brand-wordmark--with-logo" href="index.html">
+          <img class="brand-logo-mark" src="assets/halaleat-mark.svg" width="40" height="40" alt="" decoding="async">
+          <span class="brand-text-stack">
+            <span class="brand-name">Tayy</span>
+            <span class="brand-tag" data-i18n="eu_brand_tagline">Halal · EU</span>
+          </span>
+        </a>
+        <nav class="nav-links nav-links--eats nav-links--cluster" aria-label="Main">
+          <a href="index.html" data-i18n="auth_nav_home">Home</a>
+          <a href="index.html#menu" data-i18n="auth_nav_menu">Menu</a>
+          <a href="signin.html" data-i18n="auth_nav_signin">Sign in</a>
+        </nav>
+      </div>
+      <div class="topbar-end-cluster">
+        <div class="topbar-mid topbar-mid--auth">
+          <select id="lang-select" class="topbar-lang-select" aria-label="Interface language" title="Language">
+            <option value="en">English</option>
+          </select>
+        </div>
+        <div class="topbar-actions">
+          <a class="btn-nav-ghost" href="index.html" data-i18n="auth_guest">Continue as guest</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="auth-main">
+    <div class="auth-business-strip">
+      <div data-i18n-html="footer_business_html"></div>
+    </div>
+    <div class="container auth-grid">
+      <section class="auth-card">
+        <h1 class="auth-title" data-i18n="auth_signup_title">Sign up</h1>
+        <p class="auth-lead" data-i18n-html="auth_signup_lead_html">Create your Tayy account — saved to our secure server. Email verification ships in the next release.</p>
+        <form id="signup-form" class="prem-form-grid auth-form" novalidate>
+          <div class="prem-field">
+            <label for="su-name" data-i18n="auth_name">Full name</label>
+            <input id="su-name" name="name" type="text" autocomplete="name" required placeholder="Your name">
+          </div>
+          <div class="prem-field">
+            <label for="su-email" data-i18n="auth_email">Email</label>
+            <input id="su-email" name="email" type="email" autocomplete="email" required placeholder="you@example.com">
+          </div>
+          <div class="prem-field">
+            <label for="su-phone" data-i18n="auth_phone">Mobile</label>
+            <input id="su-phone" name="phone" type="tel" autocomplete="tel" required placeholder="+351 …">
+          </div>
+          <div class="prem-field">
+            <label for="su-pass" data-i18n="auth_pass">Password</label>
+            <input id="su-pass" name="password" type="password" autocomplete="new-password" required minlength="8" placeholder="At least 8 characters">
+          </div>
+          <label class="prem-check">
+            <input type="checkbox" name="terms" required>
+            <span data-i18n-html="auth_terms_html">I accept the <a href="index.html#">Terms of use &amp; privacy (draft)</a> — final legal pack ships before public accounts.</span>
+          </label>
+          <button type="submit" class="prem-btn prem-btn--gold" style="width: fit-content;" data-i18n="auth_submit_create">Create account</button>
+        </form>
+        <p class="auth-foot" data-i18n-html="auth_foot_have_html">Already registered? <a href="signin.html">Sign in</a></p>
+      </section>
+      <aside class="auth-aside">
+        <h2 data-i18n="auth_aside_guest_title">Guest flow</h2>
+        <p data-i18n="auth_aside_guest_body">You can browse menus and order via WhatsApp without an account. Sign up only when you want saved details and order history in one place.</p>
+        <a class="prem-btn prem-btn--outline" href="index.html#menu" data-i18n="auth_aside_guest_btn">Browse as guest</a>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="footer--eats auth-footer auth-shell-footer">
+    <div class="container footer-inner">
+      <p class="footer-brand">Tayy</p>
+      <p data-i18n-html="auth_footer_signup_html">Secure accounts with email verification are on the way. Until then, order as a guest from the home page — same halal partners, WhatsApp checkout.</p>
+    </div>
+  </footer>
+
+  <script src="site-config.js"></script>
+  <script src="api-client.js"></script>
+  <script src="i18n.js"></script>
+  <script src="forms-landing.js"></script>
+</body>
+</html>

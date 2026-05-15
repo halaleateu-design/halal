@@ -1,0 +1,945 @@
+/* HalalEat premium layer — editorial + marketplace visuals */
+:root {
+  --prem-ink: #070a0d;
+  --prem-void: #0e1218;
+  --prem-card: rgba(18, 24, 32, 0.72);
+  --prem-line: rgba(255, 255, 255, 0.08);
+  --prem-gold: #e8c547;
+  --prem-gold-dim: #9a7b2c;
+  --prem-mint: #3dffce;
+  --prem-blur: blur(20px);
+}
+
+/* ——— Global upgrade when premium shell is on ——— */
+body.halaleat-ui-v2 {
+  font-family: "Lexend", system-ui, sans-serif;
+  background: var(--prem-ink);
+  color: #e8ecf1;
+}
+
+body.halaleat-ui-v2 .halaleat-app {
+  background: var(--prem-ink);
+}
+
+body.halaleat-ui-v2 h1,
+body.halaleat-ui-v2 h2,
+body.halaleat-ui-v2 h3,
+body.halaleat-ui-v2 .brand-name {
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+body.halaleat-ui-v2 .brand-wordmark .brand-tag {
+  font-family: "Lexend", sans-serif;
+  color: rgba(232, 197, 71, 0.85);
+}
+
+body.halaleat-ui-v2 .hero-bg--eats {
+  background:
+    radial-gradient(ellipse 120% 80% at 20% 0%, rgba(232, 197, 71, 0.18) 0%, transparent 50%),
+    radial-gradient(ellipse 80% 60% at 100% 40%, rgba(61, 255, 206, 0.12) 0%, transparent 45%),
+    linear-gradient(165deg, #06080c 0%, #0a1620 40%, #070a0d 100%),
+    url("https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=2000&q=80") center/cover no-repeat;
+  filter: saturate(1.05);
+}
+
+body.halaleat-ui-v2 .hero-content--eats .hero-lead {
+  color: rgba(232, 236, 241, 0.88);
+}
+
+body.halaleat-ui-v2 .search-shell {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--prem-line);
+  backdrop-filter: var(--prem-blur);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+}
+
+body.halaleat-ui-v2 .search-shell__input {
+  color: #fff;
+}
+
+body.halaleat-ui-v2 .search-shell__input::placeholder {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+body.halaleat-ui-v2 .kpi-grid article {
+  background: var(--prem-card);
+  border: 1px solid var(--prem-line);
+  backdrop-filter: var(--prem-blur);
+  color: #fff;
+}
+
+body.halaleat-ui-v2 .kpi-grid strong {
+  color: var(--prem-gold);
+  font-family: "Fraunces", serif;
+  font-size: 1.35rem;
+}
+
+body.halaleat-ui-v2 .kpi-grid span {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+body.halaleat-ui-v2 .vertical-card {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: var(--prem-line);
+  color: #fff;
+}
+
+body.halaleat-ui-v2 .vertical-card__title {
+  color: #fff;
+}
+
+body.halaleat-ui-v2 .vertical-card--active {
+  border-color: var(--prem-gold);
+  box-shadow: 0 0 0 1px var(--prem-gold), 0 20px 50px rgba(232, 197, 71, 0.12);
+}
+
+body.halaleat-ui-v2 .section-head--eats h2 {
+  color: #fff;
+}
+
+body.halaleat-ui-v2 .section-head--eats p {
+  color: rgba(255, 255, 255, 0.62);
+}
+
+body.halaleat-ui-v2 .showcase {
+  background: linear-gradient(180deg, var(--prem-ink) 0%, #0a1018 100%);
+}
+
+body.halaleat-ui-v2 .menu-section,
+body.halaleat-ui-v2 .verticals {
+  background: #0a1018;
+}
+
+body.halaleat-ui-v2 .partner-strip-inner,
+body.halaleat-ui-v2 .card--eats,
+body.halaleat-ui-v2 .menu-item {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: var(--prem-line);
+  color: #e8ecf1;
+}
+
+body.halaleat-ui-v2 .menu-item h4 {
+  color: #fff;
+}
+
+body.halaleat-ui-v2 .menu-item p,
+body.halaleat-ui-v2 .menu-item .tiny {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+body.halaleat-ui-v2 .cat-btn {
+  background: transparent;
+  border-color: var(--prem-line);
+  color: rgba(255, 255, 255, 0.75);
+}
+
+body.halaleat-ui-v2 .cat-btn.active {
+  background: linear-gradient(135deg, var(--prem-gold), #f5e6a8);
+  color: #1a1406;
+  border-color: transparent;
+}
+
+body.halaleat-ui-v2 .category-price {
+  color: var(--prem-mint);
+}
+
+body.halaleat-ui-v2 .footer--eats {
+  background: #050608;
+}
+
+body.halaleat-ui-v2 .dock {
+  background: rgba(10, 14, 20, 0.92);
+  border-top-color: var(--prem-line);
+  backdrop-filter: var(--prem-blur);
+}
+
+body.halaleat-ui-v2 .dock__item {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+body.halaleat-ui-v2 .dock__item--active,
+body.halaleat-ui-v2 .dock__item:hover {
+  color: var(--prem-gold);
+  background: rgba(232, 197, 71, 0.1);
+}
+
+/* Customer homepage: short trust line */
+.customer-trust-line {
+  padding: 16px 0;
+  border-top: 1px solid var(--prem-line);
+  border-bottom: 1px solid var(--prem-line);
+  background: linear-gradient(90deg, rgba(232, 197, 71, 0.08), rgba(61, 255, 206, 0.06), rgba(232, 197, 71, 0.08));
+}
+
+body.halaleat-ui-v2 .customer-trust-line p {
+  margin: 0;
+  text-align: center;
+  font-size: 0.91rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.78);
+  line-height: 1.5;
+}
+
+/* Partner page only: payout logic (not on customer home) */
+.partner-mm-wrap {
+  margin: 36px 0 12px;
+  padding: 28px 22px 20px;
+  border-radius: 20px;
+  border: 1px solid var(--prem-line);
+  background: rgba(0, 0, 0, 0.32);
+  position: relative;
+  overflow: hidden;
+}
+
+.partner-mm-wrap .mm-sub a {
+  color: var(--prem-gold);
+  font-weight: 700;
+}
+
+.partner-mm-wrap .mm-sub a:hover {
+  text-decoration: underline;
+}
+
+/* Shared “flow card” typography (partner merchant view) */
+.mm-eyebrow {
+  margin: 0 0 10px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--prem-gold);
+}
+
+.mm-title {
+  margin: 0 0 12px;
+  font-family: "Fraunces", serif;
+  font-size: clamp(1.85rem, 4vw, 2.75rem);
+  color: #fff;
+  line-height: 1.12;
+}
+
+.mm-sub {
+  margin: 0 0 36px;
+  max-width: 62ch;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.65;
+  font-size: 1.02rem;
+}
+
+.mm-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+
+@media (min-width: 900px) {
+  .mm-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    align-items: stretch;
+  }
+}
+
+.mm-card {
+  position: relative;
+  border-radius: 18px;
+  padding: 22px 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--prem-line);
+  backdrop-filter: var(--prem-blur);
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.mm-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(232, 197, 71, 0.35);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+}
+
+.mm-card__step {
+  font-family: "Fraunces", serif;
+  font-size: 2rem;
+  font-weight: 900;
+  color: rgba(232, 197, 71, 0.35);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.mm-card h3 {
+  margin: 0 0 8px;
+  font-family: "Fraunces", serif;
+  font-size: 1.15rem;
+  color: #fff;
+}
+
+.mm-card p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.55;
+}
+
+.mm-arrow {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  color: var(--prem-gold);
+  font-size: 1.4rem;
+  opacity: 0.5;
+}
+
+@media (min-width: 900px) {
+  .mm-arrow {
+    display: flex;
+  }
+}
+
+.mm-note {
+  margin-top: 28px;
+  padding: 16px 20px;
+  border-radius: 14px;
+  border: 1px dashed rgba(232, 197, 71, 0.35);
+  background: rgba(232, 197, 71, 0.06);
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.mm-note strong {
+  color: var(--prem-gold);
+}
+
+/* ——— Landing pages (Partner / Rider) ——— */
+.prem-page {
+  min-height: 100vh;
+  background: var(--prem-ink);
+  color: #e8ecf1;
+  font-family: "Lexend", system-ui, sans-serif;
+}
+
+.prem-page .topbar--eats {
+  background: rgba(5, 7, 10, 0.85);
+}
+
+.prem-hero {
+  position: relative;
+  padding: 48px 0 72px;
+  overflow: hidden;
+}
+
+.prem-hero--merchant::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 100% 70% at 0% 0%, rgba(232, 197, 71, 0.22) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 50% at 100% 100%, rgba(61, 255, 206, 0.08) 0%, transparent 50%),
+    linear-gradient(180deg, #080b10 0%, var(--prem-ink) 100%);
+}
+
+.prem-hero--rider::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 90% 60% at 100% 0%, rgba(56, 189, 248, 0.2) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 40% at 0% 100%, rgba(167, 139, 250, 0.12) 0%, transparent 45%),
+    linear-gradient(185deg, #060910 0%, var(--prem-ink) 100%);
+}
+
+.prem-hero .container {
+  position: relative;
+  z-index: 1;
+}
+
+.prem-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--prem-gold);
+  margin-bottom: 14px;
+}
+
+.prem-hero--rider .prem-kicker {
+  color: #7dd3fc;
+}
+
+.prem-hero h1 {
+  margin: 0 0 16px;
+  font-family: "Fraunces", serif;
+  font-size: clamp(2.2rem, 6vw, 3.6rem);
+  font-weight: 900;
+  line-height: 1.05;
+  color: #fff;
+  max-width: 14ch;
+}
+
+.prem-hero--rider h1 {
+  max-width: 16ch;
+}
+
+.prem-lead {
+  margin: 0 0 32px;
+  font-size: 1.08rem;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.68);
+  max-width: 54ch;
+}
+
+.prem-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.prem-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 26px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+  border: 0;
+  cursor: pointer;
+  font-family: inherit;
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.prem-btn:active {
+  transform: scale(0.98);
+}
+
+.prem-btn--gold {
+  background: linear-gradient(135deg, #f0d060, var(--prem-gold));
+  color: #1a1406;
+  box-shadow: 0 16px 40px rgba(232, 197, 71, 0.25);
+}
+
+.prem-btn--gold:hover {
+  box-shadow: 0 20px 50px rgba(232, 197, 71, 0.35);
+}
+
+.prem-btn--ghost {
+  background: transparent;
+  color: #fff;
+  border: 1px solid var(--prem-line);
+}
+
+.prem-btn--ghost:hover {
+  border-color: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.prem-btn--cyan {
+  background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+  color: #041018;
+  box-shadow: 0 16px 40px rgba(14, 165, 233, 0.25);
+}
+
+.prem-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 48px;
+  max-width: 720px;
+}
+
+@media (max-width: 600px) {
+  .prem-stats {
+    grid-template-columns: 1fr;
+  }
+}
+
+.prem-stat {
+  padding: 18px 16px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--prem-line);
+  text-align: center;
+}
+
+.prem-stat strong {
+  display: block;
+  font-family: "Fraunces", serif;
+  font-size: 1.5rem;
+  color: var(--prem-gold);
+}
+
+.prem-hero--rider .prem-stat strong {
+  color: #7dd3fc;
+}
+
+.prem-stat span {
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.prem-section {
+  padding: 48px 0;
+  border-top: 1px solid var(--prem-line);
+}
+
+.prem-section h2 {
+  font-family: "Fraunces", serif;
+  font-size: clamp(1.6rem, 3vw, 2.1rem);
+  color: #fff;
+  margin: 0 0 10px;
+}
+
+.prem-section > .container > p {
+  margin: 0 0 28px;
+  color: rgba(255, 255, 255, 0.6);
+  max-width: 60ch;
+  line-height: 1.6;
+}
+
+.prem-form-grid {
+  display: grid;
+  gap: 14px;
+  max-width: 560px;
+}
+
+.prem-field label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+  margin-bottom: 6px;
+}
+
+.prem-field input,
+.prem-field select,
+.prem-field textarea {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid var(--prem-line);
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  font: inherit;
+}
+
+.prem-field input::placeholder,
+.prem-field textarea::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.prem-field textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.prem-check {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.45;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.prem-check input[type="checkbox"],
+.prem-check input[type="radio"] {
+  width: 1.1rem;
+  min-width: 1.1rem;
+  max-width: 1.1rem;
+  height: 1.1rem;
+  flex: 0 0 1.1rem;
+  margin: 0.28em 0 0;
+  padding: 0;
+  accent-color: var(--prem-gold);
+  box-sizing: border-box;
+}
+
+.prem-check > span {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: block;
+}
+
+.prem-diagram {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  margin-bottom: 32px;
+}
+
+@media (min-width: 768px) {
+  .prem-diagram {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.prem-node {
+  border-radius: 16px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--prem-line);
+}
+
+.prem-node h3 {
+  margin: 0 0 6px;
+  font-family: "Fraunces", serif;
+  font-size: 1.1rem;
+  color: #fff;
+}
+
+.prem-node p {
+  margin: 0;
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.58);
+  line-height: 1.5;
+}
+
+.prem-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 28px;
+  transform: translateX(-50%) translateY(120%);
+  z-index: 100;
+  max-width: min(440px, 92vw);
+  padding: 14px 22px;
+  border-radius: 14px;
+  background: #111;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.prem-toast.is-error {
+  background: #8b1a1a;
+}
+
+.prem-toast.is-on {
+  transform: translateX(-50%) translateY(0);
+}
+
+.prem-back {
+  display: inline-block;
+  margin-bottom: 20px;
+  color: rgba(255, 255, 255, 0.55);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.prem-back:hover {
+  color: var(--prem-gold);
+}
+
+.prem-hero--rider .prem-back:hover {
+  color: #7dd3fc;
+}
+
+/* Partner page: compact hero + collapsible “how it works” */
+.prem-hero--compact {
+  padding-bottom: 36px;
+}
+
+.prem-lead--short {
+  max-width: 48ch;
+  margin-bottom: 20px !important;
+}
+
+.prem-section--tight {
+  padding-top: 28px;
+}
+
+.prem-muted {
+  margin: 0 0 20px;
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 0.92rem;
+  line-height: 1.55;
+  max-width: 62ch;
+}
+
+.prem-muted a {
+  color: var(--prem-gold);
+  font-weight: 700;
+}
+
+.prem-muted a:hover {
+  text-decoration: underline;
+}
+
+.prem-details {
+  margin-top: 40px;
+  border: 1px solid var(--prem-line);
+  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.22);
+  overflow: hidden;
+}
+
+.prem-details summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 16px 20px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.88);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  user-select: none;
+}
+
+.prem-details summary::-webkit-details-marker {
+  display: none;
+}
+
+.prem-details summary::after {
+  content: "＋";
+  font-size: 1.1rem;
+  color: var(--prem-gold);
+  transition: transform 0.2s ease;
+}
+
+.prem-details[open] summary::after {
+  content: "－";
+}
+
+.prem-details-body {
+  padding: 0 20px 20px;
+  border-top: 1px solid var(--prem-line);
+}
+
+.partner-mm-wrap--inner {
+  margin-top: 20px;
+  margin-bottom: 0;
+}
+
+.prem-diagram--compact {
+  margin-bottom: 16px;
+}
+
+.prem-diagram--compact .prem-node p {
+  font-size: 0.82rem;
+}
+
+.prem-inline-link {
+  color: #7dd3fc;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.prem-inline-link:hover {
+  text-decoration: underline;
+}
+
+.prem-details--rider summary::after {
+  color: #7dd3fc;
+}
+
+.prem-details--rider[open] summary {
+  border-bottom-color: rgba(125, 211, 252, 0.2);
+}
+
+/* Index dark-theme cohesion */
+body.halaleat-ui-v2 .cert-section,
+body.halaleat-ui-v2 .plan-section,
+body.halaleat-ui-v2 .engagement,
+body.halaleat-ui-v2 .reviews-end {
+  background: var(--prem-ink);
+}
+
+body.halaleat-ui-v2 .cert-card--eats,
+body.halaleat-ui-v2 .weekly-plan-card--eats,
+body.halaleat-ui-v2 .testimonials {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: var(--prem-line);
+  color: #e8ecf1;
+}
+
+body.halaleat-ui-v2 .cert-card--eats h3,
+body.halaleat-ui-v2 .weekly-plan-card h3,
+body.halaleat-ui-v2 .testimonials h3 {
+  color: #fff;
+}
+
+body.halaleat-ui-v2 .cert-card--eats p,
+body.halaleat-ui-v2 .weekly-prebook-note,
+body.halaleat-ui-v2 .plan-list strong {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+body.halaleat-ui-v2 .plan-list li {
+  background: rgba(0, 0, 0, 0.25);
+  border-color: var(--prem-line);
+}
+
+body.halaleat-ui-v2 .plan-list span {
+  background: linear-gradient(135deg, var(--prem-gold), #fff4c2);
+  color: #1a1406;
+}
+
+body.halaleat-ui-v2 input,
+body.halaleat-ui-v2 select {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--prem-line);
+  color: #fff;
+}
+
+body.halaleat-ui-v2 .item-preview {
+  background: rgba(0, 0, 0, 0.3);
+  border-color: var(--prem-line);
+}
+
+body.halaleat-ui-v2 .item-preview h4 {
+  color: #fff;
+}
+
+body.halaleat-ui-v2 .item-preview ul,
+body.halaleat-ui-v2 .testimonials blockquote,
+body.halaleat-ui-v2 .testimonials p {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+body.halaleat-ui-v2 .show-item span {
+  background: rgba(0, 0, 0, 0.75);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+body.halaleat-ui-v2 .menu-empty {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+body.halaleat-ui-v2 .partner-strip {
+  background: var(--prem-ink);
+}
+
+body.halaleat-ui-v2 .partner-strip__title {
+  color: #fff;
+}
+
+body.halaleat-ui-v2 .partner-strip__desc {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+body.halaleat-ui-v2 .partner-badge {
+  background: linear-gradient(135deg, var(--prem-gold), #fff4c2);
+  color: #1a1406;
+}
+
+body.halaleat-ui-v2 .btn-eats-secondary {
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+body.halaleat-ui-v2 .btn-eats-primary {
+  background: linear-gradient(135deg, #f0d060, var(--prem-gold));
+  color: #1a1406;
+}
+
+body.halaleat-ui-v2 .btn-eats-primary:hover {
+  filter: brightness(1.05);
+}
+
+body.halaleat-ui-v2 .btn-eats-secondary.btn--sm {
+  color: #fff;
+}
+
+body.halaleat-ui-v2 .btn.small,
+body.halaleat-ui-v2 .btn.primary {
+  background: linear-gradient(135deg, #f0d060, var(--prem-gold));
+  color: #1a1406;
+}
+
+body.halaleat-ui-v2 .cert-meta span {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--prem-line);
+  color: rgba(255, 255, 255, 0.75);
+}
+
+body.halaleat-ui-v2 .floating-whatsapp {
+  bottom: 88px;
+}
+
+@media (min-width: 900px) {
+  body.halaleat-ui-v2 .floating-whatsapp {
+    bottom: 24px;
+  }
+}
+
+body.halaleat-ui-v2 .star {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--prem-line);
+  color: var(--prem-gold);
+}
+
+body.halaleat-ui-v2 .star.active {
+  background: rgba(232, 197, 71, 0.2);
+  color: #fff;
+  border-color: var(--prem-gold);
+}
+
+body.halaleat-ui-v2 .review-link {
+  color: var(--prem-gold);
+  border-bottom-color: var(--prem-mint);
+}
+
+body.halaleat-ui-v2 .tiny {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+/* Rider page: Google / Maps checklist */
+.prem-steps {
+  margin: 0 0 28px;
+  padding-left: 1.2rem;
+  color: rgba(255, 255, 255, 0.78);
+  line-height: 1.68;
+  max-width: 72ch;
+}
+
+.prem-steps li {
+  margin-bottom: 18px;
+}
+
+.prem-steps strong {
+  color: #fff;
+}
+
+.prem-steps a {
+  color: #7dd3fc;
+  font-weight: 600;
+  word-break: break-all;
+}
+
+.prem-steps code {
+  font-size: 0.86em;
+  color: var(--prem-mint);
+  background: rgba(0, 0, 0, 0.35);
+  padding: 2px 6px;
+  border-radius: 6px;
+}
+
+.prem-legal-note {
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.52);
+  margin: -8px 0 36px;
+  max-width: 72ch;
+  line-height: 1.55;
+}
+
+.prem-legal-note a {
+  color: #7dd3fc;
+  font-weight: 600;
+}

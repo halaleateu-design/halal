@@ -1,0 +1,23 @@
+{
+  "name": "Tayy-mobile",
+  "private": true,
+  "version": "1.0.0",
+  "description": "HalalEat — Capacitor shell for Android & iOS (wraps static web app)",
+  "scripts": {
+    "copy-web": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/sync-web.ps1",
+    "sync": "npm run copy-web && npx cap sync",
+    "open:android": "npx cap open android",
+    "open:ios": "npx cap open ios",
+    "doctor": "npx cap doctor"
+  },
+  "dependencies": {
+    "@capacitor/android": "^6.2.0",
+    "@capacitor/core": "^6.2.0",
+    "@capacitor/ios": "^6.2.0",
+    "@capacitor/splash-screen": "^6.0.3",
+    "@capacitor/status-bar": "^6.0.2"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^6.2.0"
+  }
+}

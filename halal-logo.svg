@@ -1,0 +1,8 @@
+<svg width="140" height="140" viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title">
+  <title id="title">Halal Certified Logo</title>
+  <circle cx="70" cy="70" r="64" fill="#10352c" stroke="#e4bf72" stroke-width="6"/>
+  <circle cx="70" cy="70" r="50" fill="none" stroke="#e4bf72" stroke-width="2.5" stroke-dasharray="4 4"/>
+  <text x="70" y="50" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="700" fill="#f4d896">CERTIFIED</text>
+  <text x="70" y="78" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#f4d896">HALAL</text>
+  <text x="70" y="98" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#f4d896">QUALITY KITCHEN</text>
+</svg>

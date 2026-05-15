@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://fanciful-moxie-6b5bba.netlify.app/sitemap.xml

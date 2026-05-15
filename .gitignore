@@ -1,0 +1,11 @@
+node_modules/
+backend/node_modules/
+backend/data/
+.env
+backend/.env
+*.db
+.DS_Store
+Thumbs.db
+.cursor/
+bolt-food-menu.csv
+bolt-photo-filenames.txt

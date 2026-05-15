@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" role="img" aria-labelledby="halaleatLogoTitle">
+  <title id="halaleatLogoTitle">HalalEat</title>
+  <!-- EU flag palette: Reflex Blue + gold stars tone -->
+  <rect width="48" height="48" rx="12" fill="#003399"/>
+  <path fill="#FFCC00" d="M14 14h3.75v20H14V14zm16.25 0H34v20h-3.75V14zM14 23.25h20v3.5H14v-3.5z"/>
+</svg>

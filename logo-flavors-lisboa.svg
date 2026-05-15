@@ -1,0 +1,15 @@
+<svg width="420" height="120" viewBox="0 0 420 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Tayy Porto Logo</title>
+  <desc id="desc">Premium restaurant logo with golden monogram and wordmark.</desc>
+  <defs>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f8d37a"/>
+      <stop offset="100%" stop-color="#b8892f"/>
+    </linearGradient>
+  </defs>
+  <rect x="1" y="1" width="118" height="118" rx="22" fill="#0f2f28"/>
+  <path d="M31 87V33h20c12 0 20 7 20 17 0 11-8 18-20 18H44v19H31Zm13-30h7c5 0 8-2 8-7 0-4-3-7-8-7h-7v14Z" fill="url(#gold)"/>
+  <path d="M81 87c-10 0-18-7-18-16 0-10 8-17 18-17s18 7 18 17c0 9-8 16-18 16Zm0-12c3 0 6-2 6-5 0-4-3-6-6-6s-6 2-6 6c0 3 3 5 6 5Z" fill="url(#gold)"/>
+  <text x="138" y="56" font-family="Manrope,Segoe UI,Arial,sans-serif" font-size="34" font-weight="800" fill="#102b24">Eat</text>
+  <text x="138" y="88" font-family="Manrope,Segoe UI,Arial,sans-serif" font-size="28" font-weight="600" fill="#b8892f">Halal</text>
+</svg>

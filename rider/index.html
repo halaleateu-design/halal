@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5">
+  <meta name="theme-color" content="#003399">
+  <meta name="apple-mobile-web-app-title" content="Tayy">
+  <title>Tayy Rider — Courier &amp; delivery partner</title>
+  <meta name="description" content="Tayy rider partner portal: onboarding, compliance, earnings, dispatch flow, and waitlist for EU halal deliveries.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@9..144,500;9..144,650;9..144,800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../halaleat-premium.css">
+  <link rel="stylesheet" href="../halaleat-uber.css">
+  <link rel="stylesheet" href="../halaleat-luxury.css">
+  <link rel="icon" href="../assets/halaleat-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../eathalal-responsive.css">
+  <script src="../site-config.js"></script>
+</head>
+<body class="prem-page prem-page--rider ue-rider rider-portal">
+  <div class="prem-toast" id="prem-toast" role="status" aria-live="polite"></div>
+
+  <dialog id="auth-choice-dialog" class="ue-dialog ue-dialog--auth" aria-labelledby="auth-choice-title">
+    <h2 id="auth-choice-title" class="ue-dialog-title" data-i18n="auth_choice_title">How would you like to continue?</h2>
+    <p class="ue-dialog-lead" data-i18n="auth_choice_lead">
+      Sign in to your account, create a new one, or keep browsing the halal marketplace without logging in.
+    </p>
+    <div class="ue-auth-choice-stack">
+      <a class="ue-auth-choice-btn ue-auth-choice-btn--primary" href="../signin.html" data-i18n="nav_signin">Sign in</a>
+      <a class="ue-auth-choice-btn ue-auth-choice-btn--secondary" href="../signup.html" data-i18n="nav_signup">Sign up</a>
+      <button type="button" class="ue-auth-choice-btn ue-auth-choice-btn--ghost" id="auth-choice-guest" data-i18n="nav_guest">Continue as guest</button>
+    </div>
+    <div class="ue-dialog-actions">
+      <button type="button" class="btn-nav-ghost ue-dialog-cancel" id="auth-choice-cancel" data-i18n="location_cancel">Cancel</button>
+    </div>
+  </dialog>
+
+  <header class="topbar topbar--eats">
+    <div class="container topbar-inner topbar-inner--customer">
+      <div class="ue-topbar-cluster">
+        <div class="ue-topbar-brand-row">
+        <details class="ue-menu">
+          <summary class="ue-menu-burger" aria-label="Open menu"><span class="ue-menu-burger__lines" aria-hidden="true"></span></summary>
+          <div class="ue-menu-panel ue-menu-panel--drawer">
+            <div class="ue-menu-drawer-head">
+              <span class="visually-hidden" data-i18n="drawer_menu_title">Menu</span>
+              <button type="button" class="ue-menu-close" aria-label="Close menu">×</button>
+            </div>
+            <div class="ue-menu-drawer-cta">
+              <a class="ue-drawer-btn ue-drawer-btn--primary" href="../signup.html" data-i18n="nav_signup">Sign up</a>
+              <button type="button" class="ue-drawer-btn ue-drawer-btn--secondary js-open-auth-dialog" data-i18n="nav_login">Log in</button>
+            </div>
+            <nav class="ue-menu-drawer-links" aria-label="Partners">
+              <a href="../partners.html#apply" data-i18n="drawer_business">Create a business account</a>
+              <a href="../partners.html#merch-catalog" data-i18n="drawer_restaurant">Add your restaurant</a>
+              <a href="#apply" data-i18n="drawer_deliver">Sign up to deliver</a>
+              <a href="https://wa.me/351931430970" target="_blank" rel="noopener noreferrer" data-i18n="menu_whatsapp">WhatsApp order</a>
+            </nav>
+            <p class="ue-menu-drawer-divider" role="presentation"></p>
+            <p class="ue-menu-drawer-section" data-i18n="footer_links_title">Explore</p>
+            <nav class="ue-menu-drawer-links ue-menu-drawer-links--compact" aria-label="Main">
+              <a href="../index.html#verticals" data-i18n="nav_categories">Categories</a>
+              <a href="../index.html#menu" data-i18n="nav_menu">Menu</a>
+              <a href="../index.html#order" data-i18n="nav_order">Order</a>
+              <a href="../partners.html" data-i18n="nav_sell">Sell</a>
+              <a href="index.html" data-i18n="nav_riders">Riders</a>
+            </nav>
+            <p class="ue-menu-drawer-divider" role="presentation"></p>
+            <nav class="ue-menu-drawer-links ue-menu-drawer-links--compact" aria-label="Account">
+              <a href="../signin.html#orders" data-i18n="nav_orders">Orders</a>
+            </nav>
+            <div class="ue-menu-drawer-app">
+              <div class="ue-menu-drawer-app__mark" aria-hidden="true">H</div>
+              <p class="ue-menu-drawer-app__line" data-i18n="drawer_app_line">There's more to love in the Tayy app — coming soon.</p>
+              <div class="ue-menu-drawer-app__badges">
+                <span class="ue-app-pill" data-i18n="drawer_app_iphone">iPhone</span>
+                <span class="ue-app-pill" data-i18n="drawer_app_android">Android</span>
+              </div>
+            </div>
+          </div>
+        </details>
+        <a class="brand-wordmark brand-wordmark--with-logo brand-wordmark--home" href="../index.html">
+          <img class="brand-logo-mark" src="../assets/halaleat-mark.svg" width="40" height="40" alt="" decoding="async">
+          <span class="brand-text-stack">
+            <span class="brand-name">Tayy</span>
+            <span class="brand-tag" data-i18n="rider_brand_tag">Rider portal</span>
+          </span>
+        </a>
+        </div>
+        <nav class="nav-links nav-links--eats nav-links--cluster rider-topbar-nav" aria-label="Rider portal">
+          <a href="../index.html" data-i18n="rider_nav_home">Home</a>
+          <a href="../index.html#menu" data-i18n="rider_nav_order">Order food</a>
+          <a href="#rider-why" data-i18n="rider_nav_why">Why ride</a>
+          <a href="#rider-requirements" data-i18n="rider_nav_req">Requirements</a>
+          <a href="../partners.html" data-i18n="rider_nav_sell">Sell</a>
+        </nav>
+      </div>
+      <div class="topbar-mid">
+        <select id="lang-select" class="topbar-lang-select" aria-label="Interface language" title="Language">
+          <option value="en">English</option>
+        </select>
+      </div>
+      <div class="topbar-actions topbar-actions--rider">
+        <a class="btn-nav-ghost" href="../signin.html#orders" data-i18n="nav_orders">Orders</a>
+        <button type="button" class="btn-nav-solid btn-nav-solid--eu-ink js-open-auth-dialog" data-i18n="nav_login">Log in</button>
+        <a class="btn-nav-solid" href="#apply" data-i18n="rider_top_waitlist">Rider waitlist</a>
+      </div>
+    </div>
+  </header>
+
+  <nav class="rider-toc" aria-label="On this page">
+    <div class="container rider-toc-inner">
+      <a href="#apply" data-i18n="rider_toc_waitlist">Rider waitlist</a>
+      <a href="#rider-why" data-i18n="rider_toc_why">Why ride</a>
+      <a href="#rider-requirements" data-i18n="rider_toc_req">Requirements</a>
+      <a href="#rider-safety" data-i18n="rider_toc_safety">Safety &amp; data</a>
+      <a href="#rider-ops" data-i18n="rider_toc_ops">Dispatch &amp; earnings</a>
+      <a href="#rider-faq" data-i18n="rider_toc_faq">FAQ</a>
+    </div>
+  </nav>
+
+  <main>
+    <section class="prem-hero prem-hero--rider prem-hero--compact">
+      <div class="container">
+        <a class="prem-back" href="../index.html" data-i18n="rider_back_customer">← Customer site</a>
+        <p class="prem-kicker" data-i18n="rider_hero_kicker">EU · Halal logistics layer</p>
+        <h1 data-i18n="rider_hero_title">Deliver with Tayy</h1>
+        <p class="prem-lead prem-lead--short">
+          <span data-i18n="rider_hero_lead">Halal-first runs with clear handoff rules and upfront fees — launching in Portugal, then more EU cities.</span>
+          <a class="prem-inline-link" href="../partners.html" data-i18n="rider_hero_sell">Selling instead?</a>
+        </p>
+        <p class="prem-muted prem-hero-note" data-i18n-html="rider_hero_note_html">For dispatch timing, fees, and compliance detail, see <a href="#rider-faq">FAQ</a>.</p>
+        <div class="prem-cta-row">
+          <a class="prem-btn prem-btn--cyan" href="#apply" data-i18n="rider_cta_join">Join rider waitlist</a>
+          <a class="prem-btn prem-btn--outline" href="#rider-ops" data-i18n="rider_cta_dispatch">How dispatch works</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="prem-section prem-section--tight rider-waitlist-section" id="apply">
+      <div class="container">
+        <h2 data-i18n="rider_h2_waitlist">Rider waitlist</h2>
+        <p class="prem-muted rider-waitlist-lead" data-i18n-html="rider_waitlist_lead_html">
+          <strong>Quick signup.</strong> Add your details — we’ll invite you when dispatch opens in your area. App, Maps, and Play Console notes are in the <a href="#rider-faq">FAQ</a>.
+        </p>
+        <form class="prem-form-grid rider-waitlist-form" id="rider-form">
+          <div class="prem-field">
+            <label for="rider-name" data-i18n="rider_lbl_name">Full name</label>
+            <input id="rider-name" name="rider-name" required autocomplete="name" data-i18n-placeholder="rider_ph_name" placeholder="e.g. Ahmed Khan">
+            <p class="prem-field-hint" data-i18n="rider_hint_name">Use the name you want on your rider profile and payouts.</p>
+          </div>
+          <div class="prem-field">
+            <label for="rider-phone" data-i18n="rider_lbl_phone">Mobile</label>
+            <input id="rider-phone" name="rider-phone" type="tel" required autocomplete="tel" inputmode="tel" data-i18n-placeholder="rider_ph_phone" placeholder="+351 912 345 678">
+            <p class="prem-field-hint" data-i18n="rider_hint_phone">Include country code. WhatsApp-capable numbers help the kitchen reach you.</p>
+          </div>
+          <div class="prem-field">
+            <label for="rider-city" data-i18n="rider_lbl_city">Base city</label>
+            <input id="rider-city" name="rider-city" required autocomplete="address-level2" data-i18n-placeholder="rider_ph_city" placeholder="Porto">
+            <p class="prem-field-hint" data-i18n="rider_hint_city">Where you usually start your shift — we match offers to this area first.</p>
+          </div>
+          <div class="prem-field">
+            <label for="rider-vehicle" data-i18n="rider_lbl_vehicle">Vehicle</label>
+            <select id="rider-vehicle" name="rider-vehicle" required>
+              <option value="" data-i18n="rider_vehicle_empty">Choose vehicle type</option>
+              <option data-i18n="rider_v_bicycle">Bicycle</option>
+              <option data-i18n="rider_v_ebike">E-bike</option>
+              <option data-i18n="rider_v_moto">Motorcycle / scooter</option>
+              <option data-i18n="rider_v_car">Car</option>
+            </select>
+            <p class="prem-field-hint" data-i18n="rider_hint_vehicle">We’ll confirm registration and insurance rules for this class before you go live.</p>
+          </div>
+          <div class="prem-field">
+            <label for="rider-notes" data-i18n="rider_lbl_notes">Experience &amp; availability</label>
+            <textarea id="rider-notes" name="rider-notes" rows="3" data-i18n-placeholder="rider_ph_notes" placeholder="e.g. 20h/week evenings · Bolt + Glovo · PT + EN + URDU"></textarea>
+            <p class="prem-field-hint" data-i18n="rider_hint_notes">Rough hours, other platforms, and languages — helps us route the right offers.</p>
+          </div>
+          <label class="prem-check">
+            <input type="checkbox" name="rider-rights" required>
+            <span data-i18n="rider_confirm_check">I confirm I have the legal right to work in my country and, where required, valid insurance for the vehicle type I selected above.</span>
+          </label>
+          <button type="submit" class="prem-btn prem-btn--cyan rider-waitlist-submit" data-i18n="rider_btn_submit">Join rider waitlist</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="prem-section prem-section--tight" id="rider-why">
+      <div class="container">
+        <h2 data-i18n="rider_h2_why">Why ride with us</h2>
+        <div class="prem-diagram prem-diagram--compact rider-value-grid">
+          <article class="prem-node">
+            <h3 data-i18n="rider_why_d_h">Demand</h3>
+            <p data-i18n="rider_why_d_p">Orders from verified kitchens &amp; future grocery aisles — same-day growth as Porto expands.</p>
+          </article>
+          <article class="prem-node">
+            <h3 data-i18n="rider_why_t_h">Transparency</h3>
+            <p data-i18n-html="rider_why_t_p">See distance, fee, and estimated time <strong>before</strong> you accept. No blind batching in rider app MVP.</p>
+          </article>
+          <article class="prem-node">
+            <h3 data-i18n="rider_why_p_h">Payouts</h3>
+            <p data-i18n="rider_why_p_p">Per-drop fees + tips routed through a licensed PSP (e.g. Stripe Connect) when accounts are enabled.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="prem-section prem-section--tight" id="rider-requirements">
+      <div class="container">
+        <h2 data-i18n="rider_h2_req">What you need (Portugal / EU)</h2>
+        <ul class="rider-req-list">
+          <li data-i18n-html="rider_req_1_html"><strong>Right to work</strong> — valid work permit or EU citizenship for the country where you deliver.</li>
+          <li data-i18n-html="rider_req_2_html"><strong>Vehicle compliance</strong> — registration and inspection where the law requires it; follow local e-bike rules.</li>
+          <li data-i18n-html="rider_req_3_html"><strong>Insurance</strong> — liability and goods-in-transit cover that matches your vehicle class.</li>
+          <li data-i18n-html="rider_req_4_html"><strong>Tax ID</strong> — NIF in Portugal or the local equivalent; Tayy provides fee statements for your records.</li>
+          <li data-i18n-html="rider_req_5_html"><strong>Phone</strong> — Android or iPhone with mobile data for navigation and in-app chat; a thermal bag is recommended.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="prem-section prem-section--tight" id="rider-safety">
+      <div class="container">
+        <h2 data-i18n="rider_h2_safety">Safety, GDPR &amp; support</h2>
+        <p class="prem-muted" data-i18n="rider_safety_p1">Rider location is processed under GDPR / Lei 58/2019 — purpose-limited to dispatch, ETA, and incident review. Customers do not get your personal phone number in-app chat MVP.</p>
+        <p class="prem-muted" data-i18n="rider_safety_p2">24/7 safety escalation and order issue queue ship with production ops — this static page is UX only.</p>
+      </div>
+    </section>
+
+    <section class="prem-section prem-section--tight" id="rider-ops">
+      <div class="container">
+        <h2 data-i18n="rider_h2_ops">Dispatch, proof &amp; earnings</h2>
+        <p class="prem-muted" data-i18n="rider_ops_lead">Three-step offer → deliver → earn loop — built for halal-only pickups with clear proof-of-delivery rules.</p>
+        <div class="prem-diagram prem-diagram--compact">
+          <article class="prem-node">
+            <h3 data-i18n="rider_ops_o_h">Offer</h3>
+            <p data-i18n="rider_ops_o_p">Pickup, drop-off, distance, fee before accept.</p>
+          </article>
+          <article class="prem-node">
+            <h3 data-i18n="rider_ops_e_h">Execute</h3>
+            <p data-i18n="rider_ops_e_p">Navigation, in-app chat, photo / PIN proof of delivery.</p>
+          </article>
+          <article class="prem-node">
+            <h3 data-i18n="rider_ops_n_h">Earn</h3>
+            <p data-i18n="rider_ops_n_p">Per-drop fees + tips; weekly payout after fraud checks.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="prem-section prem-section--tight" id="rider-faq">
+      <div class="container">
+        <h2 data-i18n="rider_h2_faq">FAQ</h2>
+        <details class="prem-details prem-details--rider" id="rider-faq-model">
+          <summary data-i18n="rider_faq_sum_model">How is Tayy different from typical gig apps?</summary>
+          <div class="prem-details-body">
+            <p class="prem-muted" data-i18n="rider_faq_body_model">We prioritise predictable offers, a halal-only partner network, and EU-grade compliance — clear rules and documentation instead of opaque gig churn.</p>
+          </div>
+        </details>
+        <details class="prem-details prem-details--rider" id="rider-faq-dispatch-live">
+          <summary data-i18n="rider_faq_sum_dispatch">What happens when dispatch and payments go live?</summary>
+          <div class="prem-details-body">
+            <p class="prem-muted" data-i18n-html="rider_faq_body_dispatch">You’ll receive platform-assigned halal pickups with proof of delivery. Per-drop fees stay visible <strong>before</strong> you accept, with tips and payouts routed through a licensed payment provider when accounts are enabled — first in Portugal, then more EU markets.</p>
+          </div>
+        </details>
+        <details class="prem-details prem-details--rider">
+          <summary data-i18n="rider_faq_sum_zone">Can I choose my zone?</summary>
+          <div class="prem-details-body"><p class="prem-muted" data-i18n="rider_faq_body_zone">Yes — base city + radius you set in rider profile; offers only inside that polygon.</p></div>
+        </details>
+        <details class="prem-details prem-details--rider">
+          <summary data-i18n="rider_faq_sum_multi">Multi-app while waiting?</summary>
+          <div class="prem-details-body"><p class="prem-muted" data-i18n="rider_faq_body_multi">Allowed where law permits; Tayy does not exclusivity-lock riders in pilot phase.</p></div>
+        </details>
+        <details class="prem-details prem-details--rider">
+          <summary data-i18n="rider_faq_sum_apps">When do apps ship?</summary>
+          <div class="prem-details-body"><p class="prem-muted" data-i18n-html="rider_faq_body_apps">Roadmap: rider beta after merchant CSV import + PSP — watch this page or email <a href="mailto:eathalaleu@gmail.com">eathalaleu@gmail.com</a> from the waitlist.</p></div>
+        </details>
+        <details class="prem-details prem-details--rider" id="rider-faq-app">
+          <summary data-i18n="rider_faq_sum_appdo">What will the rider app do?</summary>
+          <div class="prem-details-body">
+            <p class="prem-muted" data-i18n="rider_faq_body_appdo">Offers, turn-by-turn navigation, proof of delivery, and earnings — once native rider apps ship.</p>
+            <div class="prem-diagram prem-diagram--compact">
+              <article class="prem-node">
+                <h3 data-i18n="rider_faq_app_o_h">Offer</h3>
+                <p data-i18n="rider_faq_app_o_p">Pickup, drop-off, distance, and fee before you accept.</p>
+              </article>
+              <article class="prem-node">
+                <h3 data-i18n="rider_faq_app_e_h">Execute</h3>
+                <p data-i18n="rider_faq_app_e_p">Navigation, chat, and handover confirmation.</p>
+              </article>
+              <article class="prem-node">
+                <h3 data-i18n="rider_faq_app_n_h">Earn</h3>
+                <p data-i18n="rider_faq_app_n_p">Per-drop fees and tips, tied to payouts when payments are live.</p>
+              </article>
+            </div>
+          </div>
+        </details>
+        <details class="prem-details prem-details--rider" id="rider-faq-google-maps">
+          <summary data-i18n="rider_faq_sum_maps">Google Play Console &amp; Maps — partner checklist</summary>
+          <div class="prem-details-body">
+            <p class="prem-muted" data-i18n-html="rider_faq_body_maps_html">
+              <strong>Two tracks:</strong> Google Play for publishing the customer and rider apps; Google Maps Platform for routing and (later) live location. Live rider dots need GPS → your backend → a map SDK, with EU privacy and foreground-service rules in mind.
+            </p>
+            <ol class="prem-steps">
+              <li>
+                <strong data-i18n="rider_faq_maps_play">Play Console</strong><br>
+                <span data-i18n-html="rider_faq_maps_play_p"></span>
+              </li>
+              <li>
+                <strong data-i18n="rider_faq_maps_cloud">Google Cloud</strong><br>
+                <span data-i18n-html="rider_faq_maps_cloud_p"></span>
+              </li>
+              <li>
+                <strong data-i18n="rider_faq_maps_plat">Maps Platform</strong><br>
+                <span data-i18n-html="rider_faq_maps_plat_p"></span>
+              </li>
+              <li>
+                <strong data-i18n="rider_faq_maps_live">Live tracking</strong><br>
+                <span data-i18n="rider_faq_maps_live_p">Stream <code>lat,lng</code> to your server; clients subscribe over your channel of choice. Apply GDPR minimisation, retention limits, and Android foreground-service requirements in the EU.</span>
+              </li>
+            </ol>
+            <p class="prem-legal-note" data-i18n-html="rider_faq_maps_terms_html">
+              <a href="https://cloud.google.com/maps-platform/terms" target="_blank" rel="noopener noreferrer">Maps Platform terms</a> (Google).
+            </p>
+          </div>
+        </details>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer--eats rider-shell-footer" style="margin-top: 48px;">
+    <div class="container footer-inner">
+      <p class="footer-brand">Tayy Rider</p>
+      <div data-i18n-html="rider_footer_business_html" class="rider-footer-business"></div>
+      <div data-i18n-html="footer_social_html" class="rider-footer-business"></div>
+      <p>
+        <span data-i18n="rider_footer_demo">Dispatch not active in this demo ·</span>
+        <a href="../index.html" data-i18n="rider_footer_customer">Customer site</a>
+        ·
+        <a href="../partners.html" data-i18n="rider_footer_merchants">Merchants</a>
+      </p>
+    </div>
+  </footer>
+
+  <script src="../site-config.js"></script>
+  <script src="../api-client.js"></script>
+  <script src="../i18n.js"></script>
+  <script src="../forms-landing.js"></script>
+  <script>
+    (function () {
+      const map = {
+        "google-maps": "rider-faq-google-maps",
+        "rider-app-details": "rider-faq-app",
+      };
+      const h = window.location.hash.replace("#", "");
+      const id = map[h] || h;
+      const el = id && document.getElementById(id);
+      if (el && el.tagName === "DETAILS") {
+        el.open = true;
+        el.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    })();
+  </script>
+</body>
+</html>

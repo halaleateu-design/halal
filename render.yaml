@@ -1,0 +1,22 @@
+# Render Blueprint — repo root se deploy (GitHub connect ke baad)
+services:
+  - type: web
+    name: tayy-api
+    runtime: node
+    plan: free
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: "22.10.0"
+      - key: JWT_SECRET
+        generateValue: true
+      - key: ADMIN_API_KEY
+        generateValue: true
+      - key: CORS_ORIGIN
+        value: https://fanciful-moxie-6b5bba.netlify.app
+      - key: DATABASE_PATH
+        value: ./data/tayy.db
+      - key: UPLOAD_DIR
+        value: ./data/uploads

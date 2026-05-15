@@ -1,0 +1,2230 @@
+/* HalalEat — warm readable marketplace UI */
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap");
+
+:root {
+  --ue-ink: #14221c;
+  --ue-black: var(--ue-ink);
+  --ue-white: #ffffff;
+  --ue-page: #f0f6f2;
+  --ue-bg: #dfece4;
+  --ue-line: #95ae9f;
+  --ue-muted: #3d5249;
+  --ue-cta: #187056;
+  --ue-cta-hover: #125543;
+  --ue-radius: 10px;
+  --ue-radius-lg: 14px;
+  --ue-shadow: 0 8px 26px rgba(24, 56, 42, 0.12);
+}
+
+body.ue-customer,
+body.ue-rider,
+body.ue-partners {
+  font-family: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif !important;
+  background: var(--ue-page) !important;
+  color: var(--ue-black) !important;
+}
+
+body.ue-rider .topbar-inner,
+body.ue-partners .topbar-inner {
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+body.ue-rider .ue-topbar-left,
+body.ue-partners .ue-topbar-left {
+  flex-shrink: 0;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+body.ue-rider .ue-topbar-left .brand-wordmark,
+body.ue-partners .ue-topbar-left .brand-wordmark {
+  min-width: 0;
+}
+
+body.ue-customer .halaleat-app,
+body.ue-rider .halaleat-app {
+  padding-bottom: 72px;
+  background: var(--ue-page) !important;
+}
+
+body.ue-customer .topbar--eats,
+body.ue-rider .topbar--eats,
+body.ue-partners .topbar--eats {
+  background: var(--ue-white) !important;
+  border-bottom: 1px solid var(--ue-line) !important;
+  backdrop-filter: none !important;
+  position: sticky;
+  top: 0;
+  z-index: 400 !important;
+}
+
+.ue-topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ue-menu {
+  position: relative;
+  flex: 0 0 auto;
+  width: min-content;
+  max-width: none;
+  overflow: visible;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.ue-menu-burger {
+  list-style: none;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--ue-radius);
+  border: 1px solid var(--ue-line);
+  background: var(--ue-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0;
+  line-height: 0;
+  color: transparent;
+}
+
+.ue-menu-burger__lines {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background: #111;
+  border-radius: 1px;
+  position: relative;
+}
+
+.ue-menu-burger__lines::before,
+.ue-menu-burger__lines::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 18px;
+  height: 2px;
+  background: #111;
+  border-radius: 1px;
+}
+
+.ue-menu-burger__lines::before {
+  top: -6px;
+}
+
+.ue-menu-burger__lines::after {
+  top: 6px;
+}
+
+.ue-menu-burger::-webkit-details-marker {
+  display: none;
+}
+
+/* When open, keep trigger in DOM for layout but hide it — otherwise z-index
+   stacked it above the drawer and looked like a second row inside the rail. */
+details.ue-menu[open] .ue-menu-burger {
+  position: relative;
+  z-index: 1;
+  visibility: hidden;
+  pointer-events: none;
+  background: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
+.ue-menu-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 6100;
+  margin: 0;
+  border: 0;
+  padding: 0;
+  background: rgba(10, 22, 16, 0.42);
+  cursor: pointer;
+}
+
+details.ue-menu[open] > .ue-menu-backdrop {
+  display: block;
+}
+
+/* Left drawer — full-height rail (not clipped by narrow details box) */
+.ue-menu-panel {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: min(320px, 92vw);
+  max-width: 100%;
+  margin: 0;
+  padding: calc(12px + env(safe-area-inset-top, 0px)) 18px 24px;
+  padding-top: calc(72px + env(safe-area-inset-top, 0px));
+  background: var(--ue-white);
+  border: 1px solid var(--ue-line);
+  border-left: none;
+  border-radius: 0 var(--ue-radius-lg) var(--ue-radius-lg) 0;
+  box-shadow: 16px 0 48px rgba(0, 0, 0, 0.18);
+  z-index: 6200;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+details.ue-menu:not([open]) > .ue-menu-panel {
+  display: none !important;
+}
+
+body.ue-menu-drawer-open {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+.ue-menu-drawer-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0 0 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--ue-line);
+}
+
+.ue-menu-drawer-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--ue-ink);
+  letter-spacing: -0.02em;
+}
+
+.ue-menu-close {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--ue-radius);
+  border: 1px solid var(--ue-line);
+  background: var(--ue-white);
+  color: var(--ue-black);
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ue-menu-close:hover {
+  background: var(--ue-bg);
+}
+
+.ue-menu-drawer-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 10px;
+}
+
+.ue-menu-drawer-nav a {
+  display: block;
+  padding: 12px 10px;
+  border-radius: var(--ue-radius);
+  color: var(--ue-ink) !important;
+  font-weight: 650;
+  font-size: 0.98rem;
+  text-decoration: none;
+}
+
+.ue-menu-drawer-nav a:hover {
+  background: var(--ue-bg);
+  color: var(--ue-cta-hover) !important;
+}
+
+.ue-menu-drawer-divider {
+  height: 1px;
+  margin: 12px 0 14px;
+  background: var(--ue-line);
+  border: 0;
+}
+
+.ue-menu-drawer-quick {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* —— Customer + rider + partners: slide-out drawer + rail —— */
+body.ue-customer .ue-menu-backdrop,
+body.ue-rider .ue-menu-backdrop,
+body.ue-partners .ue-menu-backdrop {
+  background: rgba(0, 0, 0, 0.56) !important;
+}
+
+body.ue-customer details.ue-menu[open] > .ue-menu-panel.ue-menu-panel--drawer,
+body.ue-rider details.ue-menu[open] > .ue-menu-panel.ue-menu-panel--drawer {
+  display: flex !important;
+  flex-direction: column;
+  min-height: 100dvh;
+  min-height: 100vh;
+}
+
+body.ue-customer .ue-menu-panel--drawer,
+body.ue-rider .ue-menu-panel--drawer,
+body.ue-partners .ue-menu-panel--drawer {
+  padding: calc(12px + env(safe-area-inset-top, 0px)) 20px calc(24px + env(safe-area-inset-bottom, 0px)) !important;
+  width: min(400px, 90vw) !important;
+  max-width: 100%;
+  border: none !important;
+  border-right: 1px solid #e6e6e6 !important;
+  border-radius: 0 !important;
+  box-shadow: 8px 0 32px rgba(0, 0, 0, 0.14) !important;
+}
+
+body.ue-customer .ue-menu-drawer-head,
+body.ue-rider .ue-menu-drawer-head,
+body.ue-partners .ue-menu-drawer-head {
+  justify-content: flex-end;
+  border-bottom: 0 !important;
+  margin: 0 0 4px !important;
+  padding-bottom: 0 !important;
+}
+
+body.ue-customer .ue-menu-close,
+body.ue-rider .ue-menu-close,
+body.ue-partners .ue-menu-close {
+  border: none !important;
+  background: transparent !important;
+  color: #111 !important;
+  font-size: 1.65rem !important;
+  font-weight: 300;
+  line-height: 1;
+}
+
+body.ue-customer .ue-menu-drawer-cta,
+body.ue-rider .ue-menu-drawer-cta,
+body.ue-partners .ue-menu-drawer-cta {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+body.ue-customer .ue-drawer-btn,
+body.ue-rider .ue-drawer-btn,
+body.ue-partners .ue-drawer-btn {
+  display: block;
+  text-align: center;
+  padding: 14px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none !important;
+  letter-spacing: -0.01em;
+}
+
+body.ue-customer .ue-drawer-btn--primary,
+body.ue-rider .ue-drawer-btn--primary,
+body.ue-partners .ue-drawer-btn--primary {
+  background: #000 !important;
+  color: #fff !important;
+}
+
+body.ue-customer .ue-drawer-btn--primary:hover,
+body.ue-rider .ue-drawer-btn--primary:hover,
+body.ue-partners .ue-drawer-btn--primary:hover {
+  background: #222 !important;
+  color: #fff !important;
+}
+
+body.ue-customer .ue-drawer-btn--secondary,
+body.ue-rider .ue-drawer-btn--secondary,
+body.ue-partners .ue-drawer-btn--secondary {
+  background: #ededed !important;
+  color: #000 !important;
+}
+
+body.ue-customer .ue-drawer-btn--secondary:hover,
+body.ue-rider .ue-drawer-btn--secondary:hover,
+body.ue-partners .ue-drawer-btn--secondary:hover {
+  background: #e3e3e3 !important;
+}
+
+body.ue-customer .ue-menu-drawer-links,
+body.ue-rider .ue-menu-drawer-links,
+body.ue-partners .ue-menu-drawer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 0 0 8px;
+}
+
+body.ue-customer .ue-menu-drawer-links a,
+body.ue-rider .ue-menu-drawer-links a,
+body.ue-partners .ue-menu-drawer-links a {
+  display: block;
+  padding: 13px 2px !important;
+  border-radius: 0 !important;
+  font-weight: 400 !important;
+  font-size: 1rem !important;
+  color: #000 !important;
+  text-decoration: none !important;
+}
+
+body.ue-customer .ue-menu-drawer-links a:hover,
+body.ue-rider .ue-menu-drawer-links a:hover,
+body.ue-partners .ue-menu-drawer-links a:hover {
+  background: transparent !important;
+  text-decoration: underline !important;
+  color: #000 !important;
+}
+
+body.ue-customer .ue-menu-drawer-links--compact a,
+body.ue-rider .ue-menu-drawer-links--compact a,
+body.ue-partners .ue-menu-drawer-links--compact a {
+  font-size: 0.93rem !important;
+  padding: 10px 2px !important;
+  color: #374151 !important;
+}
+
+body.ue-customer .ue-menu-drawer-section,
+body.ue-rider .ue-menu-drawer-section,
+body.ue-partners .ue-menu-drawer-section {
+  margin: 16px 0 4px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #6b7280;
+}
+
+body.ue-customer .ue-menu-drawer-divider,
+body.ue-rider .ue-menu-drawer-divider,
+body.ue-partners .ue-menu-drawer-divider {
+  margin: 16px 0 !important;
+  background: #ececec !important;
+}
+
+body.ue-customer .ue-menu-drawer-app,
+body.ue-rider .ue-menu-drawer-app,
+body.ue-partners .ue-menu-drawer-app {
+  margin-top: auto;
+  padding-top: 20px;
+  border-top: 1px solid #ececec;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+body.ue-customer .ue-menu-drawer-app__mark,
+body.ue-rider .ue-menu-drawer-app__mark,
+body.ue-partners .ue-menu-drawer-app__mark {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: linear-gradient(145deg, #003399, #1e3a5f);
+  color: #ffcc00;
+  font-weight: 800;
+  font-size: 1.15rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0, 51, 153, 0.25);
+}
+
+body.ue-customer .ue-menu-drawer-app__line,
+body.ue-rider .ue-menu-drawer-app__line,
+body.ue-partners .ue-menu-drawer-app__line {
+  flex: 1 1 160px;
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  color: #374151;
+  font-weight: 500;
+}
+
+body.ue-customer .ue-menu-drawer-app__badges,
+body.ue-rider .ue-menu-drawer-app__badges,
+body.ue-partners .ue-menu-drawer-app__badges {
+  display: flex;
+  gap: 8px;
+  flex: 1 1 100%;
+}
+
+body.ue-customer .ue-app-pill,
+body.ue-rider .ue-app-pill,
+body.ue-partners .ue-app-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid #ddd;
+  background: #f7f7f7;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #111;
+}
+
+body.ue-customer .topbar-actions--customer,
+body.ue-partners .topbar-actions--customer {
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+body.ue-customer .topbar-actions--customer .btn-nav-solid,
+body.ue-partners .topbar-actions--customer .btn-nav-solid {
+  white-space: nowrap;
+}
+
+body.ue-customer .topbar-actions--customer button.btn-nav-solid,
+body.ue-partners .topbar-actions--customer button.btn-nav-solid {
+  cursor: pointer;
+  border: none;
+  font: inherit;
+}
+
+body.ue-customer .ue-topbar-cluster,
+body.ue-rider .ue-topbar-cluster,
+body.ue-rider .ue-topbar-left,
+body.ue-partners .ue-topbar-left {
+  overflow: visible !important;
+}
+
+.ue-topbar-brand-row {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+body.ue-customer .ue-topbar-brand-row {
+  min-width: 0;
+}
+
+.ue-menu-signup {
+  display: block;
+  text-align: center;
+  padding: 12px;
+  background: var(--ue-cta);
+  color: var(--ue-white) !important;
+  border-radius: var(--ue-radius);
+  font-weight: 700;
+  text-decoration: none;
+  margin-bottom: 8px;
+}
+
+.ue-menu-login {
+  display: block;
+  text-align: center;
+  padding: 12px;
+  background: var(--ue-bg);
+  color: var(--ue-black) !important;
+  border-radius: var(--ue-radius);
+  font-weight: 700;
+  text-decoration: none;
+  margin-bottom: 16px;
+}
+
+.ue-menu-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 12px;
+  border-top: 1px solid var(--ue-line);
+}
+
+.ue-menu-links a {
+  color: var(--ue-black) !important;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.ue-menu-links a:hover {
+  text-decoration: underline;
+}
+
+body.ue-customer .brand-wordmark,
+body.ue-rider .brand-wordmark,
+body.ue-partners .brand-wordmark {
+  color: var(--ue-black) !important;
+}
+
+body.ue-customer .brand-name,
+body.ue-rider .brand-name,
+body.ue-partners .brand-name {
+  font-family: "Plus Jakarta Sans", sans-serif !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.04em;
+}
+
+body.ue-customer .brand-tag,
+body.ue-rider .brand-tag,
+body.ue-partners .brand-tag {
+  color: var(--ue-muted) !important;
+  font-size: 0.65rem !important;
+}
+
+body.ue-customer .location-pill,
+body.ue-rider .location-pill,
+body.ue-partners .location-pill {
+  display: inline-flex !important;
+  background: var(--ue-bg) !important;
+  border: 1px solid var(--ue-line) !important;
+  color: var(--ue-black) !important;
+}
+
+body.ue-customer .nav-links--eats a,
+body.ue-rider .nav-links--eats a,
+body.ue-partners .nav-links--eats a {
+  color: var(--ue-black) !important;
+  font-weight: 500;
+}
+
+body.ue-customer .btn-nav-ghost,
+body.ue-rider .btn-nav-ghost,
+body.ue-partners .btn-nav-ghost {
+  color: var(--ue-black) !important;
+  background: transparent !important;
+}
+
+body.ue-customer .btn-nav-solid,
+body.ue-rider .btn-nav-solid,
+body.ue-partners .btn-nav-solid {
+  background: var(--ue-cta) !important;
+  color: var(--ue-white) !important;
+}
+
+body.ue-customer .btn-nav-solid:hover,
+body.ue-rider .btn-nav-solid:hover,
+body.ue-partners .btn-nav-solid:hover {
+  background: var(--ue-cta-hover) !important;
+}
+
+body.ue-customer .hero-bg--eats {
+  background:
+    linear-gradient(180deg, rgba(224, 236, 228, 0.35) 0%, rgba(240, 246, 242, 0.95) 52%, #f0f6f2 100%),
+    url("https://images.unsplash.com/photo-1561758033-d8f6e082d9d2?auto=format&fit=crop&w=2000&q=80") center/cover no-repeat !important;
+  filter: none !important;
+}
+
+body.ue-customer .hero--eats {
+  min-height: 68vh;
+}
+
+body.ue-customer .hero-tag--eats {
+  background: var(--ue-bg) !important;
+  border: 1px solid var(--ue-line) !important;
+  color: var(--ue-muted) !important;
+}
+
+body.ue-customer .topbar-inner--customer,
+body.ue-rider .topbar-inner--customer,
+body.ue-partners .topbar-inner--customer {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 10px 14px;
+  justify-content: flex-start;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  scrollbar-width: thin;
+}
+
+body.ue-customer .topbar-inner--customer::-webkit-scrollbar,
+body.ue-rider .topbar-inner--customer::-webkit-scrollbar,
+body.ue-partners .topbar-inner--customer::-webkit-scrollbar {
+  height: 5px;
+}
+
+body.ue-customer .topbar-inner--customer::-webkit-scrollbar-thumb,
+body.ue-rider .topbar-inner--customer::-webkit-scrollbar-thumb,
+body.ue-partners .topbar-inner--customer::-webkit-scrollbar-thumb {
+  background: rgba(30, 58, 95, 0.22);
+  border-radius: 999px;
+}
+
+body.ue-customer .ue-topbar-cluster,
+body.ue-rider .ue-topbar-cluster,
+body.ue-partners .ue-topbar-cluster {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 8px 12px;
+  flex: 0 1 auto;
+  min-width: 0;
+}
+
+body.ue-customer .nav-links--cluster,
+body.ue-rider .nav-links--cluster,
+body.ue-partners .nav-links--cluster {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 12px 16px;
+  margin: 0;
+  padding: 0 0 0 12px;
+  border-left: 1px solid rgba(30, 58, 95, 0.12);
+  flex: 0 1 auto;
+  min-width: 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  scrollbar-width: thin;
+  white-space: nowrap;
+}
+
+body.ue-customer .nav-links--cluster::-webkit-scrollbar,
+body.ue-rider .nav-links--cluster::-webkit-scrollbar,
+body.ue-partners .nav-links--cluster::-webkit-scrollbar {
+  height: 4px;
+}
+
+body.ue-customer .nav-links--cluster::-webkit-scrollbar-thumb,
+body.ue-rider .nav-links--cluster::-webkit-scrollbar-thumb,
+body.ue-partners .nav-links--cluster::-webkit-scrollbar-thumb {
+  background: rgba(30, 58, 95, 0.2);
+  border-radius: 999px;
+}
+
+body.ue-customer .topbar-mid,
+body.ue-rider .topbar-mid,
+body.ue-partners .topbar-mid {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: nowrap;
+  flex: 0 0 auto;
+}
+
+body.ue-customer .topbar-actions,
+body.ue-rider .topbar-actions,
+body.ue-partners .topbar-actions {
+  margin-left: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+body.ue-customer .topbar-lang-select,
+body.ue-partners .topbar-lang-select,
+body.ue-rider .topbar-lang-select {
+  border: 1px solid var(--ue-line) !important;
+  border-radius: 999px !important;
+  background: var(--ue-white) !important;
+  color: var(--ue-black) !important;
+  font-weight: 600 !important;
+  font-size: 0.82rem !important;
+  padding: 8px 12px !important;
+  cursor: pointer;
+  max-width: 140px;
+}
+
+body.ue-customer .topbar-mid--auth,
+body.ue-partners .topbar-mid--auth {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+body.ue-customer .topbar-end-cluster {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+}
+
+body.ue-customer .topbar-end-cluster .topbar-actions {
+  margin-left: 0;
+}
+
+body.ue-customer .shell-mini-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.94) 0%, rgba(240, 246, 242, 0.92) 100%);
+  border-bottom: 1px solid var(--ue-line);
+  box-shadow: 0 8px 24px rgba(24, 56, 42, 0.08);
+  backdrop-filter: blur(12px);
+}
+
+body.ue-customer .shell-mini-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 0;
+}
+
+body.ue-customer .shell-mini-brand {
+  font-weight: 800;
+  font-size: 1.05rem;
+  color: var(--ue-black);
+  text-decoration: none;
+}
+
+body.ue-customer .shell-mini-brand:hover {
+  color: var(--ue-cta-hover);
+}
+
+body.auth-page .auth-shell-header.topbar--eats {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.92) 0%, rgba(240, 246, 242, 0.88) 100%) !important;
+  border-bottom: 1px solid var(--ue-line) !important;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.85) inset,
+    0 12px 32px rgba(24, 56, 42, 0.1) !important;
+  backdrop-filter: blur(12px) !important;
+}
+
+body.auth-page .auth-shell-footer.footer--eats {
+  margin-top: auto;
+  background: linear-gradient(188deg, rgba(24, 56, 42, 0.06) 0%, rgba(18, 42, 32, 0.94) 45%, rgba(10, 28, 22, 0.98) 100%) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: rgba(255, 255, 255, 0.82) !important;
+  box-shadow: 0 -16px 40px rgba(0, 0, 0, 0.12);
+}
+
+body.auth-page .auth-shell-footer .footer-brand {
+  color: #fff !important;
+}
+
+body.auth-page .auth-shell-footer p {
+  color: rgba(255, 255, 255, 0.72) !important;
+}
+
+body.ue-partners .topbar-end-cluster {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+}
+
+body.ue-partners .topbar-end-cluster .topbar-actions {
+  margin-left: 0;
+}
+
+body.ue-rider .topbar-actions--rider,
+body.ue-partners .topbar-actions--rider {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+body.ue-rider .rider-shell-footer.footer--eats {
+  margin-top: 48px !important;
+  background: linear-gradient(188deg, rgba(24, 56, 42, 0.05) 0%, rgba(16, 36, 48, 0.92) 48%, rgba(8, 22, 32, 0.98) 100%) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+body.ue-rider .rider-shell-footer .footer-brand {
+  color: #fff !important;
+}
+
+body.ue-rider .rider-shell-footer p,
+body.ue-rider .rider-shell-footer a {
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+
+body.ue-customer .btn-nav-solid--gold {
+  background: transparent !important;
+  color: #fbbf24 !important;
+  border: 1px solid rgba(251, 191, 36, 0.55) !important;
+}
+
+body.ue-customer .btn-nav-solid--gold:hover {
+  background: rgba(251, 191, 36, 0.12) !important;
+}
+
+body.ue-customer .ue-btn-find {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 22px;
+  min-height: 48px;
+  background: var(--ue-cta);
+  color: var(--ue-white) !important;
+  font-weight: 700;
+  border-radius: var(--ue-radius);
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+}
+
+body.ue-customer .ue-btn-find:hover {
+  filter: brightness(1.05);
+}
+
+body.ue-customer .ue-dialog,
+body.ue-rider .ue-dialog,
+body.ue-partners .ue-dialog {
+  border: none;
+  border-radius: 16px;
+  padding: 22px 22px 18px;
+  max-width: min(420px, 94vw);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+  background: var(--ue-white);
+  color: var(--ue-black);
+}
+
+body.ue-customer .ue-dialog::backdrop,
+body.ue-rider .ue-dialog::backdrop,
+body.ue-partners .ue-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.45);
+}
+
+body.ue-customer .ue-dialog-title,
+body.ue-rider .ue-dialog-title,
+body.ue-partners .ue-dialog-title {
+  margin: 0 0 8px;
+  font-size: 1.2rem;
+  font-weight: 800;
+}
+
+body.ue-customer .ue-dialog-lead,
+body.ue-rider .ue-dialog-lead,
+body.ue-partners .ue-dialog-lead {
+  margin: 0 0 16px;
+  font-size: 0.9rem;
+  color: var(--ue-muted);
+  line-height: 1.5;
+}
+
+body.ue-customer .ue-dialog .prem-field,
+body.ue-rider .ue-dialog .prem-field,
+body.ue-partners .ue-dialog .prem-field {
+  margin-bottom: 12px;
+}
+
+body.ue-customer .ue-dialog .prem-field label,
+body.ue-rider .ue-dialog .prem-field label,
+body.ue-partners .ue-dialog .prem-field label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ue-muted);
+}
+
+body.ue-customer .ue-dialog select,
+body.ue-customer .ue-dialog input[type="text"],
+body.ue-rider .ue-dialog select,
+body.ue-rider .ue-dialog input[type="text"],
+body.ue-partners .ue-dialog select,
+body.ue-partners .ue-dialog input[type="text"] {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--ue-line);
+  font: inherit;
+}
+
+body.ue-customer .ue-dialog-actions,
+body.ue-rider .ue-dialog-actions,
+body.ue-partners .ue-dialog-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+  justify-content: flex-end;
+}
+
+body.ue-customer .ue-dialog-cancel,
+body.ue-rider .ue-dialog-cancel,
+body.ue-partners .ue-dialog-cancel {
+  border-radius: 999px !important;
+  border: 1px solid var(--ue-line) !important;
+  color: var(--ue-black) !important;
+}
+
+body.ue-customer .ue-dialog--auth .ue-auth-choice-stack,
+body.ue-rider .ue-dialog--auth .ue-auth-choice-stack,
+body.ue-partners .ue-dialog--auth .ue-auth-choice-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 4px 0 8px;
+}
+
+body.ue-customer .ue-auth-choice-btn,
+body.ue-rider .ue-auth-choice-btn,
+body.ue-partners .ue-auth-choice-btn {
+  display: block;
+  text-align: center;
+  padding: 14px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none !important;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+body.ue-customer button.ue-auth-choice-btn,
+body.ue-rider button.ue-auth-choice-btn,
+body.ue-partners button.ue-auth-choice-btn {
+  font: inherit;
+  cursor: pointer;
+  border: none;
+}
+
+body.ue-customer .ue-auth-choice-btn--primary,
+body.ue-rider .ue-auth-choice-btn--primary,
+body.ue-partners .ue-auth-choice-btn--primary {
+  background: #000 !important;
+  color: #fff !important;
+}
+
+body.ue-customer .ue-auth-choice-btn--primary:hover,
+body.ue-rider .ue-auth-choice-btn--primary:hover,
+body.ue-partners .ue-auth-choice-btn--primary:hover {
+  background: #222 !important;
+  color: #fff !important;
+}
+
+body.ue-customer .ue-auth-choice-btn--secondary,
+body.ue-rider .ue-auth-choice-btn--secondary,
+body.ue-partners .ue-auth-choice-btn--secondary {
+  background: #ededed !important;
+  color: #000 !important;
+}
+
+body.ue-customer .ue-auth-choice-btn--secondary:hover,
+body.ue-rider .ue-auth-choice-btn--secondary:hover,
+body.ue-partners .ue-auth-choice-btn--secondary:hover {
+  background: #e3e3e3 !important;
+}
+
+body.ue-customer .ue-auth-choice-btn--ghost,
+body.ue-rider .ue-auth-choice-btn--ghost,
+body.ue-partners .ue-auth-choice-btn--ghost {
+  background: transparent !important;
+  color: var(--ue-black) !important;
+  border: 1px solid var(--ue-line) !important;
+}
+
+body.ue-customer .ue-auth-choice-btn--ghost:hover,
+body.ue-rider .ue-auth-choice-btn--ghost:hover,
+body.ue-partners .ue-auth-choice-btn--ghost:hover {
+  background: var(--ue-bg) !important;
+}
+
+body.ue-customer button.ue-drawer-btn,
+body.ue-rider button.ue-drawer-btn,
+body.ue-partners button.ue-drawer-btn {
+  font: inherit;
+  width: 100%;
+  box-sizing: border-box;
+  cursor: pointer;
+  border: none;
+}
+
+@media (max-width: 900px) {
+  body.ue-customer .nav-links--cluster,
+  body.ue-rider .nav-links--cluster,
+  body.ue-partners .nav-links--cluster {
+    border-left: 1px solid rgba(30, 58, 95, 0.12);
+    padding-left: 10px;
+    max-width: min(52vw, 420px);
+  }
+
+  body.ue-customer .topbar-actions,
+  body.ue-rider .topbar-actions,
+  body.ue-partners .topbar-actions {
+    flex: 0 0 auto;
+    margin-left: auto;
+    justify-content: flex-end;
+  }
+}
+
+body.ue-customer .hero-content--eats .ue-values-line {
+  margin: 0 0 16px;
+  max-width: 42rem;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--ue-muted);
+  font-weight: 500;
+}
+
+body.ue-customer .halal-policy-grid {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  align-items: start;
+}
+
+body.ue-customer .halal-policy-block .cert-card--eats h3 {
+  margin-top: 0;
+}
+
+body.ue-customer .topbar-inner:not(.topbar-inner--customer) {
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+body.ue-customer .ue-topbar-left {
+  flex-shrink: 0;
+  min-width: 0;
+}
+
+body.ue-customer .ue-topbar-left .brand-wordmark {
+  min-width: 0;
+}
+
+body.ue-customer .ue-hero-inner {
+  max-width: 720px !important;
+  padding-top: 40px !important;
+  padding-bottom: 40px !important;
+}
+
+body.ue-customer .ue-hero-title {
+  margin: 0 0 20px;
+  font-family: "Plus Jakarta Sans", sans-serif !important;
+  font-size: clamp(2rem, 5vw, 3.1rem) !important;
+  font-weight: 800 !important;
+  line-height: 1.05;
+  color: var(--ue-black) !important;
+  letter-spacing: -0.03em;
+}
+
+.ue-search-card {
+  background: var(--ue-white);
+  border: 1px solid var(--ue-line);
+  border-radius: var(--ue-radius-lg);
+  padding: 16px;
+  box-shadow: var(--ue-shadow);
+}
+
+.ue-search-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: stretch;
+}
+
+.ue-field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--ue-bg);
+  border: 1px solid var(--ue-line);
+  border-radius: var(--ue-radius);
+  padding: 0 12px;
+  min-height: 48px;
+}
+
+.ue-field--grow {
+  flex: 1 1 200px;
+  min-width: 0;
+}
+
+.ue-field-icon {
+  opacity: 0.55;
+  flex-shrink: 0;
+}
+
+.ue-field-input {
+  flex: 1;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  font-size: 0.95rem;
+  min-width: 0;
+  color: var(--ue-black);
+}
+
+.ue-field-input:focus {
+  outline: none;
+}
+
+.ue-field-select {
+  border: 1px solid var(--ue-line);
+  border-radius: var(--ue-radius);
+  background: var(--ue-bg);
+  padding: 0 12px;
+  font: inherit;
+  font-weight: 600;
+  min-height: 48px;
+  color: var(--ue-black);
+  cursor: pointer;
+}
+
+.ue-btn-black {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 22px;
+  min-height: 48px;
+  background: var(--ue-cta);
+  color: var(--ue-white) !important;
+  font-weight: 700;
+  border-radius: var(--ue-radius);
+  text-decoration: none;
+  border: 0;
+  cursor: pointer;
+  font-family: inherit;
+  white-space: nowrap;
+}
+
+.ue-btn-black:hover {
+  background: var(--ue-cta-hover);
+}
+
+.ue-or-signin {
+  margin: 12px 0 0;
+  font-size: 0.88rem;
+}
+
+.ue-or-signin a {
+  color: var(--ue-black);
+  font-weight: 600;
+}
+
+.ue-divider {
+  height: 1px;
+  background: var(--ue-line);
+  margin: 16px 0 12px;
+}
+
+.ue-menu-search-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--ue-white);
+  border: 1px solid var(--ue-line);
+  border-radius: var(--ue-radius);
+  padding: 0 12px;
+  min-height: 44px;
+}
+
+.ue-field-input--plain {
+  padding: 10px 0;
+}
+
+body.ue-customer .kpi-strip,
+body.ue-customer .verticals,
+body.ue-customer .showcase,
+body.ue-customer .cert-section,
+body.ue-customer .menu-section,
+body.ue-customer .plan-section,
+body.ue-customer .engagement,
+body.ue-customer .reviews-end {
+  background: var(--ue-white) !important;
+}
+
+body.ue-customer .customer-trust-line {
+  background: var(--ue-bg) !important;
+  border-color: var(--ue-line) !important;
+}
+
+body.ue-customer .customer-trust-line p {
+  color: var(--ue-muted) !important;
+}
+
+body.ue-customer .kpi-grid article {
+  background: var(--ue-bg) !important;
+  border: 1px solid var(--ue-line) !important;
+}
+
+body.ue-customer .kpi-grid strong {
+  color: var(--ue-black) !important;
+  font-family: "Plus Jakarta Sans", sans-serif !important;
+}
+
+body.ue-customer .kpi-grid span {
+  color: var(--ue-muted) !important;
+}
+
+body.ue-customer .section-head--eats h2 {
+  color: var(--ue-black) !important;
+  font-family: "Plus Jakarta Sans", sans-serif !important;
+  font-weight: 800 !important;
+}
+
+body.ue-customer .section-head--eats p {
+  color: var(--ue-muted) !important;
+}
+
+body.ue-customer .vertical-card {
+  background: var(--ue-white) !important;
+  border: 1px solid var(--ue-line) !important;
+}
+
+body.ue-customer .vertical-card__title {
+  color: var(--ue-black) !important;
+}
+
+body.ue-customer .vertical-card--active {
+  border-color: var(--ue-cta) !important;
+  box-shadow: 0 0 0 2px var(--ue-cta) !important;
+}
+
+body.ue-customer .partner-strip-inner {
+  background: var(--ue-bg) !important;
+  border: 1px solid var(--ue-line) !important;
+}
+
+body.ue-customer .partner-strip__title {
+  color: var(--ue-black) !important;
+}
+
+body.ue-customer .partner-strip__desc {
+  color: var(--ue-muted) !important;
+}
+
+body.ue-customer .partner-badge {
+  background: var(--ue-cta) !important;
+  color: var(--ue-white) !important;
+}
+
+body.ue-customer .btn-eats-primary,
+body.ue-customer .btn.primary,
+body.ue-customer .btn.small {
+  background: var(--ue-cta) !important;
+  color: var(--ue-white) !important;
+}
+
+body.ue-customer .btn-eats-primary:hover {
+  background: var(--ue-cta-hover) !important;
+  filter: none !important;
+}
+
+body.ue-customer .btn-eats-secondary {
+  background: var(--ue-bg) !important;
+  color: var(--ue-black) !important;
+  border: 1px solid var(--ue-line) !important;
+}
+
+body.ue-customer .cert-card--eats {
+  background: var(--ue-white) !important;
+  border: 1px solid var(--ue-line) !important;
+  border-left: 4px solid var(--ue-black) !important;
+}
+
+body.ue-customer .cert-card--eats h3,
+body.ue-customer .cert-card--eats p {
+  color: var(--ue-black) !important;
+}
+
+body.ue-customer .cert-badge--eats {
+  background: var(--ue-bg) !important;
+  border-color: var(--ue-line) !important;
+  color: var(--ue-black) !important;
+}
+
+body.ue-customer .cat-btn {
+  background: var(--ue-white) !important;
+  border: 1px solid var(--ue-line) !important;
+  color: var(--ue-black) !important;
+}
+
+body.ue-customer .cat-btn.active {
+  background: var(--ue-cta) !important;
+  color: var(--ue-white) !important;
+  border-color: var(--ue-cta-hover) !important;
+}
+
+body.ue-customer .menu-category-stack {
+  background: linear-gradient(165deg, var(--ue-white) 0%, #f7f8fa 100%) !important;
+  border-color: var(--ue-line) !important;
+  box-shadow: var(--ue-shadow) !important;
+}
+
+body.ue-customer .menu-category-hint,
+body.ue-customer .menu-sub-aisle-label {
+  color: var(--ue-muted) !important;
+}
+
+body.ue-customer .category-tabs--subs {
+  border-top-color: var(--ue-line) !important;
+}
+
+body.ue-customer .cat-btn--sub {
+  background: var(--ue-white) !important;
+  border-color: var(--ue-line) !important;
+}
+
+body.ue-customer .menu-category-stack.menu-category-stack--spice {
+  background: linear-gradient(165deg, #fffdfb 0%, #ffedd5 48%, #fed7aa 100%) !important;
+  border-color: rgba(154, 52, 18, 0.22) !important;
+  box-shadow: 0 14px 38px rgba(124, 45, 18, 0.11) !important;
+}
+
+body.ue-customer .menu-category-stack--spice .menu-category-hint,
+body.ue-customer .menu-category-stack--spice .menu-sub-aisle-label {
+  color: #92400e !important;
+}
+
+body.ue-customer .menu-category-stack--spice .category-tabs--subs {
+  border-top-color: rgba(154, 52, 18, 0.16) !important;
+}
+
+body.ue-customer .menu-category-stack--spice .cat-btn {
+  background: rgba(255, 255, 255, 0.96) !important;
+  border-color: rgba(124, 45, 18, 0.22) !important;
+  color: #431407 !important;
+}
+
+body.ue-customer .menu-category-stack--spice .cat-btn--sub {
+  background: rgba(255, 253, 250, 0.96) !important;
+  border-color: rgba(124, 45, 18, 0.2) !important;
+}
+
+body.ue-customer .menu-category-stack--spice .cat-btn.active {
+  background: linear-gradient(140deg, #ea580c, #7c2d12) !important;
+  color: #fffef8 !important;
+  border-color: transparent !important;
+}
+
+body.ue-customer .menu-item {
+  background: var(--ue-white) !important;
+  border: 1px solid var(--ue-line) !important;
+  box-shadow: var(--ue-shadow);
+}
+
+body.ue-customer .menu-item h4 {
+  color: var(--ue-black) !important;
+}
+
+body.ue-customer .menu-item p,
+body.ue-customer .menu-item .tiny {
+  color: var(--ue-muted) !important;
+}
+
+body.ue-customer .category-price {
+  color: var(--ue-black) !important;
+  font-weight: 800 !important;
+}
+
+body.ue-customer .weekly-plan-card--eats {
+  background: var(--ue-bg) !important;
+  border: 1px solid var(--ue-line) !important;
+}
+
+body.ue-customer .weekly-plan-card h3 {
+  color: var(--ue-black) !important;
+  font-family: "Plus Jakarta Sans", sans-serif !important;
+}
+
+body.ue-customer .plan-list li {
+  background: var(--ue-white) !important;
+  border-color: var(--ue-line) !important;
+}
+
+body.ue-customer .plan-list span {
+  background: var(--ue-cta) !important;
+  color: var(--ue-white) !important;
+}
+
+body.ue-customer .plan-list strong {
+  color: var(--ue-black) !important;
+}
+
+body.ue-customer .card--eats {
+  background: var(--ue-white) !important;
+  border: 1px solid var(--ue-line) !important;
+}
+
+body.ue-customer input,
+body.ue-customer select {
+  background: var(--ue-white) !important;
+  border: 1px solid var(--ue-line) !important;
+  color: var(--ue-black) !important;
+}
+
+body.ue-customer .item-preview {
+  background: var(--ue-bg) !important;
+  border-color: var(--ue-line) !important;
+}
+
+body.ue-customer .item-preview h4 {
+  color: var(--ue-black) !important;
+}
+
+body.ue-customer .star {
+  background: var(--ue-bg) !important;
+  border-color: var(--ue-line) !important;
+  color: var(--ue-black) !important;
+}
+
+body.ue-customer .star.active {
+  background: #e8e8e8 !important;
+  border-color: var(--ue-black) !important;
+}
+
+body.ue-customer .review-link {
+  color: var(--ue-black) !important;
+  border-bottom: 2px solid var(--ue-black) !important;
+}
+
+body.ue-customer .footer--eats {
+  background: var(--ue-white) !important;
+  border-top: 1px solid var(--ue-line) !important;
+  color: var(--ue-muted) !important;
+}
+
+body.ue-customer .footer-brand {
+  color: var(--ue-black) !important;
+}
+
+body.ue-customer .dock {
+  background: var(--ue-white) !important;
+  border-top: 1px solid var(--ue-line) !important;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.06);
+}
+
+body.ue-customer .dock__item {
+  color: var(--ue-muted) !important;
+}
+
+body.ue-customer .dock__item--active,
+body.ue-customer .dock__item:hover {
+  color: var(--ue-black) !important;
+  background: var(--ue-bg) !important;
+}
+
+body.ue-customer .floating-whatsapp {
+  background: var(--ue-cta) !important;
+  color: var(--ue-white) !important;
+}
+
+body.ue-customer .toast {
+  background: var(--ue-cta);
+  color: var(--ue-white);
+}
+
+@media (max-width: 960px) {
+  body.ue-customer .nav-links--eats {
+    display: none;
+  }
+}
+
+/* Rider + partners (merchant) light */
+body.ue-rider,
+body.ue-partners {
+  background: var(--ue-page) !important;
+}
+
+body.ue-rider.prem-page,
+body.ue-partners.prem-page {
+  background: var(--ue-page) !important;
+  color: var(--ue-black) !important;
+}
+
+body.ue-rider .prem-hero--rider::before {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.55) 0%, #fff 100%),
+    url("https://images.unsplash.com/photo-1526367790999-0150786686a2?auto=format&fit=crop&w=1800&q=80") center/cover no-repeat !important;
+}
+
+body.ue-partners .prem-hero--merchant::before {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.75) 0%, #fff 100%),
+    url("https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1800&q=80") center/cover no-repeat !important;
+}
+
+body.ue-rider .prem-hero h1,
+body.ue-rider .prem-kicker,
+body.ue-partners .prem-hero h1,
+body.ue-partners .prem-kicker {
+  color: var(--ue-black) !important;
+}
+
+body.ue-rider .prem-lead,
+body.ue-rider .prem-muted,
+body.ue-partners .prem-lead,
+body.ue-partners .prem-muted {
+  color: var(--ue-muted) !important;
+}
+
+body.ue-rider .prem-inline-link,
+body.ue-partners .prem-inline-link {
+  color: var(--ue-black) !important;
+  text-decoration: underline;
+}
+
+body.ue-rider .prem-back,
+body.ue-partners .prem-back {
+  color: var(--ue-muted) !important;
+}
+
+body.ue-rider .prem-back:hover,
+body.ue-partners .prem-back:hover {
+  color: var(--ue-black) !important;
+}
+
+body.ue-rider .prem-btn--cyan,
+body.ue-partners .prem-btn--cyan,
+body.ue-partners .prem-btn--gold {
+  background: var(--ue-cta) !important;
+  color: var(--ue-white) !important;
+  box-shadow: none !important;
+}
+
+body.ue-rider .prem-btn--cyan:hover,
+body.ue-partners .prem-btn--cyan:hover,
+body.ue-partners .prem-btn--gold:hover {
+  background: var(--ue-cta-hover) !important;
+  filter: none !important;
+}
+
+body.ue-partners .prem-btn--outline,
+body.ue-rider .prem-btn--outline {
+  background: var(--ue-white) !important;
+  color: var(--ue-black) !important;
+  border: 1px solid var(--ue-line) !important;
+  box-shadow: none !important;
+}
+
+body.ue-partners .prem-btn--outline:hover,
+body.ue-rider .prem-btn--outline:hover {
+  background: var(--ue-bg) !important;
+}
+
+body.ue-partners .ue-plain-hero-title {
+  font-family: "Plus Jakarta Sans", sans-serif !important;
+  font-weight: 800;
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  margin: 0 0 12px;
+  letter-spacing: -0.03em;
+  color: var(--ue-black) !important;
+  line-height: 1.25;
+}
+
+body.ue-partners .ue-code-pill {
+  font-size: 0.82em;
+  font-weight: 700;
+  background: var(--ue-bg);
+  padding: 3px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--ue-line);
+  white-space: nowrap;
+  font-family: ui-monospace, monospace;
+}
+
+body.ue-rider .prem-section,
+body.ue-partners .prem-section {
+  border-color: var(--ue-line) !important;
+  background: var(--ue-white) !important;
+}
+
+body.ue-rider .prem-section h2,
+body.ue-partners .prem-section h2 {
+  color: var(--ue-black) !important;
+  font-family: "Plus Jakarta Sans", sans-serif !important;
+}
+
+body.ue-rider .prem-section > .container > p,
+body.ue-partners .prem-section > .container > p {
+  color: var(--ue-muted) !important;
+}
+
+body.ue-rider .rider-waitlist-section .container {
+  max-width: 640px;
+}
+
+body.ue-rider .rider-waitlist-section h2 {
+  font-family: "Fraunces", Georgia, serif !important;
+  font-size: clamp(1.45rem, 3vw, 1.85rem) !important;
+  color: var(--ue-black) !important;
+  margin: 0 0 10px !important;
+}
+
+body.ue-rider .rider-waitlist-lead {
+  font-size: 0.95rem;
+  line-height: 1.55;
+  margin: 0 0 22px;
+  max-width: 52ch;
+}
+
+body.ue-rider .rider-waitlist-form .prem-field-hint {
+  margin: 6px 0 0;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: var(--ue-muted);
+}
+
+body.ue-rider .rider-waitlist-submit {
+  width: fit-content;
+  margin-top: 8px;
+}
+
+body.ue-rider .prem-field label,
+body.ue-partners .prem-field label {
+  color: var(--ue-muted) !important;
+}
+
+body.ue-rider .prem-field input,
+body.ue-rider .prem-field select,
+body.ue-rider .prem-field textarea,
+body.ue-partners .prem-field input,
+body.ue-partners .prem-field select,
+body.ue-partners .prem-field textarea {
+  background: var(--ue-bg) !important;
+  border-color: var(--ue-line) !important;
+  color: var(--ue-black) !important;
+}
+
+body.ue-rider .prem-check,
+body.ue-partners .prem-check {
+  color: var(--ue-muted) !important;
+}
+
+body.ue-rider label.prem-check > input[type="checkbox"],
+body.ue-partners label.prem-check > input[type="checkbox"] {
+  width: 1.1rem !important;
+  min-width: 1.1rem !important;
+  max-width: 1.1rem !important;
+  height: 1.1rem !important;
+  flex: 0 0 1.1rem !important;
+  margin: 0.3em 0 0 !important;
+}
+
+body.ue-rider label.prem-check > span,
+body.ue-partners label.prem-check > span {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+}
+
+body.ue-rider .prem-node,
+body.ue-partners .prem-node {
+  background: var(--ue-bg) !important;
+  border-color: var(--ue-line) !important;
+}
+
+body.ue-rider .prem-node h3,
+body.ue-partners .prem-node h3 {
+  color: var(--ue-black) !important;
+}
+
+body.ue-rider .prem-node p,
+body.ue-partners .prem-node p {
+  color: var(--ue-muted) !important;
+}
+
+body.ue-rider .prem-details,
+body.ue-partners .prem-details {
+  border-color: var(--ue-line) !important;
+  background: var(--ue-bg) !important;
+}
+
+body.ue-rider .prem-details summary,
+body.ue-partners .prem-details summary {
+  color: var(--ue-black) !important;
+}
+
+body.ue-rider .prem-details summary::after,
+body.ue-partners .prem-details summary::after {
+  color: var(--ue-black) !important;
+}
+
+body.ue-rider .prem-steps,
+body.ue-rider .prem-legal-note,
+body.ue-partners .prem-steps,
+body.ue-partners .prem-legal-note {
+  color: var(--ue-muted) !important;
+}
+
+body.ue-rider .prem-steps a,
+body.ue-partners .prem-steps a {
+  color: var(--ue-black) !important;
+}
+
+body.ue-rider .prem-details-body .prem-steps strong {
+  color: var(--ue-black) !important;
+}
+
+body.ue-rider .footer--eats,
+body.ue-partners .footer--eats {
+  background: var(--ue-white) !important;
+  border-top: 1px solid var(--ue-line) !important;
+  color: var(--ue-muted) !important;
+}
+
+body.ue-rider .footer-brand,
+body.ue-partners .footer-brand {
+  color: var(--ue-black) !important;
+}
+
+body.ue-partners .mm-card,
+body.ue-rider .mm-card {
+  background: var(--ue-white) !important;
+  border: 1px solid var(--ue-line) !important;
+  backdrop-filter: none !important;
+  box-shadow: var(--ue-shadow);
+}
+
+body.ue-partners .mm-card:hover,
+body.ue-rider .mm-card:hover {
+  border-color: var(--ue-black) !important;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08) !important;
+}
+
+body.ue-partners .mm-card__step,
+body.ue-rider .mm-card__step {
+  color: var(--ue-line) !important;
+  font-family: "Plus Jakarta Sans", sans-serif !important;
+}
+
+body.ue-partners .mm-card h3,
+body.ue-rider .mm-card h3 {
+  color: var(--ue-black) !important;
+  font-family: "Plus Jakarta Sans", sans-serif !important;
+}
+
+body.ue-partners .mm-card p,
+body.ue-rider .mm-card p {
+  color: var(--ue-muted) !important;
+}
+
+body.ue-partners .mm-note,
+body.ue-rider .mm-note {
+  border-color: var(--ue-line) !important;
+  background: var(--ue-bg) !important;
+  color: var(--ue-muted) !important;
+}
+
+body.ue-partners .mm-note strong,
+body.ue-rider .mm-note strong {
+  color: var(--ue-black) !important;
+}
+
+/* Wordmark + mark */
+.brand-wordmark--with-logo {
+  flex-direction: row !important;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-text-stack {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.05;
+}
+
+.brand-logo-mark {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  display: block;
+  box-shadow: 0 1px 4px rgba(0, 51, 153, 0.28);
+}
+
+.ue-portal-logo {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  flex-shrink: 0;
+  box-shadow: 0 1px 4px rgba(0, 51, 153, 0.22);
+}
+
+.ue-portal-brand-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.ue-portal-brand-row h1 {
+  margin: 0;
+}
+
+.ue-portal-brand-text {
+  text-align: left;
+}
+
+.ue-portal-brand-text p {
+  margin: 6px 0 0;
+  color: var(--ue-muted);
+  font-size: 1rem;
+  max-width: 28ch;
+}
+
+@media (max-width: 520px) {
+  .ue-portal-brand-text {
+    text-align: center;
+    width: 100%;
+  }
+
+  .ue-portal-brand-text p {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+body.ue-customer .ue-value-strip {
+  background: var(--ue-bg) !important;
+  border-top: 1px solid var(--ue-line);
+  border-bottom: 1px solid var(--ue-line);
+  padding: 28px 0 32px;
+}
+
+body.ue-customer .ue-value-grid {
+  display: grid;
+  gap: 14px;
+}
+
+@media (min-width: 720px) {
+  body.ue-customer .ue-value-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+body.ue-customer .ue-value-card {
+  background: var(--ue-white);
+  border: 1px solid var(--ue-line);
+  border-radius: var(--ue-radius-lg);
+  padding: 18px 16px;
+  box-shadow: var(--ue-shadow);
+}
+
+body.ue-customer .ue-value-card h3 {
+  margin: 0 0 8px;
+  font-family: "Plus Jakarta Sans", sans-serif !important;
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--ue-black) !important;
+}
+
+body.ue-customer .ue-value-card p {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--ue-muted) !important;
+}
+
+/* Portal */
+body.ue-portal {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+  background: var(--ue-bg);
+  color: var(--ue-black);
+  display: flex;
+  flex-direction: column;
+}
+
+.ue-portal-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 48px 20px 64px;
+  max-width: 980px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.ue-portal-brand {
+  text-align: center;
+  margin-bottom: 36px;
+}
+
+.ue-portal-brand h1,
+.ue-portal-brand-row h1 {
+  font-size: clamp(2rem, 5vw, 2.75rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.ue-portal-brand h1 {
+  margin: 0 0 8px;
+}
+
+.ue-portal-brand-row h1 {
+  margin: 0;
+}
+
+.ue-portal-brand p {
+  margin: 0;
+  color: var(--ue-muted);
+}
+
+.ue-portal-grid {
+  display: grid;
+  gap: 16px;
+}
+
+@media (min-width: 720px) {
+  .ue-portal-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.ue-portal-card {
+  display: block;
+  padding: 28px 22px;
+  border-radius: var(--ue-radius-lg);
+  border: 1px solid var(--ue-line);
+  background: var(--ue-white);
+  text-decoration: none;
+  color: inherit;
+  box-shadow: var(--ue-shadow);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ue-portal-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+}
+
+.ue-portal-card .tag {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ue-muted);
+  margin-bottom: 8px;
+  display: block;
+}
+
+.ue-portal-card h2 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  margin: 0 0 8px;
+}
+
+.ue-portal-card p {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--ue-muted);
+  line-height: 1.5;
+}
+
+.ue-portal-foot {
+  text-align: center;
+  padding: 24px;
+  font-size: 0.78rem;
+  color: var(--ue-muted);
+  border-top: 1px solid var(--ue-line);
+  background: var(--ue-white);
+}
+
+.ue-portal-foot code {
+  font-size: 0.75em;
+  background: var(--ue-bg);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* Item + category pages (light chrome, no .halaleat-app) */
+body.ue-customer .item-page {
+  background: var(--ue-white);
+  min-height: 100vh;
+}
+
+body.ue-customer .item-page .back-link {
+  color: var(--ue-muted);
+}
+
+body.ue-customer .item-page .back-link:hover {
+  color: var(--ue-black);
+}
+
+body.ue-customer .item-page .card,
+body.ue-customer .item-page .item-detail-card {
+  border: 1px solid var(--ue-line);
+  box-shadow: var(--ue-shadow);
+  border-radius: var(--ue-radius-lg);
+}
+
+body.ue-customer .item-page .item-detail-card h1 {
+  color: var(--ue-black) !important;
+  font-family: "Plus Jakarta Sans", sans-serif !important;
+}
+
+body.ue-customer .item-page .btn.primary {
+  background: var(--ue-cta) !important;
+  color: var(--ue-white) !important;
+}
+
+/* Simple hamburger panel (homepage) */
+.ue-menu-panel--simple {
+  padding: 8px 4px;
+}
+
+.ue-menu-plain {
+  display: block;
+  padding: 11px 12px;
+  border-radius: var(--ue-radius);
+  color: var(--ue-ink) !important;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 0.94rem;
+}
+
+.ue-menu-plain:hover {
+  background: var(--ue-bg);
+  color: var(--ue-cta) !important;
+}
+
+/* Six category tiles */
+body.ue-customer .vertical-grid--six {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+@media (min-width: 640px) {
+  body.ue-customer .vertical-grid--six {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1080px) {
+  body.ue-customer .vertical-grid--six {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+body.ue-rider .prem-hero,
+body.ue-partners .prem-hero {
+  overflow: visible !important;
+}
+
+body.ue-rider .prem-field input,
+body.ue-rider .prem-field select,
+body.ue-rider .prem-field textarea,
+body.ue-partners .prem-field input,
+body.ue-partners .prem-field select,
+body.ue-partners .prem-field textarea {
+  border-width: 2px !important;
+  background: var(--ue-white) !important;
+}
+
+/* —— HalalEat EU business email (halaleateu@gmail.com) —— */
+.ue-business-mail {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(30, 58, 95, 0.14);
+  background: linear-gradient(140deg, rgba(0, 51, 153, 0.07) 0%, rgba(245, 197, 66, 0.16) 100%);
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.06);
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+.ue-business-mail__kicker {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #64748b;
+}
+
+.ue-business-mail__email {
+  font-size: 1.08rem;
+  font-weight: 800;
+  color: #0f172a;
+  text-decoration: none;
+  word-break: break-word;
+}
+
+.ue-business-mail__email:hover {
+  text-decoration: underline;
+  color: #003399;
+}
+
+.ue-business-mail__hint {
+  margin: 0;
+  font-size: 0.82rem;
+  color: #475569;
+  line-height: 1.45;
+}
+
+.ue-business-mail--compact {
+  padding: 12px 14px;
+  gap: 4px;
+}
+
+body.ue-customer .ue-footer-business {
+  margin-top: 18px;
+}
+
+body.ue-partners .merch-hero-business {
+  margin-top: 18px;
+  max-width: min(640px, 100%);
+}
+
+body.ue-partners .prem-hero--merchant .merch-hero-mail {
+  border-color: rgba(30, 58, 95, 0.12);
+}
+
+.auth-business-strip {
+  max-width: 920px;
+  margin: 0 auto 18px;
+  padding: 0 16px;
+}
+
+body.auth-page .auth-business-strip .ue-business-mail {
+  max-width: 520px;
+}
+
+.shell-riders-contact {
+  margin: 14px 0 18px;
+  max-width: 420px;
+}
+
+body.ue-rider .rider-footer-business {
+  margin-bottom: 14px;
+}
+
+body.ue-rider .rider-shell-footer .ue-business-mail {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  box-shadow: none !important;
+}
+
+body.ue-rider .rider-shell-footer .ue-business-mail__kicker {
+  color: rgba(248, 250, 252, 0.72) !important;
+}
+
+body.ue-rider .rider-shell-footer .ue-business-mail__email {
+  color: #fff !important;
+}
+
+body.ue-rider .rider-shell-footer .ue-business-mail__email:hover {
+  color: #fde68a !important;
+}
+
+body.ue-partners .merchant-shell-footer .ue-business-mail {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  box-shadow: none !important;
+  margin-top: 18px !important;
+}
+
+body.ue-partners .merchant-shell-footer .ue-business-mail__kicker {
+  color: rgba(248, 250, 252, 0.75) !important;
+}
+
+body.ue-partners .merchant-shell-footer .ue-business-mail__email {
+  color: #fff !important;
+}
+
+body.ue-partners .merchant-shell-footer .ue-business-mail__hint {
+  color: rgba(226, 232, 240, 0.88) !important;
+}
+
+body.ue-partners .merchant-shell-footer .ue-business-mail__email:hover {
+  color: #fde68a !important;
+}

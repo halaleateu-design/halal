@@ -1,0 +1,4 @@
+item_name,category,price_eur,description,halal_source,sku_optional,available_yn
+Example Margherita Pizza,Restaurant,12.50,"Stone oven · veg","Supplier halal cert ref HC-2025-01",SKU-001,y
+Example Lamb Mince 500g,Butcher,8.90,"Fresh counter","In-store halal slaughter batch",,y
+Example Croissant 2pc,Bakery,3.20,"Butter pastry","Halal butter supplier letter on file",SKU-B02,y
