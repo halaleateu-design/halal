@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signing in — GO</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="halaleat-premium.css">
+  <meta name="theme-color" content="#003399">
+</head>
+<body class="prem-page ue-customer auth-page">
+  <main class="auth-main">
+    <div class="container auth-card" style="max-width:420px;margin:4rem auto;text-align:center;">
+      <h1 class="auth-title">GO</h1>
+      <p class="auth-lead" id="auth-cb-msg">Signing you in…</p>
+    </div>
+  </main>
+  <script src="site-config.js"></script>
+  <script src="api-client.js"></script>
+  <script>
+    (function () {
+      const p = new URLSearchParams(location.search);
+      const err = p.get("error");
+      const token = p.get("token");
+      const msg = document.getElementById("auth-cb-msg");
+      if (err) {
+        msg.textContent = "Sign-in cancelled or failed. Try again.";
+        setTimeout(() => { location.href = "signin.html"; }, 2500);
+        return;
+      }
+      if (token && window.GOApi) {
+        window.GOApi.setToken(token);
+        msg.textContent = "Welcome to GO · Halal eat EU";
+        setTimeout(() => { location.href = "index.html"; }, 800);
+        return;
+      }
+      msg.textContent = "No session received. Redirecting…";
+      setTimeout(() => { location.href = "signin.html"; }, 2000);
+    })();
+  </script>
+</body>
+</html>

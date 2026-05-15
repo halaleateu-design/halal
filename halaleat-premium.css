@@ -629,6 +629,64 @@ body.halaleat-ui-v2 .customer-trust-line p {
   background: #8b1a1a;
 }
 
+.auth-sso-stack {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.auth-btn-google {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  max-width: 320px;
+  padding: 12px 18px;
+  background: #fff !important;
+  color: #1f1f1f !important;
+  border: 1px solid #dadce0 !important;
+  border-radius: 999px !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+.auth-btn-google:hover {
+  background: #f8f9fa !important;
+}
+
+.auth-btn-google::before {
+  content: "G";
+  display: inline-flex;
+  width: 20px;
+  height: 20px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  background: linear-gradient(135deg, #4285f4 25%, #ea4335 50%, #fbbc05 75%, #34a853 100%);
+  color: #fff;
+}
+
+.auth-sso-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  color: #6b7280;
+  font-size: 0.85rem;
+}
+
+.auth-sso-divider::before,
+.auth-sso-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #e5e7eb;
+}
+
 .prem-toast.is-on {
   transform: translateX(-50%) translateY(0);
 }

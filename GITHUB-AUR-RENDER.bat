@@ -1,20 +1,20 @@
 @echo off
 chcp 65001 >nul
-title Tayy - GitHub + Render (sirf 2 steps)
+title GO - GitHub + Render (sirf 2 steps)
 cd /d "%~dp0"
 echo.
 echo  ============================================
-echo    Tayy - GitHub + Render setup
+echo    GO - GitHub + Render setup
 echo  ============================================
 echo.
 echo  STEP A - GitHub (browser khulega)
 echo  ---------------------------------
 echo  1) Login karo
-echo  2) Repo name: tayy-halal
+echo  2) Repo name: go-halaleat
 echo  3) Public, README mat add karo
 echo  4) Create repository
 echo.
-start https://github.com/new?name=tayy-halal^&description=Tayy+Halal+EU
+start https://github.com/new?name=go-halaleat^&description=GO+Halal+EU
 echo.
 set /p GHUSER=Apna GitHub username likho: 
 echo.
@@ -26,10 +26,10 @@ if errorlevel 1 (
 )
 git init
 git add .
-git commit -m "Tayy Halal EU marketplace"
+git commit -m "GO Halal EU marketplace"
 git branch -M main
 git remote remove origin 2>nul
-git remote add origin https://github.com/%GHUSER%/tayy-halal.git
+git remote add origin https://github.com/%GHUSER%/go-halaleat.git
 echo.
 echo  GitHub login allow karo jab pooche...
 git push -u origin main
@@ -42,11 +42,11 @@ if errorlevel 1 (
 echo.
 echo  STEP B - Render API (browser khulega)
 echo  ---------------------------------
-start "https://render.com/deploy?repo=https://github.com/%GHUSER%/tayy-halal"
+start "https://render.com/deploy?repo=https://github.com/%GHUSER%/go-halaleat"
 echo.
 echo  Render par: Sign in - Deploy dabao - 5 min wait
 echo.
-set /p RURL=Render URL paste karo (https://tayy-api.onrender.com): 
+set /p RURL=Render URL paste karo (https://go-api.onrender.com): 
 powershell -ExecutionPolicy Bypass -File "%~dp0scripts\set-render-api.ps1" -RenderUrl "%RURL%"
 echo.
 echo  Ab DEPLOY-WEBSITE.bat double-click karo.

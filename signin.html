@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5">
   <meta name="theme-color" content="#003399">
-  <meta name="apple-mobile-web-app-title" content="Tayy">
-  <title>Sign in — Tayy</title>
-  <meta name="description" content="Sign in to Tayy. Guest browsing and WhatsApp orders work without login.">
+  <meta name="apple-mobile-web-app-title" content="GO">
+  <title>Sign in — GO</title>
+  <meta name="description" content="Sign in to GO. Guest browsing and WhatsApp orders work without login.">
   <link rel="icon" href="assets/halaleat-mark.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,8 +26,8 @@
         <a class="brand-wordmark brand-wordmark--with-logo" href="index.html">
           <img class="brand-logo-mark" src="assets/halaleat-mark.svg" width="40" height="40" alt="" decoding="async">
           <span class="brand-text-stack">
-            <span class="brand-name">Tayy</span>
-            <span class="brand-tag" data-i18n="eu_brand_tagline">Halal · EU</span>
+            <span class="brand-name">GO</span>
+            <span class="brand-tag" data-i18n="eu_brand_tagline">Halal eat EU</span>
           </span>
         </a>
         <nav class="nav-links nav-links--eats nav-links--cluster" aria-label="Main">
@@ -57,6 +57,10 @@
       <section class="auth-card" id="orders">
         <h1 class="auth-title" data-i18n="auth_signin_title">Sign in</h1>
         <p class="auth-lead" data-i18n-html="auth_signin_lead_html">Access saved carts, reorder favourites, and rider-tracked deliveries when the account service is connected.</p>
+        <div class="auth-sso-stack" id="auth-sso-stack">
+          <a class="prem-btn auth-btn-google" id="btn-google-signin" href="#">Continue with Google</a>
+          <p class="auth-sso-divider" aria-hidden="true"><span>or</span></p>
+        </div>
         <form id="signin-form" class="prem-form-grid auth-form" novalidate>
           <div class="prem-field">
             <label for="si-email" data-i18n="auth_email">Email</label>
@@ -81,7 +85,7 @@
 
   <footer class="footer--eats auth-footer auth-shell-footer">
     <div class="container footer-inner">
-      <p class="footer-brand">Tayy</p>
+      <p class="footer-brand">GO</p>
       <p data-i18n-html="auth_footer_signin_html">Secure sign-in is on the way. Until then, use the home page to order as a guest — WhatsApp checkout, no password required.</p>
     </div>
   </footer>

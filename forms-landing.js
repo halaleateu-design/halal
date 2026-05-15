@@ -1,3 +1,23 @@
+function initGoogleSso() {
+  const api = window.GOApi || window.TayyApi;
+  if (!api) return;
+  const url = api.googleSignInUrl();
+  document.querySelectorAll("#btn-google-signin, #btn-google-signup").forEach((btn) => {
+    btn.href = url;
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      window.location.href = url;
+    });
+  });
+  api.ssoStatus?.().then((s) => {
+    if (s && !s.google) {
+      document.getElementById("auth-sso-stack")?.setAttribute("hidden", "");
+    }
+  }).catch(() => {});
+}
+
+initGoogleSso();
+
 function premToast(message, isError) {
   const el = document.getElementById("prem-toast");
   if (!el) return;
@@ -21,7 +41,7 @@ function setFormBusy(form, busy) {
 }
 
 async function withApi(form, fn, successMsg) {
-  if (!window.TayyApi) {
+  if (!window.GOApi && !window.TayyApi) {
     premToast("API not loaded. Check site scripts.", true);
     return false;
   }
@@ -44,7 +64,7 @@ async function withApi(form, fn, successMsg) {
 document.getElementById("partner-form")?.addEventListener("submit", (event) => {
   event.preventDefault();
   const form = event.target;
-  withApi(form, () => window.TayyApi.submitMerchant(form), "Application received.");
+  withApi(form, () => (window.GOApi || window.TayyApi).submitMerchant(form), "Application received.");
 });
 
 document.getElementById("partner-form")?.addEventListener("change", (event) => {
@@ -65,7 +85,7 @@ document.getElementById("partner-form")?.addEventListener("change", (event) => {
 document.getElementById("rider-form")?.addEventListener("submit", (event) => {
   event.preventDefault();
   const form = event.target;
-  withApi(form, () => window.TayyApi.submitRider(form), "You're on the waitlist.");
+  withApi(form, () => (window.GOApi || window.TayyApi).submitRider(form), "You're on the waitlist.");
 });
 
 document.getElementById("signup-form")?.addEventListener("submit", async (event) => {
@@ -75,13 +95,13 @@ document.getElementById("signup-form")?.addEventListener("submit", async (event)
   const ok = await withApi(
     form,
     () =>
-      window.TayyApi.register({
+      (window.GOApi || window.TayyApi).register({
         name: fd.get("name"),
         email: fd.get("email"),
         phone: fd.get("phone"),
         password: fd.get("password"),
       }),
-    "Account created — welcome to Tayy."
+    "Account created — welcome to GO."
   );
   if (ok) setTimeout(() => { window.location.href = "index.html"; }, 1400);
 });
@@ -93,7 +113,7 @@ document.getElementById("signin-form")?.addEventListener("submit", async (event)
   const ok = await withApi(
     form,
     () =>
-      window.TayyApi.login({
+      (window.GOApi || window.TayyApi).login({
         email: fd.get("email"),
         password: fd.get("password"),
       }),

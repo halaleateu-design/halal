@@ -6,6 +6,11 @@ import { fileURLToPath } from "url";
 import { nanoid } from "nanoid";
 import db from "../db.js";
 import { authMiddleware, verifyToken } from "../auth.js";
+import {
+  findUserIdByEmail,
+  promoteUserRole,
+  upsertMerchantProfile,
+} from "../profiles.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const uploadRoot = path.resolve(
@@ -36,6 +41,18 @@ function formToPayload(body) {
   return payload;
 }
 
+function resolveUserId(req, contactEmail) {
+  const authHeader = req.headers.authorization;
+  if (authHeader?.startsWith("Bearer ")) {
+    try {
+      return verifyToken(authHeader.slice(7)).sub;
+    } catch {
+      /* optional auth */
+    }
+  }
+  return findUserIdByEmail(contactEmail);
+}
+
 router.post("/apply", upload.any(), (req, res) => {
   try {
     const body = req.body || {};
@@ -48,16 +65,7 @@ router.post("/apply", upload.any(), (req, res) => {
     }
 
     const id = nanoid();
-    let userId = null;
-    const authHeader = req.headers.authorization;
-    if (authHeader?.startsWith("Bearer ")) {
-      try {
-        userId = verifyToken(authHeader.slice(7)).sub;
-      } catch {
-        /* optional auth */
-      }
-    }
-
+    const userId = resolveUserId(req, contactEmail);
     const payload = formToPayload(body);
     const category = String(body["biz-category"] || body.category || "").trim();
 
@@ -76,10 +84,23 @@ router.post("/apply", upload.any(), (req, res) => {
       }
     }
 
+    if (userId) {
+      promoteUserRole(userId, "merchant");
+      upsertMerchantProfile(userId, {
+        tradingName,
+        contactEmail,
+        city: city || null,
+        category: category || null,
+        status: "pending",
+        payload: { ...payload, lastApplicationId: id },
+      });
+    }
+
     return res.status(201).json({
       ok: true,
       message: "Merchant application received. Our team will review within 2–3 business days.",
       applicationId: id,
+      profileLinked: Boolean(userId),
     });
   } catch (err) {
     console.error(err);
@@ -94,7 +115,21 @@ router.get("/my", authMiddleware, (req, res) => {
        FROM merchant_applications WHERE user_id = ? ORDER BY created_at DESC`
     )
     .all(req.user.sub);
-  return res.json({ ok: true, applications: rows });
+  const profile = db.prepare("SELECT * FROM merchant_profiles WHERE user_id = ?").get(req.user.sub);
+  return res.json({
+    ok: true,
+    applications: rows,
+    profile: profile
+      ? {
+          tradingName: profile.trading_name,
+          contactEmail: profile.contact_email,
+          city: profile.city,
+          category: profile.category,
+          status: profile.status,
+          updatedAt: profile.updated_at,
+        }
+      : null,
+  });
 });
 
 export default router;

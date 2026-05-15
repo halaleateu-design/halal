@@ -1,6 +1,6 @@
-# Tayy — Android & iOS (Capacitor)
+# GO — Android & iOS (Capacitor)
 
-This folder wraps your **static Tayy website** (`../`) inside native shells using [Capacitor](https://capacitorjs.com/). You get real **Android** and **iOS** projects you can open in Android Studio and Xcode, ship to Play Store / App Store, and add native plugins later (push, biometrics, etc.).
+This folder wraps your **static GO website** (`../`) inside native shells using [Capacitor](https://capacitorjs.com/). You get real **Android** and **iOS** projects you can open in Android Studio and Xcode, ship to Play Store / App Store, and add native plugins later (push, biometrics, etc.).
 
 ## Business contact (in-app)
 

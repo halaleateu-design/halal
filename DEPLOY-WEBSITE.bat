@@ -1,24 +1,22 @@
 @echo off
-title Tayy - Netlify Website Deploy
+chcp 65001 >nul
+title GO - Website live
 cd /d "%~dp0"
 echo.
-echo ========================================
-echo   Tayy website - Netlify deploy
-echo ========================================
+echo  Website folder:
+echo  %cd%
 echo.
-echo Pehli dafa: browser mein Netlify login khulega.
+echo  Option A - SAB SE AASAAN (drag-drop):
+echo  ---------------------------------
+start https://app.netlify.com
+explorer "%cd%"
+echo.
+echo  Netlify khula + folder khula.
+echo  Site "fanciful-moxie-6b5bba" par jao ^> Deploys ^> drag folder.
 echo.
 pause
-call npx --yes netlify-cli deploy --prod --dir .
-if errorlevel 1 (
-  echo.
-  echo Netlify login nahi hua ya error aaya.
-  echo Manual: https://app.netlify.com - drag folder yahan se:
-  echo %cd%
-  echo.
-  pause
-  exit /b 1
-)
 echo.
-echo DONE! Website live ho gayi.
+echo  Option B - Command line (login chahiye):
+echo  ---------------------------------
+call npx --yes netlify-cli deploy --prod --dir .
 pause

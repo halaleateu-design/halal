@@ -1,4 +1,4 @@
-# Tayy static site — Netlify deploy
+# GO static site — Netlify deploy
 [build]
   publish = "."
 

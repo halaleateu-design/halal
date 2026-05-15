@@ -1,5 +1,5 @@
 /**
- * UI copy for Tayy web shell (static). Production apps should load from CMS + professional translation.
+ * UI copy for GO web shell (static). Production apps should load from CMS + professional translation.
  * Arabic sets document direction to RTL for layout testing.
  */
 (function () {
@@ -19,10 +19,10 @@
       nav_login: "Log in",
       auth_choice_title: "How would you like to continue?",
       auth_choice_lead:
-        "Continue on Tayy (EU): sign in, create an account, or browse as a guest. Verification and “set password” emails will only come from our official Tayy domain once mail is live. Business: halaleateu@gmail.com",
+        "Continue on GO (EU): sign in, create an account, or browse as a guest. Verification and “set password” emails will only come from our official GO domain once mail is live. Business: halaleateu@gmail.com",
       menu_view: "View menu",
       menu_all_cat: "All categories",
-      menu_sell: "Sell on Tayy",
+      menu_sell: "Sell on GO",
       menu_rider: "Rider waitlist",
       menu_whatsapp: "WhatsApp order",
       hero_tag: "Halal-only · One platform",
@@ -38,16 +38,16 @@
       browse_menu: "Browse menu",
       explore_cat: "Explore categories",
       trust_line:
-        "Halal-only partners · Fresh handoffs · Order in seconds — checkout & instant payouts ship with the full Tayy app.",
+        "Halal-only partners · Fresh handoffs · Order in seconds — checkout & instant payouts ship with the full GO app.",
       vertical_title: "What do you need today?",
       vertical_sub:
         "Everything on one homepage — tap a category. Restaurant menu is live now; other aisles open as partners join.",
       restaurants_near: "Halal near you",
       restaurants_sub:
-        "Browse aisles and kitchen lines — only matching halal dishes stay on screen. Tap a card for the full plate. Cart, payments, and live courier tracking are planned in the Tayy Android & iOS apps after the web experience ships.",
+        "Browse aisles and kitchen lines — only matching halal dishes stay on screen. Tap a card for the full plate. Cart, payments, and live courier tracking are planned in the GO Android & iOS apps after the web experience ships.",
       menu_world_hint:
         "Halal food for every Muslim — pick an aisle, then a kitchen line. Pizza &amp; boxes stay on their own row.",
-      eu_brand_tagline: "Halal · EU",
+      eu_brand_tagline: "Halal eat EU",
       eu_values_line:
         "This marketplace follows Islamic operating principles on what we list: alcohol, gambling, and plainly non-halal categories are not allowed. Partners certify halal sourcing for the food they publish.",
       halal_policy_heading: "Halal policy & trust",
@@ -56,22 +56,22 @@
       halal_faq_q: "What is our halal operating policy?",
       halal_faq_a:
         "We route discovery to verified halal partners only. We do not promote alcohol, gambling, tobacco, adult, or other forbidden storefront categories in this product shell.",
-      halal_scope_faq_q: "What does halal mean for Tayy?",
+      halal_scope_faq_q: "What does halal mean for GO?",
       halal_scope_faq_a:
         "For food it is evidence-backed halal supply and preparation, documented on partner profiles — not the word alone. Finance-style halal (for example riba-free BNPL) appears only if we publish a licensed product per market.",
       trust_company_html:
-        "<strong>Tayy</strong> — Porto pilot. <strong>Business:</strong> <a href=\"mailto:halaleateu@gmail.com\">halaleateu@gmail.com</a> · Partner cards still show <strong>WhatsApp</strong> for live orders until a central desk opens.",
+        "<strong>GO</strong> — Porto pilot. <strong>Business:</strong> <a href=\"mailto:halaleateu@gmail.com\">halaleateu@gmail.com</a> · Partner cards still show <strong>WhatsApp</strong> for live orders until a central desk opens.",
       trust_refunds_html:
         "Refunds today follow what you agree with the partner over WhatsApp; with logged-in checkout, refunds and data use move to the published EU consumer &amp; GDPR pack.",
       trust_signals_title: "Trust signals",
       footer_business_html:
-        '<div class="ue-business-mail"><span class="ue-business-mail__kicker">Tayy EU — business</span><a class="ue-business-mail__email" href="mailto:halaleateu@gmail.com">halaleateu@gmail.com</a><p class="ue-business-mail__hint">Partners, riders, merchants, press &amp; general enquiries.</p></div>',
+        '<div class="ue-business-mail"><span class="ue-business-mail__kicker">HalalEat EU — business</span><a class="ue-business-mail__email" href="mailto:halaleateu@gmail.com">halaleateu@gmail.com</a><p class="ue-business-mail__hint">Partners, riders, merchants, press &amp; general enquiries.</p></div>',
       drawer_menu_title: "Menu",
       drawer_login: "Log in",
       drawer_business: "Create a business account",
       drawer_restaurant: "Add your restaurant",
       drawer_deliver: "Sign up to deliver",
-      drawer_app_line: "There's more to love in the Tayy app — coming soon.",
+      drawer_app_line: "There's more to love in the GO app — coming soon.",
       drawer_app_iphone: "iPhone",
       drawer_app_android: "Android",
       footer_links_title: "Explore",
@@ -85,24 +85,24 @@
       location_save: "Save",
       location_cancel: "Cancel",
       eu_bar_badge:
-        "Tayy is built for the EU — GDPR & consumer rules first · Portugal (Porto) pilot, then more Member States.",
+        "GO is built for the EU — GDPR & consumer rules first · Portugal (Porto) pilot, then more Member States.",
       footer_sub: "Verified halal partners · Porto pilot · EU rollout",
       footer_hours: "Open daily · Partner hours may vary",
-      footer_whatsapp_aria: "Order on WhatsApp with Tayy partner",
+      footer_whatsapp_aria: "Order on WhatsApp with GO partner",
       dock_home: "Home",
       dock_browse: "Browse",
       dock_orders: "Orders",
       dock_help: "Help",
       maps_heading: "Find us on Google Maps",
       maps_lead:
-        "Tayy is launching from Porto, Portugal. Open directions in Google Maps or list your halal business when you join as a partner.",
+        "GO is launching from Porto, Portugal. Open directions in Google Maps or list your halal business when you join as a partner.",
       maps_open_btn: "Open in Google Maps",
-      maps_list_btn: "Partner with Tayy",
+      maps_list_btn: "Partner with GO",
       footer_social_html:
         '<nav class="ue-social-row" aria-label="Social media"><a class="ue-social-pill ue-social-pill--ig" href="https://www.instagram.com/eathalaleu/" target="_blank" rel="noopener noreferrer">Instagram @eathalaleu</a><a class="ue-social-pill ue-social-pill--tt" href="https://www.tiktok.com/@eathalaleu" target="_blank" rel="noopener noreferrer">TikTok @eathalaleu</a></nav>',
       shell_item_back: "← Back to menu",
       shell_item_chef: "Chef Pick",
-      shell_item_partner: "Tayy · partner dish",
+      shell_item_partner: "GO · partner dish",
       shell_item_loading: "Loading item…",
       shell_item_delivery: "Delivery: 25-35 min",
       shell_item_fresh: "Freshly Prepared",
@@ -151,7 +151,7 @@
         "Use <strong>Find food</strong> on the home page, pick dishes, and complete checkout on WhatsApp — same halal partner, no account required.",
       auth_aside_login_btn: "Order as guest",
       auth_footer_signin_html:
-        "Secure sign-in is on the way. Until then, order as a guest from the home page. When email login is enabled, verification and password-reset messages will come only from official Tayy EU addresses — we never ask for your card by email. <strong>Business:</strong> <a href=\"mailto:halaleateu@gmail.com\">halaleateu@gmail.com</a>",
+        "Secure sign-in is on the way. Until then, order as a guest from the home page. When email login is enabled, verification and password-reset messages will come only from official HalalEat EU addresses — we never ask for your card by email. <strong>Business:</strong> <a href=\"mailto:halaleateu@gmail.com\">halaleateu@gmail.com</a>",
       auth_signup_title: "Sign up",
       auth_signup_lead_html:
         "Save addresses, track orders, and sync across web &amp; app when accounts go live. This page is a <strong>UX prototype</strong> — no password is stored yet.",
@@ -167,7 +167,7 @@
         "You can browse menus and order via WhatsApp without an account. Sign up only when you want saved details and order history in one place.",
       auth_aside_guest_btn: "Browse as guest",
       auth_footer_signup_html:
-        "Secure accounts with email verification are on the way. Until then, order as a guest from the home page — same halal partners, WhatsApp checkout. Sign-up confirmations will be branded Tayy EU only. <strong>Business:</strong> <a href=\"mailto:halaleateu@gmail.com\">halaleateu@gmail.com</a>",
+        "Secure accounts with email verification are on the way. Until then, order as a guest from the home page — same halal partners, WhatsApp checkout. Sign-up confirmations will be branded HalalEat EU only. <strong>Business:</strong> <a href=\"mailto:halaleateu@gmail.com\">halaleateu@gmail.com</a>",
     },
     pt: {
       nav_categories: "Categorias",
@@ -182,10 +182,10 @@
       nav_login: "Iniciar sessão",
       auth_choice_title: "Como pretende continuar?",
       auth_choice_lead:
-        "Continue na Tayy (UE): entre, crie conta ou navegue como visitante. Emails de verificação e definição de palavra-passe virão só do nosso domínio oficial Tayy quando o correio estiver ativo. Negócios: halaleateu@gmail.com",
+        "Continue na GO (UE): entre, crie conta ou navegue como visitante. Emails de verificação e definição de palavra-passe virão só do nosso domínio oficial GO quando o correio estiver ativo. Negócios: halaleateu@gmail.com",
       menu_view: "Ver menu",
       menu_all_cat: "Todas as categorias",
-      menu_sell: "Vender na Tayy",
+      menu_sell: "Vender na GO",
       menu_rider: "Lista de estafetas",
       menu_whatsapp: "Encomendar WhatsApp",
       hero_tag: "Apenas halal · Uma plataforma",
@@ -206,10 +206,10 @@
       vertical_sub: "Tudo na mesma página — toque numa categoria. O menu de restaurante está ativo.",
       restaurants_near: "Halal perto de si",
       restaurants_sub:
-        "Navegue por corredores e linhas de cozinha — só ficam pratos halal compatíveis no ecrã. Toque num cartão para o prato completo. Carrinho, pagamentos e tracking em tempo real estão planeados nas apps Android e iOS Tayy depois da experiência web.",
+        "Navegue por corredores e linhas de cozinha — só ficam pratos halal compatíveis no ecrã. Toque num cartão para o prato completo. Carrinho, pagamentos e tracking em tempo real estão planeados nas apps Android e iOS GO depois da experiência web.",
       menu_world_hint:
         "Comida halal para todos os muçulmanos — escolha um corredor e depois uma linha de cozinha. Pizza e menus caixa ficam noutra fila.",
-      eu_brand_tagline: "Halal · UE",
+      eu_brand_tagline: "Halal eat EU",
       eu_values_line:
         "Este mercado segue princípios islâmicos no que listamos: álcool, jogos de azar e categorias claramente não halal não são permitidos. Os parceiros certificam a origem halal da comida que publicam.",
       halal_policy_heading: "Política halal e confiança",
@@ -218,22 +218,22 @@
       halal_faq_q: "Qual é a nossa política halal?",
       halal_faq_a:
         "Encaminhamos a descoberta só para parceiros halal verificados. Não promovemos álcool, jogos, tabaco, conteúdo adulto ou outras vitrines proibidas neste produto.",
-      halal_scope_faq_q: "O que significa halal na Tayy?",
+      halal_scope_faq_q: "O que significa halal na GO?",
       halal_scope_faq_a:
         "Para comida, significa cadeia e preparação halal com evidência no perfil do parceiro — não só a palavra. Finanças estilo halal (ex. BNPL sem riba) só se publicarmos produto licenciado por mercado.",
       trust_company_html:
-        "<strong>Tayy</strong> — piloto no Porto. <strong>Negócios:</strong> <a href=\"mailto:halaleateu@gmail.com\">halaleateu@gmail.com</a> · Os cartões de parceiro mantêm <strong>WhatsApp</strong> para encomendas até haver suporte central.",
+        "<strong>GO</strong> — piloto no Porto. <strong>Negócios:</strong> <a href=\"mailto:halaleateu@gmail.com\">halaleateu@gmail.com</a> · Os cartões de parceiro mantêm <strong>WhatsApp</strong> para encomendas até haver suporte central.",
       trust_refunds_html:
         "Reembolsos hoje seguem o que acordar com o parceiro no WhatsApp; com checkout com sessão, reembolsos e dados passam para o pack RGPD/consumidor publicado por Estado-Membro.",
       trust_signals_title: "Sinais de confiança",
       footer_business_html:
-        '<div class="ue-business-mail"><span class="ue-business-mail__kicker">Tayy UE — negócios</span><a class="ue-business-mail__email" href="mailto:halaleateu@gmail.com">halaleateu@gmail.com</a><p class="ue-business-mail__hint">Parceiros, estafetas, comerciantes, imprensa e contactos gerais.</p></div>',
+        '<div class="ue-business-mail"><span class="ue-business-mail__kicker">GO UE — negócios</span><a class="ue-business-mail__email" href="mailto:halaleateu@gmail.com">halaleateu@gmail.com</a><p class="ue-business-mail__hint">Parceiros, estafetas, comerciantes, imprensa e contactos gerais.</p></div>',
       drawer_menu_title: "Menu",
       drawer_login: "Iniciar sessão",
       drawer_business: "Criar conta empresarial",
       drawer_restaurant: "Adicionar o seu restaurante",
       drawer_deliver: "Registar-se para entregar",
-      drawer_app_line: "Há mais para descobrir na app Tayy — em breve.",
+      drawer_app_line: "Há mais para descobrir na app GO — em breve.",
       drawer_app_iphone: "iPhone",
       drawer_app_android: "Android",
       footer_links_title: "Explorar",
@@ -247,24 +247,24 @@
       location_save: "Guardar",
       location_cancel: "Cancelar",
       eu_bar_badge:
-        "Tayy para a UE — RGPD e direito do consumidor em primeiro lugar · Piloto em Portugal (Porto), depois mais Estados-Membros.",
+        "GO para a UE — RGPD e direito do consumidor em primeiro lugar · Piloto em Portugal (Porto), depois mais Estados-Membros.",
       footer_sub: "Parceiros halal verificados · Piloto no Porto · Expansão na UE",
       footer_hours: "Aberto todos os dias · Horários dos parceiros podem variar",
-      footer_whatsapp_aria: "Encomendar no WhatsApp com parceiro Tayy",
+      footer_whatsapp_aria: "Encomendar no WhatsApp com parceiro GO",
       dock_home: "Início",
       dock_browse: "Explorar",
       dock_orders: "Pedidos",
       dock_help: "Ajuda",
       maps_heading: "Encontre-nos no Google Maps",
       maps_lead:
-        "A Tayy arranca no Porto, Portugal. Abra direções no Google Maps ou junte-se como parceiro halal.",
+        "A GO arranca no Porto, Portugal. Abra direções no Google Maps ou junte-se como parceiro halal.",
       maps_open_btn: "Abrir no Google Maps",
-      maps_list_btn: "Ser parceiro Tayy",
+      maps_list_btn: "Ser parceiro GO",
       footer_social_html:
         '<nav class="ue-social-row" aria-label="Redes sociais"><a class="ue-social-pill ue-social-pill--ig" href="https://www.instagram.com/eathalaleu/" target="_blank" rel="noopener noreferrer">Instagram @eathalaleu</a><a class="ue-social-pill ue-social-pill--tt" href="https://www.tiktok.com/@eathalaleu" target="_blank" rel="noopener noreferrer">TikTok @eathalaleu</a></nav>',
       shell_item_back: "← Voltar ao menu",
       shell_item_chef: "Escolha do chef",
-      shell_item_partner: "Tayy · prato de parceiro",
+      shell_item_partner: "GO · prato de parceiro",
       shell_item_loading: "A carregar…",
       shell_item_delivery: "Entrega: 25-35 min",
       shell_item_fresh: "Preparado na hora",
@@ -313,7 +313,7 @@
         "Use <strong>Encontrar comida</strong> na página inicial, escolha pratos e finalize no WhatsApp — mesmo parceiro halal, sem conta.",
       auth_aside_login_btn: "Encomendar como visitante",
       auth_footer_signin_html:
-        "Login seguro a caminho. Por agora, encomende como visitante na página inicial. Quando o email estiver ativo, verificação e reposição de palavra-passe virão só de endereços oficiais Tayy UE — nunca pedimos cartão por email. <strong>Negócios:</strong> <a href=\"mailto:halaleateu@gmail.com\">halaleateu@gmail.com</a>",
+        "Login seguro a caminho. Por agora, encomende como visitante na página inicial. Quando o email estiver ativo, verificação e reposição de palavra-passe virão só de endereços oficiais GO UE — nunca pedimos cartão por email. <strong>Negócios:</strong> <a href=\"mailto:halaleateu@gmail.com\">halaleateu@gmail.com</a>",
       auth_signup_title: "Registar",
       auth_signup_lead_html:
         "Guarde moradas, siga pedidos e sincronize web e app quando as contas estiverem ativas. Isto é um <strong>protótipo UX</strong> — ainda não guardamos palavras-passe.",
@@ -329,7 +329,7 @@
         "Pode ver menus e encomendar por WhatsApp sem conta. Registe-se só quando quiser dados guardados e histórico num só sítio.",
       auth_aside_guest_btn: "Explorar como visitante",
       auth_footer_signup_html:
-        "Contas com verificação por email a caminho. Por agora, encomende como visitante na página inicial — mesmos parceiros halal, checkout WhatsApp. Confirmações de registo serão só da marca Tayy UE. <strong>Negócios:</strong> <a href=\"mailto:halaleateu@gmail.com\">halaleateu@gmail.com</a>",
+        "Contas com verificação por email a caminho. Por agora, encomende como visitante na página inicial — mesmos parceiros halal, checkout WhatsApp. Confirmações de registo serão só da marca GO UE. <strong>Negócios:</strong> <a href=\"mailto:halaleateu@gmail.com\">halaleateu@gmail.com</a>",
     },
     ur: {
       nav_categories: "اقسام",
@@ -343,7 +343,7 @@
       nav_signin: "سائن ان",
       menu_view: "مینو دیکھیں",
       menu_all_cat: "تمام اقسام",
-      menu_sell: "Tayy پر بیچیں",
+      menu_sell: "GO پر بیچیں",
       menu_rider: "رائیڈر لسٹ",
       menu_whatsapp: "واٹس ایپ آرڈر",
       hero_tag: "صرف حلال · ایک پلیٹ فارم",
@@ -376,10 +376,10 @@
       location_save: "محفوظ",
       location_cancel: "بند",
       eu_bar_badge:
-        "Tayy یورپی یونین کے لیے — GDPR اور صارف حقوق اولین · پرتگال (پورٹو) پائلٹ، پھر مزید رکن ممالک۔",
+        "GO یورپی یونین کے لیے — GDPR اور صارف حقوق اولین · پرتگال (پورٹو) پائلٹ، پھر مزید رکن ممالک۔",
       footer_sub: "تصدیق شدہ حلال پارٹنرز · پورٹو پائلٹ · یورپ میں پھیلاؤ",
       footer_hours: "روزانہ کھلا · پارٹنر اوقات مختلف ہو سکتے ہیں",
-      footer_whatsapp_aria: "Tayy پارٹنر کے ذریعے واٹس ایپ آرڈر",
+      footer_whatsapp_aria: "GO پارٹنر کے ذریعے واٹس ایپ آرڈر",
       dock_home: "ہوم",
       dock_browse: "براؤز",
       dock_orders: "آرڈرز",
@@ -397,7 +397,7 @@
       nav_signin: "Connexion",
       menu_view: "Voir le menu",
       menu_all_cat: "Toutes les catégories",
-      menu_sell: "Vendre sur Tayy",
+      menu_sell: "Vendre sur GO",
       menu_rider: "Liste livreurs",
       menu_whatsapp: "Commander WhatsApp",
       hero_tag: "Halal uniquement · Une plateforme",
@@ -431,10 +431,10 @@
       location_save: "Enregistrer",
       location_cancel: "Annuler",
       eu_bar_badge:
-        "Tayy pour l’UE — RGPD et droit des consommateurs d’abord · Pilote Portugal (Porto), puis autres États membres.",
+        "GO pour l’UE — RGPD et droit des consommateurs d’abord · Pilote Portugal (Porto), puis autres États membres.",
       footer_sub: "Partenaires halal vérifiés · Pilote à Porto · Déploiement UE",
       footer_hours: "Ouvert tous les jours · Horaires partenaires variables",
-      footer_whatsapp_aria: "Commander sur WhatsApp avec un partenaire Tayy",
+      footer_whatsapp_aria: "Commander sur WhatsApp avec un partenaire GO",
       dock_home: "Accueil",
       dock_browse: "Parcourir",
       dock_orders: "Commandes",
@@ -452,7 +452,7 @@
       nav_signin: "دخول",
       menu_view: "عرض القائمة",
       menu_all_cat: "كل الفئات",
-      menu_sell: "البيع على Tayy",
+      menu_sell: "البيع على GO",
       menu_rider: "قائمة انتظار السائقين",
       menu_whatsapp: "طلب واتساب",
       hero_tag: "حلال فقط · منصة واحدة",
@@ -484,10 +484,10 @@
       location_save: "حفظ",
       location_cancel: "إلغاء",
       eu_bar_badge:
-        "Tayy للاتحاد الأوروبي — GDPR وحقوق المستهلك أولاً · تجربة في البرتغال (بورتو) ثم دول أخرى.",
+        "GO للاتحاد الأوروبي — GDPR وحقوق المستهلك أولاً · تجربة في البرتغال (بورتو) ثم دول أخرى.",
       footer_sub: "شركاء حلال موثوقون · بورتو · التوسع في أوروبا",
       footer_hours: "مفتوح يومياً · ساعات الشركاء قد تختلف",
-      footer_whatsapp_aria: "اطلب عبر واتساب مع شريك Tayy",
+      footer_whatsapp_aria: "اطلب عبر واتساب مع شريك GO",
       dock_home: "الرئيسية",
       dock_browse: "تصفح",
       dock_orders: "الطلبات",
@@ -505,7 +505,7 @@
       nav_signin: "সাইন ইন",
       menu_view: "মেনু দেখুন",
       menu_all_cat: "সব ক্যাটাগরি",
-      menu_sell: "Tayy-এ বিক্রি",
+      menu_sell: "GO-এ বিক্রি",
       menu_rider: "রাইডার তালিকা",
       menu_whatsapp: "হোয়াটসঅ্যাপ অর্ডার",
       hero_tag: "শুধু হালাল · এক প্ল্যাটফর্ম",
@@ -537,10 +537,10 @@
       location_save: "সংরক্ষণ",
       location_cancel: "বাতিল",
       eu_bar_badge:
-        "Tayy ইইউর জন্য — GDPR ও ভোক্তা অধিকার আগে · পর্তুগাল (পোর্টো) পাইলট, তারপর আরও সদস্য রাষ্ট্র।",
+        "GO ইইউর জন্য — GDPR ও ভোক্তা অধিকার আগে · পর্তুগাল (পোর্টো) পাইলট, তারপর আরও সদস্য রাষ্ট্র।",
       footer_sub: "যাচাইকৃত হালাল পার্টনার · পোর্টো পাইলট · ইইউ সম্প্রসারণ",
       footer_hours: "প্রতিদিন খোলা · পার্টনারের সময় ভিন্ন হতে পারে",
-      footer_whatsapp_aria: "Tayy পার্টনারের মাধ্যমে হোয়াটসঅ্যাপ অর্ডার",
+      footer_whatsapp_aria: "GO পার্টনারের মাধ্যমে হোয়াটসঅ্যাপ অর্ডার",
       dock_home: "হোম",
       dock_browse: "ব্রাউজ",
       dock_orders: "অর্ডার",
@@ -565,7 +565,7 @@
     nav_signin: "Anmelden",
     menu_view: "Menü ansehen",
     menu_all_cat: "Alle Kategorien",
-    menu_sell: "Auf Tayy verkaufen",
+    menu_sell: "Auf GO verkaufen",
     menu_rider: "Fahrer-Warteliste",
     menu_whatsapp: "WhatsApp-Bestellung",
     hero_tag: "Nur Halal · Eine Plattform",
@@ -581,7 +581,7 @@
     browse_menu: "Menü durchsuchen",
     explore_cat: "Kategorien entdecken",
     trust_line:
-      "Nur Halal-Partner · Frische Übergaben · In Sekunden bestellen — Checkout in der vollen Tayy-App.",
+      "Nur Halal-Partner · Frische Übergaben · In Sekunden bestellen — Checkout in der vollen GO-App.",
     vertical_title: "Was brauchen Sie heute?",
     vertical_sub:
       "Alles auf einer Startseite — tippen Sie auf eine Kategorie. Das Restaurantmenü ist jetzt live.",
@@ -599,10 +599,10 @@
     location_save: "Speichern",
     location_cancel: "Abbrechen",
     eu_bar_badge:
-      "Tayy für die EU — DSGVO und Verbraucherrecht zuerst · Pilot Portugal (Porto), dann weitere Mitgliedstaaten.",
+      "GO für die EU — DSGVO und Verbraucherrecht zuerst · Pilot Portugal (Porto), dann weitere Mitgliedstaaten.",
     footer_sub: "Geprüfte Halal-Partner · Porto-Pilot · EU-Rollout",
     footer_hours: "Täglich geöffnet · Partnerzeiten können abweichen",
-    footer_whatsapp_aria: "Per WhatsApp beim Tayy-Partner bestellen",
+    footer_whatsapp_aria: "Per WhatsApp beim GO-Partner bestellen",
     dock_home: "Start",
     dock_browse: "Entdecken",
     dock_orders: "Bestellungen",
@@ -622,7 +622,7 @@
     nav_signin: "Giriş yap",
     menu_view: "Menüyü gör",
     menu_all_cat: "Tüm kategoriler",
-    menu_sell: "Tayy'te sat",
+    menu_sell: "GO'te sat",
     menu_rider: "Kurye bekleme listesi",
     menu_whatsapp: "WhatsApp sipariş",
     hero_tag: "Sadece helal · Tek platform",
@@ -656,10 +656,10 @@
     location_save: "Kaydet",
     location_cancel: "İptal",
     eu_bar_badge:
-      "Tayy AB için — GDPR ve tüketici hakları önce · Portekiz (Porto) pilotu, ardından diğer üye devletler.",
+      "GO AB için — GDPR ve tüketici hakları önce · Portekiz (Porto) pilotu, ardından diğer üye devletler.",
     footer_sub: "Doğrulanmış helal ortaklar · Porto pilotu · AB genişlemesi",
     footer_hours: "Her gün açık · Ortak saatleri değişebilir",
-    footer_whatsapp_aria: "Tayy ortağıyla WhatsApp’tan sipariş",
+    footer_whatsapp_aria: "GO ortağıyla WhatsApp’tan sipariş",
     dock_home: "Ana sayfa",
     dock_browse: "Göz at",
     dock_orders: "Siparişler",
@@ -732,7 +732,7 @@
       merch_hero_btn_profile: "Business profile",
       merch_hero_btn_catalog: "Catalogue &amp; prices",
       merch_contact_banner_html:
-        '<div class="ue-business-mail ue-business-mail--compact merch-hero-mail"><span class="ue-business-mail__kicker">Business · Tayy EU</span><a class="ue-business-mail__email" href="mailto:halaleateu@gmail.com">halaleateu@gmail.com</a><p class="ue-business-mail__hint">Merchant onboarding, partnerships &amp; press.</p></div>',
+        '<div class="ue-business-mail ue-business-mail--compact merch-hero-mail"><span class="ue-business-mail__kicker">Business · HalalEat EU</span><a class="ue-business-mail__email" href="mailto:halaleateu@gmail.com">halaleateu@gmail.com</a><p class="ue-business-mail__hint">Merchant onboarding, partnerships &amp; press.</p></div>',
     },
     pt: {
       merch_nav_overview: "Visão geral",
@@ -761,7 +761,7 @@
       merch_hero_btn_profile: "Perfil empresarial",
       merch_hero_btn_catalog: "Catálogo e preços",
       merch_contact_banner_html:
-        '<div class="ue-business-mail ue-business-mail--compact merch-hero-mail"><span class="ue-business-mail__kicker">Negócios · Tayy UE</span><a class="ue-business-mail__email" href="mailto:halaleateu@gmail.com">halaleateu@gmail.com</a><p class="ue-business-mail__hint">Onboarding de lojas, parcerias e imprensa.</p></div>',
+        '<div class="ue-business-mail ue-business-mail--compact merch-hero-mail"><span class="ue-business-mail__kicker">Negócios · GO UE</span><a class="ue-business-mail__email" href="mailto:halaleateu@gmail.com">halaleateu@gmail.com</a><p class="ue-business-mail__hint">Onboarding de lojas, parcerias e imprensa.</p></div>',
     },
     ur: {
       merch_nav_overview: "جائزہ",
@@ -910,7 +910,7 @@
       rider_toc_faq: "FAQ",
       rider_back_customer: "← Customer site",
       rider_hero_kicker: "EU · Halal logistics layer",
-      rider_hero_title: "Deliver with Tayy",
+      rider_hero_title: "Deliver with GO",
       rider_hero_lead:
         "Halal-first runs with clear handoff rules and upfront fees — launching in Portugal, then more EU cities.",
       rider_hero_sell: "Selling instead?",
@@ -959,7 +959,7 @@
       rider_req_3_html:
         "<strong>Insurance</strong> — liability and goods-in-transit cover that matches your vehicle class.",
       rider_req_4_html:
-        "<strong>Tax ID</strong> — NIF in Portugal or the local equivalent; Tayy provides fee statements for your records.",
+        "<strong>Tax ID</strong> — NIF in Portugal or the local equivalent; GO provides fee statements for your records.",
       rider_req_5_html:
         "<strong>Phone</strong> — Android or iPhone with mobile data for navigation and in-app chat; a thermal bag is recommended.",
       rider_h2_safety: "Safety, GDPR & support",
@@ -977,7 +977,7 @@
       rider_ops_n_h: "Earn",
       rider_ops_n_p: "Per-drop fees + tips; weekly payout after fraud checks.",
       rider_h2_faq: "FAQ",
-      rider_faq_sum_model: "How is Tayy different from typical gig apps?",
+      rider_faq_sum_model: "How is GO different from typical gig apps?",
       rider_faq_body_model:
         "We prioritise predictable offers, a halal-only partner network, and EU-grade compliance — clear rules and documentation instead of opaque gig churn.",
       rider_faq_sum_dispatch: "What happens when dispatch and payments go live?",
@@ -988,7 +988,7 @@
         "Yes — base city + radius you set in rider profile; offers only inside that polygon.",
       rider_faq_sum_multi: "Multi-app while waiting?",
       rider_faq_body_multi:
-        "Allowed where law permits; Tayy does not exclusivity-lock riders in pilot phase.",
+        "Allowed where law permits; GO does not exclusivity-lock riders in pilot phase.",
       rider_faq_sum_apps: "When do apps ship?",
       rider_faq_body_apps:
         "Roadmap: rider beta after merchant CSV import + PSP — watch this page or email <a href=\"mailto:halaleateu@gmail.com\">halaleateu@gmail.com</a> from the waitlist.",
@@ -1009,7 +1009,7 @@
       rider_faq_maps_plat: "Maps Platform",
       rider_faq_maps_live: "Live tracking",
       rider_faq_maps_play_p:
-        "<a href=\"https://play.google.com/console\" target=\"_blank\" rel=\"noopener noreferrer\">play.google.com/console</a> — one-time developer fee; separate listings for Tayy and Tayy Rider when you ship.",
+        "<a href=\"https://play.google.com/console\" target=\"_blank\" rel=\"noopener noreferrer\">play.google.com/console</a> — one-time developer fee; separate listings for GO and GO Rider when you ship.",
       rider_faq_maps_cloud_p:
         "<a href=\"https://console.cloud.google.com/\" target=\"_blank\" rel=\"noopener noreferrer\">console.cloud.google.com</a> — project, billing account, and IAM for your team.",
       rider_faq_maps_plat_p:
@@ -1019,7 +1019,7 @@
       rider_faq_maps_terms_html:
         "<a href=\"https://cloud.google.com/maps-platform/terms\" target=\"_blank\" rel=\"noopener noreferrer\">Maps Platform terms</a> (Google).",
       rider_footer_business_html:
-        '<div class="ue-business-mail ue-business-mail--compact rider-footer-mailcard"><span class="ue-business-mail__kicker">Business · Tayy EU</span><a class="ue-business-mail__email" href="mailto:halaleateu@gmail.com">halaleateu@gmail.com</a></div>',
+        '<div class="ue-business-mail ue-business-mail--compact rider-footer-mailcard"><span class="ue-business-mail__kicker">Business · HalalEat EU</span><a class="ue-business-mail__email" href="mailto:halaleateu@gmail.com">halaleateu@gmail.com</a></div>',
       rider_footer_demo: "Dispatch not active in this demo ·",
       rider_footer_customer: "Customer site",
       rider_footer_merchants: "Merchants",
@@ -1040,7 +1040,7 @@
       rider_toc_faq: "FAQ",
       rider_back_customer: "← Site do cliente",
       rider_hero_kicker: "UE · Camada logística halal",
-      rider_hero_title: "Entregue com a Tayy",
+      rider_hero_title: "Entregue com a GO",
       rider_hero_lead:
         "Corridas halal em primeiro lugar, regras claras de entrega e taxas antecipadas — arranque em Portugal, depois mais cidades da UE.",
       rider_hero_sell: "Prefere vender?",
@@ -1089,7 +1089,7 @@
       rider_req_3_html:
         "<strong>Seguro</strong> — responsabilidade civil e mercadorias em trânsito adequados à classe do veículo.",
       rider_req_4_html:
-        "<strong>NIF fiscal</strong> — NIF em Portugal ou equivalente local; a Tayy emite extratos de comissões.",
+        "<strong>NIF fiscal</strong> — NIF em Portugal ou equivalente local; a GO emite extratos de comissões.",
       rider_req_5_html:
         "<strong>Telemóvel</strong> — Android ou iPhone com dados para navegação e chat na app; saco térmico recomendado.",
       rider_h2_safety: "Segurança, RGPD e apoio",
@@ -1107,7 +1107,7 @@
       rider_ops_n_h: "Ganhar",
       rider_ops_n_p: "Taxas por entrega + gorjetas; pagamento semanal após controlos antifraude.",
       rider_h2_faq: "FAQ",
-      rider_faq_sum_model: "Em que difere a Tayy das apps de gig típicas?",
+      rider_faq_sum_model: "Em que difere a GO das apps de gig típicas?",
       rider_faq_body_model:
         "Priorizamos ofertas previsíveis, rede só halal e conformidade ao nível da UE — regras e documentação claras.",
       rider_faq_sum_dispatch: "O que muda quando dispatch e pagamentos estiverem ativos?",
@@ -1139,7 +1139,7 @@
       rider_faq_maps_plat: "Maps Platform",
       rider_faq_maps_live: "Localização em tempo real",
       rider_faq_maps_play_p:
-        "<a href=\"https://play.google.com/console\" target=\"_blank\" rel=\"noopener noreferrer\">play.google.com/console</a> — taxa única de programador; listagens separadas Tayy e Tayy Rider.",
+        "<a href=\"https://play.google.com/console\" target=\"_blank\" rel=\"noopener noreferrer\">play.google.com/console</a> — taxa única de programador; listagens separadas GO e GO Rider.",
       rider_faq_maps_cloud_p:
         "<a href=\"https://console.cloud.google.com/\" target=\"_blank\" rel=\"noopener noreferrer\">console.cloud.google.com</a> — projeto, faturação e IAM.",
       rider_faq_maps_plat_p:
@@ -1149,7 +1149,7 @@
       rider_faq_maps_terms_html:
         "<a href=\"https://cloud.google.com/maps-platform/terms\" target=\"_blank\" rel=\"noopener noreferrer\">Termos Maps Platform</a> (Google).",
       rider_footer_business_html:
-        '<div class="ue-business-mail ue-business-mail--compact rider-footer-mailcard"><span class="ue-business-mail__kicker">Negócios · Tayy UE</span><a class="ue-business-mail__email" href="mailto:halaleateu@gmail.com">halaleateu@gmail.com</a></div>',
+        '<div class="ue-business-mail ue-business-mail--compact rider-footer-mailcard"><span class="ue-business-mail__kicker">Negócios · GO UE</span><a class="ue-business-mail__email" href="mailto:halaleateu@gmail.com">halaleateu@gmail.com</a></div>',
       rider_footer_demo: "Dispatch inativo neste demo ·",
       rider_footer_customer: "Site do cliente",
       rider_footer_merchants: "Comerciantes",
@@ -1299,8 +1299,8 @@
     }
   }
 
-  window.TayyI18n = { applyLanguage, t, STRINGS, PARTNER, RIDER, fillLangSelect, resolveUiLang };
-  window.HalalEatI18n = window.TayyI18n;
+  window.GOI18n = { applyLanguage, t, STRINGS, PARTNER, RIDER, fillLangSelect, resolveUiLang };
+  window.HalalEatI18n = window.GOI18n;
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", initI18n);
   else initI18n();

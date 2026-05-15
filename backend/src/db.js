@@ -7,7 +7,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const dataDir = path.resolve(__dirname, "..", process.env.DATABASE_PATH ? path.dirname(process.env.DATABASE_PATH) : "data");
 const dbPath = process.env.DATABASE_PATH
   ? path.resolve(__dirname, "..", process.env.DATABASE_PATH)
-  : path.join(dataDir, "Tayy.db");
+  : path.join(dataDir, "go.db");
 
 fs.mkdirSync(path.dirname(dbPath), { recursive: true });
 fs.mkdirSync(process.env.UPLOAD_DIR ? path.resolve(__dirname, "..", process.env.UPLOAD_DIR) : path.join(dataDir, "uploads"), {
@@ -63,8 +63,50 @@ db.exec(`
     created_at TEXT NOT NULL DEFAULT (datetime('now'))
   );
 
+  CREATE TABLE IF NOT EXISTS customer_profiles (
+    user_id TEXT PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
+    phone TEXT,
+    default_city TEXT,
+    country TEXT NOT NULL DEFAULT 'PT',
+    updated_at TEXT NOT NULL DEFAULT (datetime('now'))
+  );
+
+  CREATE TABLE IF NOT EXISTS merchant_profiles (
+    user_id TEXT PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
+    trading_name TEXT NOT NULL,
+    contact_email TEXT,
+    city TEXT,
+    category TEXT,
+    status TEXT NOT NULL DEFAULT 'pending' CHECK(status IN ('pending','reviewing','approved','rejected')),
+    payload TEXT NOT NULL DEFAULT '{}',
+    updated_at TEXT NOT NULL DEFAULT (datetime('now'))
+  );
+
+  CREATE TABLE IF NOT EXISTS rider_profiles (
+    user_id TEXT PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
+    full_name TEXT NOT NULL,
+    phone TEXT NOT NULL,
+    base_city TEXT NOT NULL,
+    vehicle TEXT NOT NULL,
+    status TEXT NOT NULL DEFAULT 'pending' CHECK(status IN ('pending','invited','active','rejected')),
+    notes TEXT,
+    payload TEXT NOT NULL DEFAULT '{}',
+    updated_at TEXT NOT NULL DEFAULT (datetime('now'))
+  );
+
   CREATE INDEX IF NOT EXISTS idx_merchant_status ON merchant_applications(status);
   CREATE INDEX IF NOT EXISTS idx_rider_status ON rider_applications(status);
 `);
+
+try {
+  db.exec(`ALTER TABLE users ADD COLUMN oauth_provider TEXT`);
+} catch {
+  /* exists */
+}
+try {
+  db.exec(`ALTER TABLE users ADD COLUMN oauth_id TEXT`);
+} catch {
+  /* exists */
+}
 
 export default db;

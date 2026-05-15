@@ -1,7 +1,6 @@
-# Render Blueprint — repo root se deploy (GitHub connect ke baad)
 services:
   - type: web
-    name: tayy-api
+    name: go-api
     runtime: node
     plan: free
     rootDir: backend
@@ -16,7 +15,17 @@ services:
         generateValue: true
       - key: CORS_ORIGIN
         value: https://fanciful-moxie-6b5bba.netlify.app
+      - key: FRONTEND_URL
+        value: https://fanciful-moxie-6b5bba.netlify.app
+      - key: API_PUBLIC_URL
+        sync: false
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false
+      - key: GOOGLE_REDIRECT_URI
+        sync: false
       - key: DATABASE_PATH
-        value: ./data/tayy.db
+        value: ./data/go.db
       - key: UPLOAD_DIR
         value: ./data/uploads

@@ -13,7 +13,7 @@ function uiLang() {
 }
 
 function tr(key) {
-  return window.TayyI18n?.t(uiLang(), key) || key;
+  return window.GOI18n?.t(uiLang(), key) || key;
 }
 
 const titleEl = document.getElementById("category-title");
@@ -32,10 +32,10 @@ function applyCategoryChrome() {
 
 function setDynamicMeta(groupName, totalItems) {
   const safeGroup = groupName || "Menu";
-  document.title = `${safeGroup} · Tayy · Porto`;
+  document.title = `${safeGroup} · GO · Porto`;
 
-  const description = `Order ${safeGroup} on Tayy (featured partner kitchen). Browse ${totalItems} halal items, select multiple dishes, and place one WhatsApp order in Porto.`;
-  const keywords = `${safeGroup.toLowerCase()} porto, halal ${safeGroup.toLowerCase()} porto, halal food delivery porto, Tayy`;
+  const description = `Order ${safeGroup} on GO (featured partner kitchen). Browse ${totalItems} halal items, select multiple dishes, and place one WhatsApp order in Porto.`;
+  const keywords = `${safeGroup.toLowerCase()} porto, halal ${safeGroup.toLowerCase()} porto, halal food delivery porto, GO`;
   const canonicalUrl = `https://fanciful-moxie-6b5bba.netlify.app/category.html?group=${encodeURIComponent(safeGroup)}`;
 
   const ensureMeta = (attribute, key, value) => {
@@ -78,7 +78,7 @@ function fallbackImage(itemName) {
 }
 
 async function applyStandardImage(imageEl, itemName, originalUrl) {
-  const utils = window.Tayy_IMAGE_UTILS || window.HFC_IMAGE_UTILS;
+  const utils = window.GO_IMAGE_UTILS || window.HFC_IMAGE_UTILS;
   if (!utils?.resolveItemImage) {
     imageEl.src = originalUrl || fallbackImage(itemName);
     return;

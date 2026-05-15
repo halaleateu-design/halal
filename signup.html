@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5">
   <meta name="theme-color" content="#003399">
-  <meta name="apple-mobile-web-app-title" content="Tayy">
-  <title>Sign up — Tayy</title>
-  <meta name="description" content="Create an Tayy customer account. Guest checkout stays available without login.">
+  <meta name="apple-mobile-web-app-title" content="GO">
+  <title>Sign up — GO</title>
+  <meta name="description" content="Create an GO customer account. Guest checkout stays available without login.">
   <link rel="icon" href="assets/halaleat-mark.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,8 +24,8 @@
         <a class="brand-wordmark brand-wordmark--with-logo" href="index.html">
           <img class="brand-logo-mark" src="assets/halaleat-mark.svg" width="40" height="40" alt="" decoding="async">
           <span class="brand-text-stack">
-            <span class="brand-name">Tayy</span>
-            <span class="brand-tag" data-i18n="eu_brand_tagline">Halal · EU</span>
+            <span class="brand-name">GO</span>
+            <span class="brand-tag" data-i18n="eu_brand_tagline">Halal eat EU</span>
           </span>
         </a>
         <nav class="nav-links nav-links--eats nav-links--cluster" aria-label="Main">
@@ -54,7 +54,11 @@
     <div class="container auth-grid">
       <section class="auth-card">
         <h1 class="auth-title" data-i18n="auth_signup_title">Sign up</h1>
-        <p class="auth-lead" data-i18n-html="auth_signup_lead_html">Create your Tayy account — saved to our secure server. Email verification ships in the next release.</p>
+        <p class="auth-lead" data-i18n-html="auth_signup_lead_html">Create your GO account — saved to our secure server. Email verification ships in the next release.</p>
+        <div class="auth-sso-stack" id="auth-sso-stack">
+          <a class="prem-btn auth-btn-google" id="btn-google-signup" href="#">Continue with Google</a>
+          <p class="auth-sso-divider" aria-hidden="true"><span>or</span></p>
+        </div>
         <form id="signup-form" class="prem-form-grid auth-form" novalidate>
           <div class="prem-field">
             <label for="su-name" data-i18n="auth_name">Full name</label>
@@ -90,7 +94,7 @@
 
   <footer class="footer--eats auth-footer auth-shell-footer">
     <div class="container footer-inner">
-      <p class="footer-brand">Tayy</p>
+      <p class="footer-brand">GO</p>
       <p data-i18n-html="auth_footer_signup_html">Secure accounts with email verification are on the way. Until then, order as a guest from the home page — same halal partners, WhatsApp checkout.</p>
     </div>
   </footer>

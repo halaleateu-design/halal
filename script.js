@@ -210,7 +210,7 @@ function previewFallback(label = "Selected Item") {
 
 async function setPreviewStandardImage(itemName, imageUrl) {
   if (!itemPreviewImage) return;
-  const utils = window.Tayy_IMAGE_UTILS || window.HFC_IMAGE_UTILS;
+  const utils = window.GO_IMAGE_UTILS || window.HFC_IMAGE_UTILS;
   const fallback = previewFallback(itemName);
   if (!utils?.resolveItemImage) {
     itemPreviewImage.src = imageUrl || fallback;
@@ -351,7 +351,7 @@ if (notifyBtn) {
     if (!isActive) {
       notifyBtn.setAttribute("data-active", "true");
       notifyBtn.textContent = "Reminder on";
-      if (notifyMsg) notifyMsg.textContent = "We will surface daily partner specials here first; push alerts ship with the Tayy app.";
+      if (notifyMsg) notifyMsg.textContent = "We will surface daily partner specials here first; push alerts ship with the GO app.";
       return;
     }
 

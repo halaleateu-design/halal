@@ -1,5 +1,5 @@
 (() => {
-  const CACHE_KEY = "Tayy_image_cache_v8";
+  const CACHE_KEY = "GO_image_cache_v8";
   const memoryCache = new Map();
 
   try {
@@ -28,7 +28,7 @@
 
   async function resolveItemImage(itemName, fallbackUrl = "") {
     const key = (itemName || "").trim().toLowerCase();
-    if (!key) return fallbackUrl || placeholder("Tayy dish");
+    if (!key) return fallbackUrl || placeholder("GO dish");
 
     const cached = memoryCache.get(key);
     if (cached) return cached;
@@ -40,6 +40,6 @@
   }
 
   const utils = { placeholder, resolveItemImage };
-  window.Tayy_IMAGE_UTILS = utils;
+  window.GO_IMAGE_UTILS = utils;
   window.HFC_IMAGE_UTILS = utils;
 })();

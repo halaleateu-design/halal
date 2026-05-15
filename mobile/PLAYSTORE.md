@@ -1,4 +1,4 @@
-# Tayy — Google Play (free listing)
+# GO — Google Play (free listing)
 
 Your app is a **Capacitor** wrapper around the same website in `www/`. Publishing on Play Store is **free** for a developer account (one-time **$25** registration fee to Google — not per app).
 
@@ -27,8 +27,8 @@ npx cap open android
 
 | Item | Value |
 |------|--------|
-| App name | **Tayy** |
-| Package name | `eu.tayy.app` (must match `capacitor.config.json`) |
+| App name | **GO** |
+| Package name | `eu.halaleat.go.app` (must match `capacitor.config.json`) |
 | Category | Food & Drink |
 | Contact email | halaleateu@gmail.com |
 | Privacy policy URL | Your live site URL + privacy page (required) |
@@ -39,7 +39,7 @@ npx cap open android
 
 **Short description:** Halal delivery & groceries in the EU — verified partners, Porto pilot.
 
-**Full description:** Tayy is an EU halal marketplace. Browse menus, order via WhatsApp with verified partners, and follow us on Instagram @eathalaleu.
+**Full description:** GO is an EU halal marketplace. Browse menus, order via WhatsApp with verified partners, and follow us on Instagram @eathalaleu.
 
 ## Google Maps / Business
 

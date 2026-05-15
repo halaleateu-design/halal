@@ -8,7 +8,7 @@ const titleEl = document.getElementById("detail-title");
 const priceEl = document.getElementById("detail-price");
 const pointsEl = document.getElementById("detail-points");
 const orderLinkEl = document.getElementById("detail-order-link");
-const defaultFallback = "https://placehold.co/1200x800/f2f5fa/1f2533?text=Tayy+item";
+const defaultFallback = "https://placehold.co/1200x800/f2f5fa/1f2533?text=GO+item";
 
 function uiLang() {
   try {
@@ -21,7 +21,7 @@ function uiLang() {
 }
 
 function tr(key) {
-  return window.TayyI18n?.t(uiLang(), key) || key;
+  return window.GOI18n?.t(uiLang(), key) || key;
 }
 
 function applyItemShellI18n() {
@@ -34,9 +34,9 @@ function applyItemShellI18n() {
 function setDynamicMeta(itemName, details) {
   if (!itemName || !details) return;
 
-  document.title = `${itemName} · Tayy · Porto`;
-  const description = `${itemName} — EUR ${details.price.toFixed(2)}. ${details.points.join(" ")} Order via Tayy partner on WhatsApp in Porto.`;
-  const keywords = `${itemName.toLowerCase()} porto, halal ${itemName.toLowerCase()}, halal food delivery porto, Tayy`;
+  document.title = `${itemName} · GO · Porto`;
+  const description = `${itemName} — EUR ${details.price.toFixed(2)}. ${details.points.join(" ")} Order via GO partner on WhatsApp in Porto.`;
+  const keywords = `${itemName.toLowerCase()} porto, halal ${itemName.toLowerCase()}, halal food delivery porto, GO`;
   const canonicalUrl = `https://fanciful-moxie-6b5bba.netlify.app/item.html?item=${encodeURIComponent(itemName)}`;
 
   const ensureMeta = (attribute, key, value) => {
@@ -67,7 +67,7 @@ function setDynamicMeta(itemName, details) {
 
 async function setStandardImage(itemName, imageUrl) {
   const fallback = `https://placehold.co/1200x800/f2f5fa/1f2533?text=${encodeURIComponent(itemName)}`;
-  const utils = window.Tayy_IMAGE_UTILS || window.HFC_IMAGE_UTILS;
+  const utils = window.GO_IMAGE_UTILS || window.HFC_IMAGE_UTILS;
   if (!utils?.resolveItemImage) {
     imageEl.src = imageUrl || fallback;
     return;

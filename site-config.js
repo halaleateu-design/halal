@@ -1,11 +1,11 @@
 /**
- * Tayy — halal marketplace (Halal · EU)
+ * GO — halal marketplace (Halal eat EU)
  */
 (function () {
   const SITE = {
-    brandName: "Tayy",
-    brandLegal: "Tayy EU",
-    brandTagline: "Halal · EU",
+    brandName: "GO",
+    brandLegal: "HalalEat EU",
+    brandTagline: "Halal eat EU",
     businessEmail: "halaleateu@gmail.com",
     websiteUrl: "https://fanciful-moxie-6b5bba.netlify.app/",
     apiBaseUrl: "",
@@ -24,17 +24,17 @@
       placeId: "",
     },
     app: {
-      androidPackage: "eu.tayy.app",
-      iosBundle: "eu.tayy.app",
+      androidPackage: "eu.halaleat.go.app",
+      iosBundle: "eu.halaleat.go.app",
     },
   };
 
-  window.TayySite = SITE;
+  window.GOSite = SITE;
   window.TayySite = SITE;
   window.EatHalalSite = SITE;
   window.HalalEatSite = SITE;
 
-  function applyTayySiteConfig() {
+  function applyGOSiteConfig() {
     const mapsLink = document.getElementById("maps-directions-link");
     const mapsEmbed = document.getElementById("maps-embed");
     if (mapsLink && SITE.maps.directionsUrl) mapsLink.href = SITE.maps.directionsUrl;
@@ -49,8 +49,8 @@
   }
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", applyTayySiteConfig);
+    document.addEventListener("DOMContentLoaded", applyGOSiteConfig);
   } else {
-    applyTayySiteConfig();
+    applyGOSiteConfig();
   }
 })();

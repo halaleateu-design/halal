@@ -1,8 +1,8 @@
 {
-  "name": "Tayy-api",
+  "name": "GO-api",
   "version": "1.0.0",
   "private": true,
-  "description": "Tayy API — customers, merchants, riders",
+  "description": "GO API — customers, merchants, riders",
   "type": "module",
   "main": "src/server.js",
   "scripts": {

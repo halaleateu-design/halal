@@ -1,56 +1,102 @@
 /**
- * Tayy — halal marketplace (Halal · EU)
+ * GO API client — Halal eat EU
  */
 (function () {
-  const SITE = {
-    brandName: "Tayy",
-    brandLegal: "Tayy EU",
-    brandTagline: "Halal · EU",
-    businessEmail: "halaleateu@gmail.com",
-    websiteUrl: "https://fanciful-moxie-6b5bba.netlify.app/",
-    apiBaseUrl: "",
-    social: {
-      instagram: "https://www.instagram.com/eathalaleu/",
-      tiktok: "https://www.tiktok.com/@eathalaleu",
+  const TOKEN_KEY = "go_auth_token";
+
+  function apiBase() {
+    const fromSite = window.GOSite?.apiBaseUrl;
+    if (fromSite) return String(fromSite).replace(/\/$/, "");
+    if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
+      return `${location.protocol}//${location.hostname}:3001/api/v1`;
+    }
+    return "/api/v1";
+  }
+
+  function getToken() {
+    try {
+      return localStorage.getItem(TOKEN_KEY);
+    } catch {
+      return null;
+    }
+  }
+
+  function setToken(token) {
+    try {
+      if (token) localStorage.setItem(TOKEN_KEY, token);
+      else localStorage.removeItem(TOKEN_KEY);
+    } catch {
+      /* ignore */
+    }
+  }
+
+  async function request(path, options = {}) {
+    const headers = { ...(options.headers || {}) };
+    const token = getToken();
+    if (token) headers.Authorization = `Bearer ${token}`;
+
+    let body = options.body;
+    if (body && !(body instanceof FormData) && typeof body === "object") {
+      headers["Content-Type"] = "application/json";
+      body = JSON.stringify(body);
+    }
+
+    const res = await fetch(`${apiBase()}${path}`, { ...options, headers, body });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) {
+      const err = new Error(data.error || data.message || `Request failed (${res.status})`);
+      err.status = res.status;
+      err.data = data;
+      throw err;
+    }
+    return data;
+  }
+
+  const api = {
+    getToken,
+    setToken,
+    clearSession() {
+      setToken(null);
     },
-    maps: {
-      label: "Porto, Portugal",
-      lat: 41.1579,
-      lng: -8.6291,
-      embedUrl:
-        "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3004.5!2d-8.6291!3d41.1579!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd2465abc4e1e6e1%3A0x6f7d3298cfeab114!2sPorto!5e0!3m2!1sen!2spt!4v1",
-      directionsUrl:
-        "https://www.google.com/maps/search/?api=1&query=Porto%2C+Portugal",
-      placeId: "",
+    async register(payload) {
+      const data = await request("/auth/register", { method: "POST", body: payload });
+      if (data.token) setToken(data.token);
+      return data;
     },
-    app: {
-      androidPackage: "eu.tayy.app",
-      iosBundle: "eu.tayy.app",
+    async login(payload) {
+      const data = await request("/auth/login", { method: "POST", body: payload });
+      if (data.token) setToken(data.token);
+      return data;
+    },
+    async me() {
+      return request("/auth/me");
+    },
+    async getProfile() {
+      return request("/profile");
+    },
+    async updateProfile(payload) {
+      return request("/profile", { method: "PATCH", body: payload });
+    },
+    async submitMerchant(formEl) {
+      const fd = new FormData(formEl);
+      return request("/merchants/apply", { method: "POST", body: fd });
+    },
+    async submitRider(formEl) {
+      const fd = new FormData(formEl);
+      const body = Object.fromEntries(fd.entries());
+      return request("/riders/apply", { method: "POST", body });
+    },
+    async health() {
+      return request("/health");
+    },
+    googleSignInUrl() {
+      return `${apiBase()}/auth/google`;
+    },
+    async ssoStatus() {
+      return request("/auth/google/status");
     },
   };
 
-  window.TayySite = SITE;
-  window.TayySite = SITE;
-  window.EatHalalSite = SITE;
-  window.HalalEatSite = SITE;
-
-  function applyTayySiteConfig() {
-    const mapsLink = document.getElementById("maps-directions-link");
-    const mapsEmbed = document.getElementById("maps-embed");
-    if (mapsLink && SITE.maps.directionsUrl) mapsLink.href = SITE.maps.directionsUrl;
-    if (mapsEmbed && SITE.maps.embedUrl) mapsEmbed.src = SITE.maps.embedUrl;
-
-    document.querySelectorAll("[data-brand-name]").forEach((el) => {
-      el.textContent = SITE.brandName;
-    });
-    document.querySelectorAll("[data-brand-tagline]").forEach((el) => {
-      el.textContent = SITE.brandTagline;
-    });
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", applyTayySiteConfig);
-  } else {
-    applyTayySiteConfig();
-  }
+  window.GOApi = api;
+  window.TayyApi = api;
 })();

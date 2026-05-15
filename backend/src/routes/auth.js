@@ -2,6 +2,12 @@ import { Router } from "express";
 import { nanoid } from "nanoid";
 import db from "../db.js";
 import { authMiddleware, hashPassword, signToken, verifyPassword } from "../auth.js";
+import {
+  ensureCustomerProfile,
+  loadProfilesForUser,
+  upsertMerchantProfile,
+  upsertRiderProfile,
+} from "../profiles.js";
 
 const router = Router();
 
@@ -9,9 +15,20 @@ function normalizeEmail(email) {
   return String(email || "").trim().toLowerCase();
 }
 
+function userResponse(row) {
+  return {
+    id: row.id,
+    email: row.email,
+    name: row.full_name,
+    phone: row.phone,
+    role: row.role,
+    createdAt: row.created_at,
+  };
+}
+
 router.post("/register", async (req, res) => {
   try {
-    const { email, password, name, phone, role } = req.body || {};
+    const { email, password, name, phone, role, defaultCity, country } = req.body || {};
     const cleanEmail = normalizeEmail(email);
     const fullName = String(name || "").trim();
     const pass = String(password || "");
@@ -26,8 +43,20 @@ router.post("/register", async (req, res) => {
       return res.status(400).json({ ok: false, error: "Full name is required." });
     }
 
-    const allowedRoles = ["customer"];
+    const allowedRoles = ["customer", "merchant", "rider"];
     const userRole = allowedRoles.includes(role) ? role : "customer";
+    const phoneVal = String(phone || "").trim() || null;
+
+    if (userRole === "rider") {
+      const baseCity = String(req.body.baseCity || req.body.base_city || "").trim();
+      const vehicle = String(req.body.vehicle || "").trim();
+      if (!baseCity || !vehicle || !phoneVal) {
+        return res.status(400).json({
+          ok: false,
+          error: "Rider accounts need phone, base city, and vehicle type.",
+        });
+      }
+    }
 
     const existing = db.prepare("SELECT id FROM users WHERE email = ?").get(cleanEmail);
     if (existing) {
@@ -36,18 +65,48 @@ router.post("/register", async (req, res) => {
 
     const id = nanoid();
     const password_hash = await hashPassword(pass);
+
     db.prepare(
       `INSERT INTO users (id, email, password_hash, full_name, phone, role) VALUES (?, ?, ?, ?, ?, ?)`
-    ).run(id, cleanEmail, password_hash, fullName, String(phone || "").trim() || null, userRole);
+    ).run(id, cleanEmail, password_hash, fullName, phoneVal, userRole);
+
+    ensureCustomerProfile(id, { phone: phoneVal, defaultCity: defaultCity || null, country: country || "PT" });
+
+    if (userRole === "merchant") {
+      const tradingName = String(req.body.tradingName || req.body.trading_name || fullName).trim();
+      upsertMerchantProfile(id, {
+        tradingName,
+        contactEmail: cleanEmail,
+        city: String(req.body.city || "").trim() || null,
+        category: String(req.body.category || "").trim() || null,
+        status: "pending",
+        payload: { source: "register" },
+      });
+    }
+
+    if (userRole === "rider") {
+      const baseCity = String(req.body.baseCity || req.body.base_city || "").trim();
+      const vehicle = String(req.body.vehicle || "").trim();
+      upsertRiderProfile(id, {
+        fullName,
+        phone: phoneVal,
+        baseCity,
+        vehicle,
+        status: "pending",
+        payload: { source: "register" },
+      });
+    }
 
     const user = { id, email: cleanEmail, role: userRole, full_name: fullName };
     const token = signToken(user);
+    const row = db.prepare("SELECT * FROM users WHERE id = ?").get(id);
 
     return res.status(201).json({
       ok: true,
       message: "Account created successfully.",
       token,
-      user: { id, email: cleanEmail, name: fullName, role: userRole },
+      user: userResponse(row),
+      profiles: loadProfilesForUser(id),
     });
   } catch (err) {
     console.error(err);
@@ -63,6 +122,9 @@ router.post("/login", async (req, res) => {
     if (!row) {
       return res.status(401).json({ ok: false, error: "Invalid email or password." });
     }
+    if (row.oauth_provider === "google" && !String(password || "").trim()) {
+      return res.status(400).json({ ok: false, error: "This account uses Google sign-in. Tap Continue with Google." });
+    }
     const valid = await verifyPassword(String(password || ""), row.password_hash);
     if (!valid) {
       return res.status(401).json({ ok: false, error: "Invalid email or password." });
@@ -72,7 +134,8 @@ router.post("/login", async (req, res) => {
     return res.json({
       ok: true,
       token,
-      user: { id: row.id, email: row.email, name: row.full_name, role: row.role, phone: row.phone },
+      user: userResponse(row),
+      profiles: loadProfilesForUser(row.id),
     });
   } catch (err) {
     console.error(err);
@@ -87,7 +150,8 @@ router.get("/me", authMiddleware, (req, res) => {
   }
   return res.json({
     ok: true,
-    user: { id: row.id, email: row.email, name: row.full_name, phone: row.phone, role: row.role, createdAt: row.created_at },
+    user: userResponse(row),
+    profiles: loadProfilesForUser(row.id),
   });
 });
 

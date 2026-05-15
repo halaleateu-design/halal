@@ -1,6 +1,6 @@
 {
-  "appId": "eu.tayy.app",
-  "appName": "Tayy",
+  "appId": "eu.halaleat.go.app",
+  "appName": "GO",
   "webDir": "www",
   "server": {
     "androidScheme": "https"
