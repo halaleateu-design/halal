@@ -1,0 +1,30 @@
+GO API on Render — fix "Couldn't find package.json"
+====================================================
+
+OPTION A — Dashboard settings (recommended)
+-------------------------------------------
+Render → your service → Settings:
+
+  Root Directory:     backend
+  Build Command:      npm install
+  Start Command:      npm start
+
+Save → Manual Deploy → Deploy latest commit
+
+OPTION B — Keep Root Directory empty (repo root)
+----------------------------------------------
+Root package.json is included — Render can use:
+
+  Build Command:      npm run build
+  Start Command:      npm start
+
+Environment variables (Settings → Environment):
+  JWT_SECRET          (generate — long random)
+  CORS_ORIGIN         https://fanciful-moxie-6b5bba.netlify.app
+  FRONTEND_URL        https://fanciful-moxie-6b5bba.netlify.app
+  API_PUBLIC_URL      https://YOUR-SERVICE.onrender.com
+  DATABASE_PATH       ./data/go.db
+  UPLOAD_DIR          ./data/uploads
+
+After deploy, test:
+  https://YOUR-SERVICE.onrender.com/api/v1/health

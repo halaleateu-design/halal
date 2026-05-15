@@ -1,0 +1,13 @@
+{
+  "name": "go-halal-monorepo",
+  "private": true,
+  "description": "Render entry — API lives in backend/",
+  "scripts": {
+    "postinstall": "npm install --prefix backend",
+    "build": "npm install --prefix backend",
+    "start": "npm start --prefix backend"
+  },
+  "engines": {
+    "node": "22.10.0"
+  }
+}
