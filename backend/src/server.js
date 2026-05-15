@@ -3,6 +3,7 @@ import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
+import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 
@@ -49,6 +50,10 @@ app.use(express.urlencoded({ extended: true, limit: "2mb" }));
 const apiLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 120, standardHeaders: true });
 const authLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 30, standardHeaders: true });
 
+function uploadsDir() {
+  return path.resolve(__dirname, "..", process.env.UPLOAD_DIR || "data/uploads");
+}
+
 app.get("/api/v1/health", (_req, res) => {
   try {
     db.prepare("SELECT 1 AS ok").get();
@@ -65,6 +70,33 @@ app.get("/api/v1/health", (_req, res) => {
   }
 });
 
+app.get("/api/v1/ready", (_req, res) => {
+  try {
+    db.prepare("SELECT 1 AS ok").get();
+    const merchantCount = db.prepare("SELECT COUNT(*) AS n FROM merchant_applications").get().n;
+    const riderCount = db.prepare("SELECT COUNT(*) AS n FROM rider_applications").get().n;
+    const upDir = uploadsDir();
+    let uploadsOk = false;
+    try {
+      fs.mkdirSync(upDir, { recursive: true });
+      fs.accessSync(upDir, fs.constants.W_OK);
+      uploadsOk = true;
+    } catch {
+      uploadsOk = false;
+    }
+    res.json({
+      ok: true,
+      database: "connected",
+      uploadsWritable: uploadsOk,
+      applications: { merchants: merchantCount, riders: riderCount },
+      staticRoot,
+    });
+  } catch (err) {
+    console.error("Ready check failed:", err);
+    res.status(503).json({ ok: false, error: "not_ready", detail: String(err?.message || err) });
+  }
+});
+
 app.use("/api/v1/auth", authLimiter, authRoutes);
 app.use("/api/v1/auth", authLimiter, googleAuthRoutes);
 app.use("/api/v1/profile", apiLimiter, profileRoutes);
@@ -74,12 +106,39 @@ app.use("/api/v1/admin", apiLimiter, adminRoutes);
 
 app.use(express.static(staticRoot, { index: "index.html", extensions: ["html"] }));
 
+function isInsideRoot(rootAbs, fileAbs) {
+  const root = path.resolve(rootAbs) + path.sep;
+  const file = path.resolve(fileAbs);
+  return file === path.resolve(rootAbs) || file.startsWith(root);
+}
+
 app.get("*", (req, res, next) => {
   if (req.path.startsWith("/api/")) return next();
-  const file = path.join(staticRoot, req.path.endsWith("/") ? "index.html" : req.path);
-  res.sendFile(file, (err) => {
-    if (err) res.sendFile(path.join(staticRoot, "index.html"));
-  });
+  const raw = req.path === "/" ? "" : req.path.replace(/^\/+/, "");
+  const candidates = [];
+  if (req.path.endsWith("/")) {
+    candidates.push(path.join(raw, "index.html"));
+  } else {
+    candidates.push(raw);
+    if (!raw.endsWith(".html")) {
+      candidates.push(`${raw}.html`);
+      candidates.push(path.join(raw, "index.html"));
+    }
+  }
+  const rootResolved = path.resolve(staticRoot);
+  for (const rel of candidates) {
+    if (!rel || rel.includes("..")) continue;
+    const abs = path.resolve(staticRoot, rel);
+    if (!isInsideRoot(staticRoot, abs)) continue;
+    try {
+      if (fs.existsSync(abs) && fs.statSync(abs).isFile()) {
+        return res.sendFile(abs);
+      }
+    } catch {
+      /* ignore */
+    }
+  }
+  return res.sendFile(path.join(rootResolved, "index.html"));
 });
 
 app.use((req, res) => {

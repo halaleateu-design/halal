@@ -1,4 +1,6 @@
-# GO static site — Netlify deploy
+# GO static site — Netlify deploy (publish root = repo root).
+# See also `_redirects` — Netlify merges both.
+
 [build]
   publish = "."
 
@@ -20,18 +22,57 @@
     Cache-Control = "public, max-age=3600"
 
 [[redirects]]
+  from = "/api/*"
+  to = "https://halall-dm79.onrender.com/api/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/signup"
+  to = "/signup.html"
+  status = 200
+
+[[redirects]]
+  from = "/signin"
+  to = "/signin.html"
+  status = 200
+
+[[redirects]]
+  from = "/partners"
+  to = "/partners.html"
+  status = 200
+
+[[redirects]]
+  from = "/auth-callback"
+  to = "/auth-callback.html"
+  status = 200
+
+[[redirects]]
+  from = "/category"
+  to = "/category.html"
+  status = 200
+
+[[redirects]]
+  from = "/item"
+  to = "/item.html"
+  status = 200
+
+[[redirects]]
+  from = "/admin"
+  to = "/admin/index.html"
+  status = 200
+
+[[redirects]]
   from = "/riders"
   to = "/riders.html"
   status = 301
 
 [[redirects]]
   from = "/rider"
-  to = "/rider/"
+  to = "/rider/index.html"
   status = 301
 
-
 [[redirects]]
-  from = "/api/*"
-  to = "https://halall-dm79.onrender.com/api/:splat"
+  from = "/rider/"
+  to = "/rider/index.html"
   status = 200
-  force = true

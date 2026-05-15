@@ -89,6 +89,9 @@
     async health() {
       return request("/health");
     },
+    async ready() {
+      return request("/ready");
+    },
     googleSignInUrl() {
       return `${apiBase()}/auth/google`;
     },

@@ -30,7 +30,7 @@ const storage = multer.diskStorage({
 });
 const upload = multer({
   storage,
-  limits: { fileSize: 8 * 1024 * 1024, files: 6 },
+  limits: { fileSize: 8 * 1024 * 1024, files: 20 },
 });
 
 const router = Router();
@@ -67,7 +67,7 @@ router.post("/apply", upload.any(), (req, res) => {
     const id = nanoid();
     const userId = resolveUserId(req, contactEmail);
     const payload = formToPayload(body);
-    const category = String(body["biz-category"] || body.category || "").trim();
+    const category = String(body["biz-category"] || body["biz-type"] || body.category || "").trim();
 
     db.prepare(
       `INSERT INTO merchant_applications (id, user_id, trading_name, contact_email, city, category, payload)
