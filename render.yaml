@@ -18,7 +18,7 @@ services:
       - key: FRONTEND_URL
         value: https://fanciful-moxie-6b5bba.netlify.app
       - key: API_PUBLIC_URL
-        sync: false
+        value: https://halall-dm79.onrender.com
       - key: GOOGLE_CLIENT_ID
         sync: false
       - key: GOOGLE_CLIENT_SECRET

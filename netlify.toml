@@ -29,7 +29,12 @@
   to = "/rider/"
   status = 301
 
-# After deploying backend on Render, set your service URL below (uncomment + replace):
+
+[[redirects]]
+  from = "/api/*"
+  to = "https://halall-dm79.onrender.com/api/:splat"
+  status = 200
+  force = true
 # [[redirects]]
 #   from = "/api/*"
 #   to = "https://YOUR-SERVICE.onrender.com/api/:splat"
