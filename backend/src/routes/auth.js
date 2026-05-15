@@ -26,6 +26,14 @@ function userResponse(row) {
   };
 }
 
+function riderCountryFromBody(body) {
+  return String(body?.country || body?.riderCountry || body?.["rider-country"] || "").trim().toUpperCase().slice(0, 8);
+}
+
+function riderPostalFromBody(body) {
+  return String(body?.postalCode || body?.postal_code || body?.["rider-postal"] || "").trim();
+}
+
 router.post("/register", async (req, res) => {
   try {
     const { email, password, name, phone, role, defaultCity, country } = req.body || {};
@@ -50,10 +58,12 @@ router.post("/register", async (req, res) => {
     if (userRole === "rider") {
       const baseCity = String(req.body.baseCity || req.body.base_city || "").trim();
       const vehicle = String(req.body.vehicle || "").trim();
-      if (!baseCity || !vehicle || !phoneVal) {
+      const rc = riderCountryFromBody(req.body);
+      const postalCode = riderPostalFromBody(req.body);
+      if (!baseCity || !vehicle || !phoneVal || rc.length < 2 || postalCode.length < 3) {
         return res.status(400).json({
           ok: false,
-          error: "Rider accounts need phone, base city, and vehicle type.",
+          error: "Rider accounts need phone, base city, vehicle, country, and postal code.",
         });
       }
     }
@@ -70,7 +80,14 @@ router.post("/register", async (req, res) => {
       `INSERT INTO users (id, email, password_hash, full_name, phone, role) VALUES (?, ?, ?, ?, ?, ?)`
     ).run(id, cleanEmail, password_hash, fullName, phoneVal, userRole);
 
-    ensureCustomerProfile(id, { phone: phoneVal, defaultCity: defaultCity || null, country: country || "PT" });
+    ensureCustomerProfile(id, {
+      phone: phoneVal,
+      defaultCity: userRole === "rider" ? String(req.body.baseCity || req.body.base_city || "").trim() || null : defaultCity || null,
+      country:
+        userRole === "rider"
+          ? riderCountryFromBody(req.body) || "PT"
+          : country || "PT",
+    });
 
     if (userRole === "merchant") {
       const tradingName = String(req.body.tradingName || req.body.trading_name || fullName).trim();
@@ -87,9 +104,14 @@ router.post("/register", async (req, res) => {
     if (userRole === "rider") {
       const baseCity = String(req.body.baseCity || req.body.base_city || "").trim();
       const vehicle = String(req.body.vehicle || "").trim();
+      const rc = riderCountryFromBody(req.body);
+      const postalCode = riderPostalFromBody(req.body);
       upsertRiderProfile(id, {
         fullName,
         phone: phoneVal,
+        contactEmail: cleanEmail,
+        country: rc,
+        postalCode,
         baseCity,
         vehicle,
         status: "pending",

@@ -63,6 +63,16 @@
   status = 200
 
 [[redirects]]
+  from = "/track"
+  to = "/track-order.html"
+  status = 302
+
+[[redirects]]
+  from = "/track-order"
+  to = "/track-order.html"
+  status = 200
+
+[[redirects]]
   from = "/riders"
   to = "/riders.html"
   status = 301

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Place delivery order — GO</title>
+  <link rel="icon" href="assets/halaleat-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="halaleat-premium.css">
+  <script src="site-config.js"></script>
+  <style>
+    .dofield { margin-bottom: 0.85rem; }
+    .dofield label { display: block; font-weight: 600; margin-bottom: 0.25rem; font-size: 0.9rem; }
+    .dofield input, .dofield select, .dofield textarea { width: 100%; max-width: 420px; padding: 0.55rem 0.65rem; border-radius: 10px; border: 1px solid #c9d5ec; font-size: 1rem; }
+    .do-out { margin-top: 1rem; padding: 1rem; background: #f0f4ff; border-radius: 12px; font-size: 0.92rem; }
+  </style>
+</head>
+<body class="prem-page ue-customer">
+  <div class="container" style="max-width: 520px; margin: 0 auto; padding: 2rem 1rem;">
+    <p><a href="delivery-hub.html" class="prem-inline-link">← Delivery hub</a></p>
+    <h1>Place order</h1>
+    <p class="prem-muted">Pick a merchant (shop) from registration, add items, delivery address / coords. Merchant account receives notification.</p>
+    <div class="dofield">
+      <label for="merchant">Restaurant (merchant)</label>
+      <select id="merchant"></select>
+    </div>
+    <div class="dofield">
+      <label for="item1">Items (preset)</label>
+      <textarea id="item1" rows="3" spellcheck="false">[{"qty":2,"name":"Chicken biryani"},{"qty":1,"name":"Masala chai"}]</textarea>
+      <span class="tiny prem-muted">JSON array · <code>[{qty,name}]</code></span>
+    </div>
+    <div class="dofield">
+      <label for="addr">Delivery address</label>
+      <input id="addr" placeholder="Street, postcode, door code">
+    </div>
+    <div class="dofield" style="display: flex; gap: 1rem;">
+      <div>
+        <label for="dlat">Dest lat</label>
+        <input id="dlat" type="text" placeholder="41.15">
+      </div>
+      <div>
+        <label for="dlng">Dest lng</label>
+        <input id="dlng" type="text" placeholder="-8.62">
+      </div>
+    </div>
+    <p class="tiny prem-muted">Coords optional but needed for customer destination map. Default from <code>site-config.js</code> maps.</p>
+    <hr style="border: none; border-top: 1px solid #e2e8f6; margin: 1rem 0;">
+    <p class="prem-muted tiny">Guest checkout (no login)</p>
+    <div class="dofield"><label for="gname">Name</label><input id="gname"></div>
+    <div class="dofield"><label for="gphone">Phone</label><input id="gphone"></div>
+    <div class="dofield"><label for="gmail">Email (confirmation)</label><input id="gmail" type="email"></div>
+    <div class="dofield">
+      <label><input type="checkbox" id="use-auth"> Signed in as customer · use Bearer token (<a href="signin.html">sign in</a>)</label>
+    </div>
+    <button class="prem-btn" type="button" id="submit">Submit order</button>
+    <p id="err" class="tiny" style="color: #b91c1c; margin-top: 0.75rem;" hidden></p>
+    <div id="ok" class="do-out" hidden></div>
+  </div>
+  <script src="api-client.js"></script>
+  <script>
+    (function () {
+      const maps = window.GOSite?.maps || {};
+      const err = document.getElementById("err");
+      const ok = document.getElementById("ok");
+      const sel = document.getElementById("merchant");
+
+      async function loadShops() {
+        const data = await window.GOApi.listShops();
+        sel.innerHTML = "";
+        (data.shops || []).forEach((s) => {
+          const opt = document.createElement("option");
+          opt.value = s.id;
+          opt.textContent = `${s.name} · ${s.city || "city TBD"} · ${s.status}`;
+          sel.appendChild(opt);
+        });
+        if ((data.shops || []).length === 0) sel.innerHTML = "<option>No merchants — register a merchant account first</option>";
+      }
+
+      loadShops().catch(() => {
+        sel.innerHTML = "<option>(Could not load shops)</option>";
+      });
+
+      if (maps.lat != null && maps.lng != null) {
+        document.getElementById("dlat").placeholder = maps.lat;
+        document.getElementById("dlng").placeholder = maps.lng;
+        document.getElementById("dlat").value = maps.lat;
+        document.getElementById("dlng").value = maps.lng;
+      }
+
+      document.getElementById("submit").addEventListener("click", async () => {
+        err.hidden = true;
+        ok.hidden = true;
+        let items = [];
+        try {
+          items = JSON.parse(document.getElementById("item1").value || "[]");
+        } catch {
+          err.textContent = "Items must be valid JSON.";
+          err.hidden = false;
+          return;
+        }
+        const body = {
+          merchantUserId: sel.value,
+          items,
+          deliveryAddress: document.getElementById("addr").value.trim(),
+          deliveryLat: document.getElementById("dlat").value.trim() || undefined,
+          deliveryLng: document.getElementById("dlng").value.trim() || undefined,
+        };
+
+        try {
+          if (!document.getElementById("use-auth").checked) {
+            window.GOApi.clearSession?.();
+          }
+          if (!document.getElementById("use-auth").checked) {
+            body.guestName = document.getElementById("gname").value.trim();
+            body.guestPhone = document.getElementById("gphone").value.trim();
+            body.guestEmail = document.getElementById("gmail").value.trim();
+          }
+
+          let data = await window.GOApi.createOrder(body);
+          const o = data.order;
+          ok.innerHTML =
+            `<strong>Order placed.</strong><br>Code: <code>${o.trackingCode}</code><br>` +
+            `<a href="track-order.html?code=${encodeURIComponent(o.trackingCode)}">Open track page</a>`;
+          ok.hidden = false;
+        } catch (e) {
+          err.textContent = e.message || "Failed.";
+          err.hidden = false;
+        }
+      });
+
+      window.GOApi.me().catch(() => {});
+      document.getElementById("use-auth").checked = !!(window.GOApi.getToken && window.GOApi.getToken());
+    })();
+  </script>
+</body>
+</html>

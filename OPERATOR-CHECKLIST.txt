@@ -1,0 +1,80 @@
+GO / Halal eat EU — WEBSITE HANDLE KARNE KI CHECKLIST
+======================================================
+(Roman Urdu + English — roz / hafta use karo.)
+
+DAILY (5–15 min)
+---------------
+[ ] Email inbox (halaleateu@gmail.com) — naye merchant/rider alerts [GO]
+[ ] Spam folder bhi dekho (pehle haftey mein)
+[ ] WhatsApp business (agar orders wahan aa rahe hon) — missed messages
+[ ] Admin inbox kholo:  YOUR-SITE/admin/  → Load merchants / Load riders
+       → ADMIN_API_KEY Render se paste karna hai
+[ ] Naye leads par 24–48h ke andar reply / call / WhatsApp
+
+WEEKLY
+------
+[ ] /api/v1/health aur /api/v1/ready check (API + DB + counts OK?)
+[ ] Netlify site open — homepage, signup, partners, rider page load ho rahe?
+[ ] Zaroori leads Google Sheet ya CRM mein copy (Render free = DB kabhi reset ho sakti hai)
+[ ] Pending merchant/rider statuses review — kaun approve, kaun waiting
+
+MONTHLY
+-------
+[ ] GitHub repo — koi Dependabot / security alert?
+[ ] Render → Environment — purane/unused vars hata do; secrets rotate socho
+[ ] Google / Apple passwords, App passwords, Resend/API keys — kahin leak to nahi?
+[ ] Legal / privacy pages — agr business change ho to draft update
+
+DEPLOY & CODE (jab change ho)
+-----------------------------
+[ ] Local test: signup, partner apply, rider apply (toast success)
+[ ] git add / commit / push → GitHub main
+[ ] Render auto-deploy ho to wait; warna Manual Deploy
+[ ] Netlify (agar use ho) → redeploy ya Git sync
+[ ] Deploy ke baad live URL par health + ek form submit test
+
+DOMAIN & URLS YAAD RAKHO
+------------------------
+[ ] PUBLIC SITE:     Netlify ya Render jo tum use kartay ho — bookmark
+[ ] API:             YOUR-API.onrender.com
+[ ] API health:      .../api/v1/health
+[ ] Admin panel:     .../admin/
+
+SECURITY — KABHI NA KARNA
+--------------------------
+[ ] ADMIN_API_KEY, JWT_SECRET, Resend/API keys, SMTP password CUSTOMER KO mat do
+[ ] Ye keys chat screenshot / WhatsApp forward mat karo — sirf Render / 1password
+[ ] Repo mein .env commit mat hone do (already .gitignore mein hai)
+
+LEADS FLOW (merchant + rider)
+-----------------------------
+[ ] Email alert ON: NOTIFY_TO + (Resend YA Gmail SMTP) Render par set
+[ ] Partner form: WORK email GO account email jesi ho to profile link zyada clean
+[ ] Rider form: optional "Account email" same as GO signup = auto link
+[ ] Har lead: naam, phone, email, city note karo → Sheet row ya CRM
+
+CUSTOMER SIDE
+-------------
+[ ] Sign up / login issues reported → Render logs + CORS_ORIGIN verify
+[ ] Google SSO chalao to GOOGLE_* env aur Google Console redirect URL match hon
+
+AGR KUCH BREAK HO
+------------------
+[ ] Render Dashboard → Logs (latest error dekho)
+[ ] Browser DevTools → Network → failed API (403/404/CORS?)
+[ ] CORS_ORIGIN mein LIVE site ka exact URL (https, no typo, comma-list OK)
+[ ] SQLite empty lagay → normal on free tier after sleep/restart; backups = exports + Sheet
+
+SCALING BAAD MEIN (jb growth ho)
+---------------------------------
+[ ] Postgres / managed DB Render par (SQLite se migrate)
+[ ] Paid Render (sleep na ho)
+[ ] Email: own domain DKIM (Resend) — deliverability better
+[ ] Payments + orders: Stripe waghera alag roadmap
+
+SHORT LINKS (apne URLs se REPLACE karo)
+-----------------------------------------
+Render API example: https://halall-dm79.onrender.com
+Health:            .../api/v1/health
+Ready:             .../api/v1/ready
+Business email:    halaleateu@gmail.com

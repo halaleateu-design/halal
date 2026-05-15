@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Merchant order inbox — GO</title>
+  <link rel="icon" href="assets/halaleat-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="halaleat-premium.css">
+  <script src="site-config.js"></script>
+  <style>
+    .olist { margin: 0; padding-left: 0; list-style: none; display: grid; gap: 0.85rem; }
+    .ocard { padding: 0.95rem 1rem; border: 1px solid #dce5f9; border-radius: 14px; background: #fff; }
+    .ocard code { word-break: break-all; font-size: 0.82rem; }
+    .muted { font-size: 0.84rem; color: #566; }
+    .dofield label { font-weight: 600; margin-right: 0.35rem; }
+    .dofield input { padding: 0.45rem 0.55rem; border-radius: 8px; border: 1px solid #bcc9e9; margin-right: 0.65rem; }
+  </style>
+</head>
+<body class="prem-page ue-customer">
+  <div class="container" style="max-width: 640px; margin: 0 auto; padding: 2rem 1rem;">
+    <p><a href="delivery-hub.html" class="prem-inline-link">← Hub</a></p>
+    <h1>Merchant · orders</h1>
+    <p class="prem-muted">Requires <strong>merchant</strong> account + token. Set shop address/coords via profile API (fields below PATCH <code>/api/v1/profile</code>).</p>
+    <p class="muted" id="stream-state">SSE: disconnected</p>
+    <div class="ocard" style="margin-bottom: 1rem;">
+      <p style="margin: 0 0 0.5rem 0; font-weight: 600;">Update shop pickup location</p>
+      <div class="dofield"><label for="mad">address</label><input id="mad" size="42" placeholder="Street, postcode"></div>
+      <div class="dofield"><label for="mla">lat</label><input id="mla"><label for="mln">lng</label><input id="mln"></div>
+      <button class="prem-btn prem-btn--outline" type="button" id="save-profile">PATCH profile</button>
+      <span id="patch-msg" class="muted"></span>
+    </div>
+    <button class="prem-btn prem-btn--outline" type="button" id="refresh">Reload list</button>
+    <ul class="olist" id="orders"></ul>
+    <p id="err" class="muted" style="color:#b91c1c;" hidden></p>
+  </div>
+  <script src="api-client.js"></script>
+  <script>
+    (function () {
+      let es;
+
+      async function reload() {
+        const err = document.getElementById("err");
+        err.hidden = true;
+        try {
+          const data = await window.GOApi.myMerchantOrders();
+          const ul = document.getElementById("orders");
+          ul.innerHTML = "";
+          const rows = data.orders || [];
+          if (!rows.length) {
+            ul.innerHTML = `<li class="muted">No orders yet.</li>`;
+            return;
+          }
+          rows.forEach((o) => {
+            const li = document.createElement("li");
+            li.className = "ocard";
+            const accept =
+              o.status === "pending_restaurant"
+                ? `<button type="button" class="prem-btn" data-aid="${o.id}">Accept</button>`
+                : `<span class="muted">${o.status}</span>`;
+            li.innerHTML =
+              `<div style="display:flex; justify-content:space-between; gap:0.75rem; flex-wrap:wrap;">` +
+              `<strong>${String(o.customerDisplayName || "Customer")}</strong>${accept}</div>` +
+              `<div class="muted"><code>${o.trackingCode}</code></div>` +
+              `<div class="muted">${(o.restaurantAddress || "").slice(0, 120)}</div>` +
+              `<div>Deliver to:<br>${(o.deliveryAddress || "").replace(/</g, "&lt;")}</div>`;
+            ul.appendChild(li);
+          });
+
+          ul.querySelectorAll("[data-aid]").forEach((btn) => {
+            btn.addEventListener("click", async () => {
+              btn.disabled = true;
+              try {
+                await window.GOApi.acceptMerchantOrder(btn.getAttribute("data-aid"));
+                reload().catch(console.error);
+              } catch (e) {
+                alert(e.message || String(e));
+                btn.disabled = false;
+              }
+            });
+          });
+        } catch (e) {
+          err.textContent = e.message || String(e);
+          err.hidden = false;
+        }
+      }
+
+      document.getElementById("refresh").addEventListener("click", reload);
+
+      document.getElementById("save-profile").addEventListener("click", async () => {
+        const msg = document.getElementById("patch-msg");
+        msg.textContent = "";
+        try {
+          await window.GOApi.updateProfile({
+            merchantAddress: document.getElementById("mad").value,
+            merchantLatitude: document.getElementById("mla").value,
+            merchantLongitude: document.getElementById("mln").value,
+          });
+          msg.textContent = "Saved.";
+        } catch (e) {
+          msg.textContent = e.message || "Failed";
+        }
+      });
+
+      function connectSse() {
+        const url = window.GOApi.ordersStreamUrl("merchant");
+        const st = document.getElementById("stream-state");
+        if (!url) {
+          st.textContent = "SSE: no token — sign in as merchant on signin.html";
+          return;
+        }
+        try {
+          es = new EventSource(url);
+        } catch (e) {
+          st.textContent = "SSE: " + (e.message || e);
+          return;
+        }
+        st.textContent = "SSE: connected";
+        es.onerror = () => {
+          st.textContent = "SSE: error / reconnecting…";
+        };
+        es.onmessage = (ev) => {
+          try {
+            const d = JSON.parse(ev.data);
+            if (d.type === "order_new" || d.type === "order_accepted") reload().catch(console.error);
+          } catch (_) {}
+        };
+      }
+
+      connectSse();
+      reload().catch(console.error);
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Delivery API hub — GO</title>
+  <link rel="icon" href="assets/halaleat-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="halaleat-premium.css">
+  <script src="site-config.js"></script>
+</head>
+<body class="prem-page ue-customer">
+  <div class="container" style="max-width: 640px; margin: 0 auto; padding: 2rem 1rem 3rem;">
+    <p><a class="prem-inline-link" href="index.html">← Home</a></p>
+    <h1 style="margin-top: 0.5rem;">Delivery flow (API + demos)</h1>
+    <p class="prem-muted">
+      Customers place orders tied to a <strong>merchant user id</strong>. Merchants get SSE + optional email when a rider is not involved yet.
+      After accept, all riders subscribed to SSE see the job; first claim wins. Riders update GPS so customers see live maps on
+      <a class="prem-inline-link" href="track-order.html">track order</a>.
+    </p>
+    <ul style="line-height: 2;">
+      <li><a href="delivery-place-order.html" class="prem-inline-link">Customer — place delivery order</a></li>
+      <li><a href="delivery-merchant-console.html" class="prem-inline-link">Merchant — inbox + Accept</a></li>
+      <li><a href="delivery-customer-console.html" class="prem-inline-link">Customer — live SSE inbox</a></li>
+    </ul>
+    <p class="tiny prem-muted">
+      SSE streams: <code>/api/v1/orders/stream/{merchant|rider|customer}?token=&lt;jwt&gt;</code> · REST under <code>/api/v1/orders/*</code>
+    </p>
+  </div>
+</body>
+</html>

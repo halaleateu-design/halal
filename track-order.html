@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#003399">
+  <title>Track order — GO</title>
+  <meta name="description" content="Track your GO delivery live on the map when your restaurant shares a tracking code.">
+  <link rel="icon" href="assets/halaleat-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="halaleat-premium.css">
+  <script src="site-config.js"></script>
+  <style>
+    .track-page { padding: clamp(2rem, 5vw, 4rem) 1rem 3rem; max-width: 640px; margin: 0 auto; }
+    .track-page h1 { font-size: 1.5rem; margin: 0 0 0.75rem; }
+    .track-page .prem-muted { margin: 0 0 1.25rem; line-height: 1.55; }
+    .track-form { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem; align-items: center; }
+    .track-form input[type="text"] { flex: 1 1 180px; padding: 0.65rem 0.85rem; border-radius: 10px; border: 1px solid #ccc; font-size: 1rem; text-transform: uppercase; }
+    .track-status { padding: 0.6rem 0.85rem; background: #f0f4ff; border-radius: 10px; font-weight: 600; margin-bottom: 1rem; }
+    .track-map-wrap { border-radius: 14px; overflow: hidden; border: 1px solid #dce3f0; min-height: 280px; background: #f8f9fc; }
+    .track-map-wrap iframe { width: 100%; height: min(420px, 55vh); border: 0; display: block; }
+    .track-error { color: #b91c1c; margin-top: 0.75rem; font-size: 0.92rem; }
+    .track-hint { font-size: 0.85rem; color: #555; margin-top: 1rem; line-height: 1.55; }
+  </style>
+</head>
+<body class="prem-page ue-customer">
+  <div class="container track-page">
+    <p><a class="prem-inline-link" href="index.html">← Home</a></p>
+    <h1>Track your delivery</h1>
+    <p class="prem-muted">
+      Jab restaurant tumhe WhatsApp ya email par <strong>tracking code</strong> bhejey ga, yahan paste karo.
+      Jab rider app GPS se location bhelegi / operator map update karega, tum yahan map dekho gay.
+    </p>
+    <form class="track-form" id="track-form" autocomplete="off">
+      <label for="track-code" class="visually-hidden">Tracking code</label>
+      <input id="track-code" name="code" type="text" maxlength="40" placeholder="e.g. GO-ABC123" required>
+      <button type="submit" class="prem-btn">Track</button>
+    </form>
+    <div id="track-status" class="track-status" hidden></div>
+    <div class="track-map-grid" style="display: grid; gap: 0.75rem;">
+      <div class="track-map-wrap" id="track-map-rider-wrap" hidden>
+        <p style="margin: 0 0 0.5rem 0; font-weight: 600; font-size: 0.9rem;">Live rider location</p>
+        <iframe id="track-map-rider-if" title="Rider location" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+      <div class="track-map-wrap" id="track-map-dest-wrap" hidden>
+        <p style="margin: 0 0 0.5rem 0; font-weight: 600; font-size: 0.9rem;">Delivery destination</p>
+        <iframe id="track-map-dest-if" title="Delivery map" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+    <p id="track-error" class="track-error" role="alert" hidden></p>
+    <p class="track-hint">
+      Full checkout APIs keep this page in sync (<code>/api/v1/track/:code</code>). Delivery flow also syncs rider GPS from rider devices.
+      <a href="delivery-hub.html" class="prem-inline-link">Delivery API consoles</a>
+    </p>
+  </div>
+  <script src="api-client.js"></script>
+  <script>
+    (function () {
+      function apiBase() {
+        const u = window.GOSite?.apiBaseUrl;
+        if (u) return String(u).replace(/\/$/, "");
+        if (/localhost|127\.0\.0\.1/i.test(location.hostname)) {
+          return location.protocol + "//" + location.hostname + ":3001/api/v1";
+        }
+        return "/api/v1";
+      }
+
+      function readCodeFromQuery() {
+        const q = new URLSearchParams(location.search).get("code");
+        const input = document.getElementById("track-code");
+        if (q && input) input.value = decodeURIComponent(q);
+      }
+
+      async function fetchTrack(codeRaw) {
+        const code = String(codeRaw || "")
+          .trim()
+          .toUpperCase()
+          .replace(/\s+/g, "");
+        const url = `${apiBase()}/track/${encodeURIComponent(code)}`;
+        const res = await fetch(url);
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) throw new Error(data.error || `Error ${res.status}`);
+        return data;
+      }
+
+      function labels(status, deliveryStatus) {
+        if (deliveryStatus === "pending_restaurant") return "Waiting for restaurant to accept…";
+        if (deliveryStatus === "accepted") return "Accepted — rider pool…";
+        if (deliveryStatus === "rider_claimed") return "Rider assigned — pickup soon";
+        if (deliveryStatus === "picked_up") return "Picked up — on the way";
+        if (deliveryStatus === "delivering") return "On the way to you";
+        if (deliveryStatus === "delivered") return "Delivered";
+        if (deliveryStatus === "cancelled") return "Cancelled";
+        const m = {
+          preparing: "Restaurant accepted / preparing",
+          rider_assigned: "Rider assigned",
+          picked_up: "Picked up — on the way",
+          delivering: "On the way to you",
+          delivered: "Delivered",
+          cancelled: "Cancelled",
+        };
+        return m[status] || status || "Updating…";
+      }
+
+      async function refresh() {
+        const code = document.getElementById("track-code").value;
+        const errEl = document.getElementById("track-error");
+        const stEl = document.getElementById("track-status");
+        const riderWrap = document.getElementById("track-map-rider-wrap");
+        const destWrap = document.getElementById("track-map-dest-wrap");
+        const riderIframe = document.getElementById("track-map-rider-if");
+        const destIframe = document.getElementById("track-map-dest-if");
+        errEl.hidden = true;
+        try {
+          const data = await fetchTrack(code);
+          stEl.hidden = false;
+          let line = `${labels(data.status, data.deliveryStatus)} · ${data.restaurant || "GO partner"}`;
+          if (!data.mapsEmbedUrl || !data.rider) line += " — Rider map when GPS updates.";
+          stEl.textContent = line;
+
+          if (data.mapsEmbedUrl && data.rider) {
+            riderIframe.src = data.mapsEmbedUrl;
+            riderWrap.hidden = false;
+          } else {
+            riderIframe.removeAttribute("src");
+            riderWrap.hidden = true;
+          }
+
+          if (data.destinationEmbedUrl && data.destination) {
+            destIframe.src = data.destinationEmbedUrl;
+            destWrap.hidden = false;
+          } else {
+            destIframe.removeAttribute("src");
+            destWrap.hidden = true;
+          }
+        } catch (e) {
+          stEl.hidden = true;
+          riderWrap.hidden = true;
+          destWrap.hidden = true;
+          riderIframe.removeAttribute("src");
+          destIframe.removeAttribute("src");
+          errEl.textContent = e.message || "Could not load.";
+          errEl.hidden = false;
+        }
+      }
+
+      let pollMs = null;
+      document.getElementById("track-form")?.addEventListener("submit", (ev) => {
+        ev.preventDefault();
+        history.replaceState(null, "", "?code=" + encodeURIComponent(document.getElementById("track-code").value.trim()));
+        if (pollMs) clearInterval(pollMs);
+        refresh();
+        pollMs = setInterval(refresh, 10000);
+      });
+
+      readCodeFromQuery();
+      if (document.getElementById("track-code").value.trim().length >= 4) {
+        refresh();
+        pollMs = setInterval(refresh, 10000);
+      }
+    })();
+  </script>
+</body>
+</html>

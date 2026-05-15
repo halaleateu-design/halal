@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GO · Merchant demo — HalalEat EU</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@9..144,500;9..144,700;9..144,800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #0b1020;
+      --muted: #4a5472;
+      --paper: #fbf9f6;
+      --accent: #003399;
+      --gold: #c9a227;
+      --card: #ffffff;
+      --shadow: 0 22px 50px rgba(11, 16, 32, 0.12);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "DM Sans", system-ui, sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+      line-height: 1.55;
+      font-size: 11.2pt;
+    }
+    h1, h2, h3, .display {
+      font-family: Fraunces, Georgia, serif;
+      letter-spacing: -0.02em;
+    }
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 0 auto 12mm;
+      padding: 16mm 18mm;
+      background: var(--card);
+      border-radius: 4mm;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+      page-break-after: always;
+    }
+    .page:last-child { page-break-after: auto; margin-bottom: 0; }
+
+    /* Cover */
+    .cover-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(1200px 500px at 80% -10%, rgba(0, 51, 153, 0.35), transparent 55%),
+        radial-gradient(900px 400px at 10% 110%, rgba(201, 162, 39, 0.22), transparent 50%),
+        linear-gradient(160deg, #f4f7ff 0%, #fdfbf5 52%, #fff 100%);
+      z-index: 0;
+    }
+    .cover-grid {
+      position: absolute;
+      inset: -30% -20%;
+      background-image: linear-gradient(rgba(0, 51, 153, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 51, 153, 0.035) 1px, transparent 1px);
+      background-size: 48px 48px;
+      transform: rotate(-6deg);
+      z-index: 0;
+      pointer-events: none;
+    }
+    .cover-content { position: relative; z-index: 1; }
+    .logo-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18mm;
+    }
+    .mark {
+      width: 54px;
+      height: 54px;
+      border-radius: 14px;
+      background: linear-gradient(145deg, #003399, #0a2463);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-family: Fraunces, serif;
+      font-weight: 800;
+      font-size: 22px;
+      box-shadow: 0 14px 30px rgba(0, 51, 153, 0.35);
+    }
+    .brand-mini { font-size: 10pt; color: var(--muted); margin-top: 2px; }
+    .cover h1.display {
+      font-size: 34pt;
+      line-height: 1.06;
+      margin: 0 0 10px;
+    }
+    .cover .sub {
+      font-size: 13.5pt;
+      color: var(--muted);
+      max-width: 150mm;
+    }
+    .urdu-note {
+      margin-top: 14px;
+      font-size: 12pt;
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .cover-photo {
+      margin-top: 14mm;
+      border-radius: 12px;
+      overflow: hidden;
+      height: 95mm;
+      position: relative;
+      box-shadow: 0 20px 50px rgba(11, 16, 32, 0.18);
+    }
+    .cover-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .photo-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 14px 16px;
+      background: linear-gradient(transparent, rgba(11,16,32,0.72));
+      color: #eef2ff;
+      font-size: 9pt;
+    }
+    .cover-footer {
+      margin-top: 10mm;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      font-size: 9.5pt;
+      color: var(--muted);
+    }
+    .pill {
+      background: rgba(0, 51, 153, 0.08);
+      color: var(--accent);
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 9pt;
+    }
+
+    /* Inner pages */
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #e8ebf7;
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+      font-size: 9pt;
+      color: var(--muted);
+    }
+    .page-header strong { color: var(--accent); font-weight: 700; }
+    .page-inner h2 {
+      font-size: 20pt;
+      margin: 0 0 8px;
+    }
+    .lede {
+      color: var(--muted);
+      font-size: 11.5pt;
+      margin: 0 0 14px;
+      max-width: 170mm;
+    }
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12mm;
+      align-items: start;
+      margin-top: 8mm;
+    }
+    .viz {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 12px 34px rgba(11,16,32,0.14);
+      background: #e8eaf4;
+      min-height: 68mm;
+    }
+    .viz img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      min-height: 68mm;
+    }
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 10mm;
+    }
+    .stat {
+      background: linear-gradient(180deg, #f6f8ff, #ffffff);
+      border: 1px solid #e3e9ff;
+      border-radius: 10px;
+      padding: 10px 12px;
+    }
+    .stat b {
+      display: block;
+      font-size: 16pt;
+      font-family: Fraunces, serif;
+      color: var(--accent);
+    }
+    .stat span { font-size: 9.5pt; color: var(--muted); }
+
+    ul.clean {
+      margin: 10px 0 0;
+      padding-left: 18px;
+    }
+    ul.clean li { margin-bottom: 6px; }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-top: 10mm;
+    }
+    .card {
+      border-radius: 10px;
+      border: 1px solid #e7ebf9;
+      padding: 11px 12px;
+      background: #fff;
+    }
+    .card h3 {
+      margin: 0 0 4px;
+      font-size: 12.5pt;
+      font-family: "DM Sans", sans-serif;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .card p { margin: 0; font-size: 10.2pt; color: var(--muted); }
+
+    .flow {
+      margin-top: 8mm;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+    .step {
+      text-align: center;
+      padding: 10px 6px;
+      border-radius: 10px;
+      background: #f7f9ff;
+      border: 1px dashed rgba(0,51,153,0.25);
+      font-size: 9.8pt;
+    }
+    .step strong { display: block; color: var(--accent); margin-bottom: 4px; }
+
+    .footnote {
+      font-size: 9pt;
+      color: var(--muted);
+      margin-top: 8mm;
+      border-top: 1px dashed #dfe4fb;
+      padding-top: 8px;
+    }
+    .cta-block {
+      margin-top: 10mm;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #003399 0%, #122a73 55%, #0b1d50 100%);
+      color: #f2f6ff;
+    }
+    .cta-block h3 {
+      margin: 0 0 6px;
+      font-family: Fraunces, serif;
+      font-size: 15pt;
+    }
+    .cta-block p { margin: 0; font-size: 10pt; opacity: 0.95; }
+    .links { margin-top: 8px; font-size: 9.5pt; word-break: break-all; }
+
+    @media print {
+      body { background: white; }
+      .page {
+        margin: 0;
+        border-radius: 0;
+        box-shadow: none;
+        page-break-after: always;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- COVER -->
+  <section class="page cover">
+    <div class="cover-bg" aria-hidden="true"></div>
+    <div class="cover-grid" aria-hidden="true"></div>
+    <div class="cover-content">
+      <div class="logo-row">
+        <div class="mark" aria-hidden="true">G</div>
+        <div>
+          <div style="font-weight:800;font-size:15pt;letter-spacing:.04em;">GO</div>
+          <div class="brand-mini">HalalEat EU · halal-only marketplace</div>
+        </div>
+        <span class="pill" style="margin-left:auto;">Merchant demo · 2026</span>
+      </div>
+      <h1 class="display">Grow with Europe’s halal-first food platform</h1>
+      <p class="sub">
+        GO connects verified halal restaurants, groceries, butchers, bakeries, and snacks with customers who want trust, clarity, and modern ordering — web today, mobile app next.
+      </p>
+      <p class="urdu-note" dir="rtl">مرچنٹس کے لیے: یہ ڈیک آپ کی دکان GO پر آن بورڈ کرنے کے فوائد اور عمل کو سمجھاتا ہے۔</p>
+      <div class="cover-photo">
+        <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=1600&q=80" alt="Colourful halal-style street food and fresh ingredients" width="1600" height="900" />
+        <div class="photo-caption">Trust-first discovery: categories, menus, and partner stories — built for EU halal shoppers.</div>
+      </div>
+      <div class="cover-footer">
+        <div>
+          <strong>Contact</strong><br />
+          halaleateu@gmail.com · Porto pilot · EU expansion
+        </div>
+        <div style="text-align:right;">
+          <strong>Live product</strong><br />
+          halall-dm79.onrender.com<br />
+          Netlify mirror in SEO metadata
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY NOW -->
+  <section class="page page-inner">
+    <div class="page-header"><span><strong>GO</strong> · Merchant programme</span><span>Page 2</span></div>
+    <h2>Why merchants choose a halal-only marketplace</h2>
+    <p class="lede">
+      Mainstream delivery apps mix many cuisines; halal diners still worry about sourcing, certification, and menu clarity.
+      GO is positioned as European halal retail &amp; food — fewer irrelevant listings, sharper intent, clearer partner standards.
+    </p>
+    <div class="two-col">
+      <div>
+        <h3 style="margin-top:0;font-size:13pt;">Customer promise</h3>
+        <ul class="clean">
+          <li>Verified halal partners only — certifications &amp; menu checks before going live.</li>
+          <li>Categories spanning restaurants, grocery, butcher, bakery, snacks (where published).</li>
+          <li>WhatsApp-assisted ordering during rollout; fuller checkout &amp; couriers on the roadmap.</li>
+        </ul>
+        <h3 style="font-size:13pt;">What you gain</h3>
+        <ul class="clean">
+          <li>Brand alignment with <em>halal trust</em>, not generic “fast food” noise.</li>
+          <li>Structured catalogue tooling: machine-readable price lists (CSV) + optional documents.</li>
+          <li>Operational profile: identity, halal proofs, ops window, payout readiness fields.</li>
+        </ul>
+      </div>
+      <div class="viz">
+        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80" alt="Shared dining table with diverse halal-friendly dishes" width="1200" height="800" />
+      </div>
+    </div>
+    <div class="stat-row">
+      <div class="stat"><b>EU</b><span>Expansion mindset — Porto pilot, scalable playbook.</span></div>
+      <div class="stat"><b>Web + app</b><span>Android/iOS identifiers reserved; web live today.</span></div>
+      <div class="stat"><b>Trust</b><span>Halal operating policy baked into product copy &amp; flows.</span></div>
+    </div>
+  </section>
+
+  <!-- PRODUCT TOUR -->
+  <section class="page page-inner">
+    <div class="page-header"><span><strong>GO</strong> · Product snapshot</span><span>Page 3</span></div>
+    <h2>What customers see on GO</h2>
+    <p class="lede">
+      The public site highlights categories, featured partners, item pages, and ordering guidance.
+      Merchants get a dedicated <strong>Merchant portal</strong> for onboarding and catalogue preparation.
+    </p>
+    <div class="two-col">
+      <div class="viz" style="min-height:78mm;">
+        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80" alt="Warm restaurant interior with guests" width="1200" height="780" />
+      </div>
+      <div>
+        <div class="cards" style="grid-template-columns:1fr;">
+          <div class="card">
+            <h3>Discovery &amp; menus</h3>
+            <p>Verticals for restaurants, groceries, butcher &amp; more — SEO-tuned for “halal near me” intent across EU cities.</p>
+          </div>
+          <div class="card">
+            <h3>Partner transparency</h3>
+            <p>Profiles communicate halal evidence, offer ranges, and service areas so diners compare with confidence.</p>
+          </div>
+          <div class="card">
+            <h3>Social presence</h3>
+            <p>Instagram &amp; TikTok channels already promote the brand — listings can plug into that community growth.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="footnote">
+      Replace photography in this PDF anytime with your own dish shots — authentic kitchen photos outperform stock for conversion.
+    </p>
+  </section>
+
+  <!-- MERCHANT PORTAL -->
+  <section class="page page-inner">
+    <div class="page-header"><span><strong>GO</strong> · Merchant portal</span><span>Page 4</span></div>
+    <h2>Onboard A → Z (what the portal collects)</h2>
+    <p class="lede">
+      The <code>partners.html</code> experience is an end-to-end checklist: legal identity, category, structured pricing, halal proofs, operations, and payout readiness.
+      Submissions create a merchant application in the GO backend for review (typically 2–3 business days).
+    </p>
+    <div class="cards">
+      <div class="card">
+        <h3>Business profile</h3>
+        <p>Trading name, city, category (restaurant, grocery, butcher, bakery, snacks…), contact email, supporting uploads.</p>
+      </div>
+      <div class="card">
+        <h3>Catalogue &amp; prices</h3>
+        <p>Machine-readable CSV price list (published pipeline) plus optional PDF/XLSX for validation during onboarding.</p>
+      </div>
+      <div class="card">
+        <h3>Halal compliance pack</h3>
+        <p>Certificates, supplier letters, or internal controls — whatever matches your legal market &amp; brand.</p>
+      </div>
+      <div class="card">
+        <h3>Operations &amp; payouts</h3>
+        <p>Prep times, handoff rules, service radius notes, and banking metadata captured for future settlement flows.</p>
+      </div>
+    </div>
+    <div class="flow">
+      <div class="step"><strong>1 · Apply</strong>Submit profile + documents online.</div>
+      <div class="step"><strong>2 · Review</strong>HalalEat EU checks data &amp; proofs.</div>
+      <div class="step"><strong>3 · Catalogue</strong>CSV import + QA on items.</div>
+      <div class="step"><strong>4 · Go live</strong>List on web/app with marketing support.</div>
+    </div>
+    <div class="viz" style="margin-top:10mm;height:62mm;">
+      <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1400&q=80" alt="Grilled skewers representing halal barbecue offer" width="1400" height="700" />
+    </div>
+  </section>
+
+  <!-- TRUST & LEGAL -->
+  <section class="page page-inner">
+    <div class="page-header"><span><strong>GO</strong> · Trust &amp; compliance</span><span>Page 5</span></div>
+    <h2>Halal trust is the product — not a marketing sticker</h2>
+    <p class="lede">
+      GO’s public FAQ states that only verified partners are listed, with certification and menu checks before launch.
+      Alcohol, gambling, and plainly non-halal storefront categories stay out of this product surface.
+    </p>
+    <div class="two-col">
+      <div>
+        <h3 style="margin-top:0;font-size:13pt;">Contracting</h3>
+        <p style="color:var(--muted);font-size:10.5pt;">
+          A dedicated partner agreement (<em>contrato parceiro comerciante</em>) is published for transparency.
+          Executed copies, fee schedules, and jurisdiction details should be finalised with the HalalEat EU team before trading.
+        </p>
+        <h3 style="font-size:13pt;">Data &amp; documents</h3>
+        <p style="color:var(--muted);font-size:10.5pt;">
+          Upload slots accept PDFs, scans, and spreadsheets. Keep filenames meaningful (e.g. <code>halal-cert-2026.pdf</code>) to speed review.
+        </p>
+      </div>
+      <div class="viz">
+        <img src="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?auto=format&fit=crop&w=1200&q=80" alt="Fresh produce at a market stall" width="1200" height="800" />
+      </div>
+    </div>
+    <div class="cta-block">
+      <h3>Ready to list your kitchen or store?</h3>
+      <p>Open the merchant portal, complete the checklist, and the operations team will respond with next steps.</p>
+      <div class="links">
+        <strong>Merchant portal:</strong> /partners.html on your hosted site<br />
+        <strong>Business email:</strong> halaleateu@gmail.com<br />
+        <strong>WhatsApp (orders / inquiries):</strong> +351 931 430 970<br />
+        <strong>Social:</strong> @eathalaleu (Instagram, TikTok)
+      </div>
+    </div>
+    <p class="footnote">
+      Photo credits: Unsplash community photographers — replace with your brand photography before external printing if you need exclusive rights.
+    </p>
+  </section>
+
+</body>
+</html>

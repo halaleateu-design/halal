@@ -151,9 +151,9 @@
             <p class="prem-field-hint" data-i18n="rider_hint_name">Use the name you want on your rider profile and payouts.</p>
           </div>
           <div class="prem-field">
-            <label for="rider-email">Account email <span class="prem-muted">(optional)</span></label>
-            <input id="rider-email" name="rider-email" type="email" autocomplete="email" placeholder="you@example.com — same as GO sign-up">
-            <p class="prem-field-hint">Same email as your GO account links this waitlist to your profile automatically.</p>
+            <label for="rider-email" data-i18n="rider_lbl_email">Rider email</label>
+            <input id="rider-email" name="rider-email" type="email" required autocomplete="email" data-i18n-placeholder="rider_ph_email" placeholder="same as GO sign-up if you have one">
+            <p class="prem-field-hint" data-i18n="rider_hint_email">Required — payouts &amp; onboarding. Same as GO sign-up links your profile.</p>
           </div>
           <div class="prem-field">
             <label for="rider-phone" data-i18n="rider_lbl_phone">Mobile</label>
@@ -161,9 +161,39 @@
             <p class="prem-field-hint" data-i18n="rider_hint_phone">Include country code. WhatsApp-capable numbers help the kitchen reach you.</p>
           </div>
           <div class="prem-field">
-            <label for="rider-city" data-i18n="rider_lbl_city">Base city</label>
+            <label for="rider-country" data-i18n="rider_lbl_country">Country</label>
+            <select id="rider-country" name="rider-country" required autocomplete="country">
+              <option value="" data-i18n="rider_country_placeholder">Choose country…</option>
+              <option value="PT">Portugal</option>
+              <option value="ES">Spain</option>
+              <option value="FR">France</option>
+              <option value="DE">Germany</option>
+              <option value="IT">Italy</option>
+              <option value="NL">Netherlands</option>
+              <option value="BE">Belgium</option>
+              <option value="AT">Austria</option>
+              <option value="IE">Ireland</option>
+              <option value="PL">Poland</option>
+              <option value="RO">Romania</option>
+              <option value="SE">Sweden</option>
+              <option value="DK">Denmark</option>
+              <option value="FI">Finland</option>
+              <option value="CH">Switzerland</option>
+              <option value="GB">United Kingdom</option>
+              <option value="PK">Pakistan</option>
+              <option value="OTHER" data-i18n="rider_country_other">Other — note in availability box</option>
+            </select>
+            <p class="prem-field-hint" data-i18n="rider_hint_country">Where you legally work — tax &amp; insurance depend on this.</p>
+          </div>
+          <div class="prem-field">
+            <label for="rider-city" data-i18n="rider_lbl_city">City / town</label>
             <input id="rider-city" name="rider-city" required autocomplete="address-level2" data-i18n-placeholder="rider_ph_city" placeholder="Porto">
             <p class="prem-field-hint" data-i18n="rider_hint_city">Where you usually start your shift — we match offers to this area first.</p>
+          </div>
+          <div class="prem-field">
+            <label for="rider-postal" data-i18n="rider_lbl_postal">Postal / ZIP code</label>
+            <input id="rider-postal" name="rider-postal" required autocomplete="postal-code" inputmode="text" maxlength="16" data-i18n-placeholder="rider_ph_postal" placeholder="e.g. 4000-292">
+            <p class="prem-field-hint" data-i18n="rider_hint_postal">Official format for your area — used for zoning &amp; tax records.</p>
           </div>
           <div class="prem-field">
             <label for="rider-vehicle" data-i18n="rider_lbl_vehicle">Vehicle</label>

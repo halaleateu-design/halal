@@ -25,6 +25,11 @@ function resolveUserId(req, emailFromForm) {
   return null;
 }
 
+function normalizeCountry(v) {
+  const u = String(v || "").trim().toUpperCase();
+  return u.slice(0, 8);
+}
+
 router.post("/apply", (req, res) => {
   try {
     const body = req.body || {};
@@ -34,9 +39,20 @@ router.post("/apply", (req, res) => {
     const vehicle = String(body["rider-vehicle"] || body.vehicle || "").trim();
     const notes = String(body["rider-notes"] || body.notes || "").trim();
     const riderEmail = String(body["rider-email"] || body.email || "").trim().toLowerCase();
+    const country = normalizeCountry(body["rider-country"] || body.country);
+    const postalCode = String(body["rider-postal"] || body["postal_code"] || "").trim();
 
     if (!fullName || !phone || !baseCity || !vehicle) {
       return res.status(400).json({ ok: false, error: "Name, phone, city, and vehicle are required." });
+    }
+    if (!riderEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(riderEmail)) {
+      return res.status(400).json({ ok: false, error: "A valid rider email is required." });
+    }
+    if (!country || country.length < 2) {
+      return res.status(400).json({ ok: false, error: "Please select your country." });
+    }
+    if (!postalCode || postalCode.length < 3) {
+      return res.status(400).json({ ok: false, error: "Postal / ZIP code is required (min 3 characters)." });
     }
 
     const userId = resolveUserId(req, riderEmail);
@@ -44,15 +60,19 @@ router.post("/apply", (req, res) => {
     const payload = { notes, ...body };
 
     db.prepare(
-      `INSERT INTO rider_applications (id, user_id, full_name, phone, base_city, vehicle, payload)
-       VALUES (?, ?, ?, ?, ?, ?, ?)`
-    ).run(id, userId, fullName, phone, baseCity, vehicle, JSON.stringify(payload));
+      `INSERT INTO rider_applications (
+        id, user_id, full_name, phone, contact_email, country, postal_code, base_city, vehicle, payload
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+    ).run(id, userId, fullName, phone, riderEmail, country, postalCode, baseCity, vehicle, JSON.stringify(payload));
 
     if (userId) {
       promoteUserRole(userId, "rider");
       upsertRiderProfile(userId, {
         fullName,
         phone,
+        contactEmail: riderEmail,
+        country,
+        postalCode,
         baseCity,
         vehicle,
         status: "pending",
@@ -65,9 +85,11 @@ router.post("/apply", (req, res) => {
       applicationId: id,
       fullName,
       phone,
+      riderEmail,
+      country,
+      postalCode,
       baseCity,
       vehicle,
-      riderEmail: riderEmail || null,
       profileLinked: Boolean(userId),
     }).catch((e) => console.error("[notify rider]", e));
 
@@ -86,7 +108,7 @@ router.post("/apply", (req, res) => {
 router.get("/my", authMiddleware, (req, res) => {
   const rows = db
     .prepare(
-      `SELECT id, full_name, phone, base_city, vehicle, status, created_at
+      `SELECT id, full_name, phone, contact_email, country, postal_code, base_city, vehicle, status, created_at
        FROM rider_applications WHERE user_id = ? ORDER BY created_at DESC`
     )
     .all(req.user.sub);
@@ -98,6 +120,9 @@ router.get("/my", authMiddleware, (req, res) => {
       ? {
           fullName: profile.full_name,
           phone: profile.phone,
+          contactEmail: profile.contact_email,
+          country: profile.country,
+          postalCode: profile.postal_code,
           baseCity: profile.base_city,
           vehicle: profile.vehicle,
           status: profile.status,

@@ -96,6 +96,54 @@ db.exec(`
 
   CREATE INDEX IF NOT EXISTS idx_merchant_status ON merchant_applications(status);
   CREATE INDEX IF NOT EXISTS idx_rider_status ON rider_applications(status);
+
+  CREATE TABLE IF NOT EXISTS order_tracking (
+    id TEXT PRIMARY KEY,
+    tracking_code TEXT NOT NULL UNIQUE COLLATE NOCASE,
+    status TEXT NOT NULL DEFAULT 'preparing'
+      CHECK(status IN ('preparing','rider_assigned','picked_up','delivering','delivered','cancelled')),
+    restaurant_label TEXT,
+    customer_label TEXT,
+    rider_lat REAL,
+    rider_lng REAL,
+    dest_lat REAL,
+    dest_lng REAL,
+    updated_at TEXT NOT NULL DEFAULT (datetime('now'))
+  );
+  CREATE INDEX IF NOT EXISTS idx_order_track_code ON order_tracking(tracking_code);
+
+  CREATE TABLE IF NOT EXISTS delivery_orders (
+    id TEXT PRIMARY KEY,
+    tracking_code TEXT NOT NULL UNIQUE COLLATE NOCASE,
+    status TEXT NOT NULL DEFAULT 'pending_restaurant'
+      CHECK(status IN (
+        'pending_restaurant','accepted','rider_claimed','picked_up','delivering','delivered','cancelled'
+      )),
+    customer_user_id TEXT REFERENCES users(id) ON DELETE SET NULL,
+    guest_name TEXT,
+    guest_phone TEXT,
+    guest_email TEXT,
+    merchant_user_id TEXT NOT NULL REFERENCES users(id),
+    rider_user_id TEXT REFERENCES users(id) ON DELETE SET NULL,
+    restaurant_name TEXT NOT NULL,
+    restaurant_address TEXT,
+    restaurant_lat REAL,
+    restaurant_lng REAL,
+    delivery_address TEXT NOT NULL,
+    delivery_lat REAL,
+    delivery_lng REAL,
+    rider_live_lat REAL,
+    rider_live_lng REAL,
+    items_json TEXT NOT NULL,
+    totals_json TEXT,
+    customer_display_name TEXT,
+    notes TEXT,
+    created_at TEXT NOT NULL DEFAULT (datetime('now')),
+    updated_at TEXT NOT NULL DEFAULT (datetime('now'))
+  );
+  CREATE INDEX IF NOT EXISTS idx_delivery_merchant_status ON delivery_orders(merchant_user_id, status);
+  CREATE INDEX IF NOT EXISTS idx_delivery_rider ON delivery_orders(rider_user_id);
+  CREATE INDEX IF NOT EXISTS idx_delivery_status_pool ON delivery_orders(status);
 `);
 
 try {
@@ -105,6 +153,37 @@ try {
 }
 try {
   db.exec(`ALTER TABLE users ADD COLUMN oauth_id TEXT`);
+} catch {
+  /* exists */
+}
+
+try {
+  db.exec(`ALTER TABLE rider_applications ADD COLUMN contact_email TEXT`);
+} catch {
+  /* exists */
+}
+try {
+  db.exec(`ALTER TABLE rider_applications ADD COLUMN country TEXT`);
+} catch {
+  /* exists */
+}
+try {
+  db.exec(`ALTER TABLE rider_applications ADD COLUMN postal_code TEXT`);
+} catch {
+  /* exists */
+}
+try {
+  db.exec(`ALTER TABLE rider_profiles ADD COLUMN contact_email TEXT`);
+} catch {
+  /* exists */
+}
+try {
+  db.exec(`ALTER TABLE rider_profiles ADD COLUMN country TEXT`);
+} catch {
+  /* exists */
+}
+try {
+  db.exec(`ALTER TABLE rider_profiles ADD COLUMN postal_code TEXT`);
 } catch {
   /* exists */
 }

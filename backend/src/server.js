@@ -14,6 +14,9 @@ import merchantRoutes from "./routes/merchants.js";
 import riderRoutes from "./routes/riders.js";
 import adminRoutes from "./routes/admin.js";
 import profileRoutes from "./routes/profiles.js";
+import trackRoutes from "./routes/track.js";
+import orderRoutes from "./routes/orders.js";
+import { getNotifyDiagnostics } from "./notify-email.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PORT = Number(process.env.PORT) || 3001;
@@ -76,6 +79,7 @@ app.get("/api/v1/ready", (_req, res) => {
     db.prepare("SELECT 1 AS ok").get();
     const merchantCount = db.prepare("SELECT COUNT(*) AS n FROM merchant_applications").get().n;
     const riderCount = db.prepare("SELECT COUNT(*) AS n FROM rider_applications").get().n;
+    const trackOrders = db.prepare("SELECT COUNT(*) AS n FROM order_tracking").get().n;
     const upDir = uploadsDir();
     let uploadsOk = false;
     try {
@@ -89,7 +93,7 @@ app.get("/api/v1/ready", (_req, res) => {
       ok: true,
       database: "connected",
       uploadsWritable: uploadsOk,
-      applications: { merchants: merchantCount, riders: riderCount },
+      applications: { merchants: merchantCount, riders: riderCount, trackedOrders: trackOrders },
       staticRoot,
     });
   } catch (err) {
@@ -98,11 +102,18 @@ app.get("/api/v1/ready", (_req, res) => {
   }
 });
 
+app.get("/api/v1/notify-status", (_req, res) => {
+  res.json({ ok: true, email: getNotifyDiagnostics(), time: new Date().toISOString() });
+});
+
 app.use("/api/v1/auth", authLimiter, authRoutes);
 app.use("/api/v1/auth", authLimiter, googleAuthRoutes);
 app.use("/api/v1/profile", apiLimiter, profileRoutes);
 app.use("/api/v1/merchants", apiLimiter, merchantRoutes);
 app.use("/api/v1/riders", apiLimiter, riderRoutes);
+app.use("/api/v1/track", apiLimiter, trackRoutes);
+app.use("/api/v1/orders", apiLimiter, orderRoutes);
+
 app.use("/api/v1/admin", apiLimiter, adminRoutes);
 
 app.use(express.static(staticRoot, { index: "index.html", extensions: ["html"] }));

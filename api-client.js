@@ -92,6 +92,48 @@
     async ready() {
       return request("/ready");
     },
+    async listShops() {
+      return request("/orders/shops");
+    },
+    async createOrder(body) {
+      return request("/orders", { method: "POST", body });
+    },
+    async myCustomerOrders() {
+      return request("/orders/customer/mine");
+    },
+    async myMerchantOrders() {
+      return request("/orders/merchant/mine");
+    },
+    async acceptMerchantOrder(orderId) {
+      return request(`/orders/merchant/${encodeURIComponent(orderId)}/accept`, { method: "POST", body: {} });
+    },
+    async riderPool() {
+      return request("/orders/rider/pool");
+    },
+    async riderMine() {
+      return request("/orders/rider/mine");
+    },
+    async riderClaim(orderId) {
+      return request(`/orders/rider/${encodeURIComponent(orderId)}/claim`, { method: "POST", body: {} });
+    },
+    async riderReportLocation(orderId, lat, lng) {
+      return request(`/orders/rider/${encodeURIComponent(orderId)}/location`, {
+        method: "PATCH",
+        body: { lat, lng },
+      });
+    },
+    async riderOrderStatus(orderId, status) {
+      return request(`/orders/rider/${encodeURIComponent(orderId)}/status`, { method: "POST", body: { status } });
+    },
+    /** Server-Sent Events URL (pass JWT as query token — browsers cannot set headers on EventSource). */
+    ordersStreamUrl(role) {
+      const token = getToken();
+      if (!token) return null;
+      const base = apiBase();
+      const path =
+        role === "merchant" ? "/orders/stream/merchant" : role === "rider" ? "/orders/stream/rider" : "/orders/stream/customer";
+      return `${base}${path}?token=${encodeURIComponent(token)}`;
+    },
     googleSignInUrl() {
       return `${apiBase()}/auth/google`;
     },

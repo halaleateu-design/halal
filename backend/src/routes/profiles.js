@@ -1,7 +1,7 @@
 import { Router } from "express";
 import db from "../db.js";
 import { authMiddleware } from "../auth.js";
-import { ensureCustomerProfile, loadProfilesForUser } from "../profiles.js";
+import { ensureCustomerProfile, loadProfilesForUser, upsertMerchantProfile } from "../profiles.js";
 
 const router = Router();
 
@@ -55,6 +55,38 @@ router.patch("/", authMiddleware, (req, res) => {
     defaultCity: defaultCity !== undefined ? String(defaultCity || "").trim() || null : undefined,
     country: country !== undefined ? String(country || "PT").trim() || "PT" : undefined,
   });
+
+  if (req.user.role === "merchant") {
+    const mp = db.prepare("SELECT * FROM merchant_profiles WHERE user_id = ?").get(userId);
+    if (mp) {
+      let payload = {};
+      try {
+        payload = typeof mp.payload === "string" ? JSON.parse(mp.payload || "{}") : {};
+      } catch {
+        payload = {};
+      }
+      const b = req.body || {};
+      if (b.merchantAddress !== undefined)
+        payload.addressLine = String(b.merchantAddress || "").trim() || null;
+      if (b.merchantLatitude !== undefined && String(b.merchantLatitude).trim() !== "") {
+        const n = Number(b.merchantLatitude);
+        payload.lat = Number.isNaN(n) ? payload.lat : n;
+      }
+      if (b.merchantLongitude !== undefined && String(b.merchantLongitude).trim() !== "") {
+        const n = Number(b.merchantLongitude);
+        payload.lng = Number.isNaN(n) ? payload.lng : n;
+      }
+
+      upsertMerchantProfile(userId, {
+        tradingName: mp.trading_name,
+        contactEmail: mp.contact_email,
+        city: mp.city,
+        category: mp.category,
+        status: mp.status,
+        payload,
+      });
+    }
+  }
 
   const row = db.prepare("SELECT id, email, full_name, phone, role FROM users WHERE id = ?").get(userId);
   return res.json({

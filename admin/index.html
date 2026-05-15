@@ -98,17 +98,36 @@
             <tr>
               <th>When</th>
               <th>Name</th>
-              <th>Phone</th>
+              <th>Email</th>
+              <th>Country</th>
+              <th>Postal</th>
               <th>City</th>
+              <th>Phone</th>
               <th>Vehicle</th>
               <th>Status</th>
             </tr>
           </thead>
           <tbody id="adm-rider-tbody">
-            <tr><td colspan="6">Load riders after entering the key.</td></tr>
+            <tr><td colspan="9">Load riders after entering the key.</td></tr>
           </tbody>
         </table>
       </div>
+
+      <h3 style="font-size: 1rem; margin-top: 28px;">Customer · live map tracking</h3>
+      <p class="admin-muted" style="color: var(--adm-muted); font-size: 0.88rem;">
+        Jab WhatsApp order confirm ho → yahan code banao → customer ko <code>track-order.html?code=…</code> link bhejo.
+        Rider location ke liye <code>PATCH /api/v1/admin/track/:code</code> se <code>rider_lat</code>, <code>rider_lng</code> update karo (future: rider app auto).
+      </p>
+      <div class="admin-field" style="max-width: 420px;">
+        <label for="adm-track-rest">Restaurant label</label>
+        <input id="adm-track-rest" placeholder="Porto Halal Kitchen">
+      </div>
+      <div class="admin-field" style="max-width: 320px;">
+        <label for="adm-track-code">Code (optional)</label>
+        <input id="adm-track-code" placeholder="leave empty → random 8 chars">
+      </div>
+      <button type="button" class="admin-btn" id="adm-track-create">Create tracking link</button>
+      <pre id="adm-track-out" style="font-size: 0.82rem; color: var(--adm-muted); white-space: pre-wrap; margin-top: 12px; min-height: 2em;">—</pre>
     </section>
 
     <div class="admin-grid" style="margin-bottom: 28px;">
@@ -285,7 +304,9 @@
         const data = await admFetch("/admin/stats");
         out.textContent = JSON.stringify(data.stats, null, 2);
         msg.textContent = "Stats loaded.";
-        admToast(`Users: ${data.stats.users}, merchants: ${data.stats.merchantApplications}, riders: ${data.stats.riderApplications}`);
+        admToast(
+          `Users: ${data.stats.users}, merchants: ${data.stats.merchantApplications}, riders: ${data.stats.riderApplications}, tracking: ${data.stats.trackedOrders ?? 0}`
+        );
       } catch (e) {
         msg.textContent = e.message || String(e);
         admToast("Failed — check API base and admin key.");
@@ -314,6 +335,40 @@
       }
     });
 
+    async function admPostJson(path, body) {
+      const base = admApiBase();
+      const res = await fetch(`${base}${path}`, {
+        method: "POST",
+        headers: { ...admHeaders().headers, "Content-Type": "application/json" },
+        body: JSON.stringify(body || {}),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error || `HTTP ${res.status}`);
+      return data;
+    }
+
+    document.getElementById("adm-track-create")?.addEventListener("click", async () => {
+      const out = document.getElementById("adm-track-out");
+      const msg = document.getElementById("adm-api-msg");
+      try {
+        msg.textContent = "Creating tracking code…";
+        const restaurantLabel = document.getElementById("adm-track-rest")?.value?.trim();
+        const codeRaw = document.getElementById("adm-track-code")?.value?.trim();
+        const data = await admPostJson("/admin/track", {
+          restaurantLabel: restaurantLabel || "GO partner",
+          ...(codeRaw ? { code: codeRaw } : {}),
+        });
+        const origin = admApiBase().replace(/\/api\/v1\/?$/, "");
+        const url = `${origin}/track-order.html?code=${encodeURIComponent(data.trackingCode)}`;
+        out.textContent = `Code: ${data.trackingCode}\nCustomer link:\n${url}`;
+        msg.textContent = "Tracking ready — copy link to customer.";
+        admToast("Tracking code created.");
+      } catch (e) {
+        msg.textContent = e.message || String(e);
+        if (out) out.textContent = "—";
+      }
+    });
+
     document.getElementById("adm-load-riders")?.addEventListener("click", async () => {
       const msg = document.getElementById("adm-api-msg");
       const tbody = document.getElementById("adm-rider-tbody");
@@ -322,11 +377,11 @@
         const data = await admFetch("/admin/riders");
         tbody.innerHTML = "";
         const rows = data.applications || [];
-        if (!rows.length) tbody.innerHTML = "<tr><td colspan=\"6\">No rider applications yet.</td></tr>";
+        if (!rows.length) tbody.innerHTML = "<tr><td colspan=\"9\">No rider applications yet.</td></tr>";
         else {
           rows.forEach((r) => {
             const tr = document.createElement("tr");
-            tr.innerHTML = `<td>${r.created_at || "—"}</td><td>${escapeHtml(r.full_name)}</td><td>${escapeHtml(r.phone)}</td><td>${escapeHtml(r.base_city)}</td><td>${escapeHtml(r.vehicle)}</td><td>${escapeHtml(r.status)}</td>`;
+            tr.innerHTML = `<td>${r.created_at || "—"}</td><td>${escapeHtml(r.full_name)}</td><td>${escapeHtml(r.contact_email || "—")}</td><td>${escapeHtml(r.country || "—")}</td><td>${escapeHtml(r.postal_code || "—")}</td><td>${escapeHtml(r.base_city)}</td><td>${escapeHtml(r.phone)}</td><td>${escapeHtml(r.vehicle)}</td><td>${escapeHtml(r.status)}</td>`;
             tbody.appendChild(tr);
           });
         }

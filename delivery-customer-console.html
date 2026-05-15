@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer order live — GO</title>
+  <link rel="icon" href="assets/halaleat-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="halaleat-premium.css">
+  <script src="site-config.js"></script>
+</head>
+<body class="prem-page ue-customer" style="padding: 2rem 1rem; max-width: 520px; margin: 0 auto;">
+  <p><a href="delivery-hub.html" class="prem-inline-link">← Hub</a></p>
+  <h1>Customer · live updates</h1>
+  <p class="prem-muted">Sign in as <strong>customer</strong>. Server-Sent Events fire when your order is accepted or rider moves.</p>
+  <p id="st" class="prem-muted">…</p>
+  <ul id="log" style="font-size:0.88rem; line-height:1.6"></ul>
+  <script src="api-client.js"></script>
+  <script>
+    (function () {
+      const url = window.GOApi.ordersStreamUrl("customer");
+      const st = document.getElementById("st");
+      const log = document.getElementById("log");
+      if (!url) {
+        st.textContent = "No token — use signin.html as customer.";
+        return;
+      }
+      const es = new EventSource(url);
+      st.textContent = "Listening…";
+      es.onmessage = (ev) => {
+        const li = document.createElement("li");
+        li.textContent = ev.data;
+        log.prepend(li);
+      };
+      es.onerror = () => (st.textContent = "Connection issue — retry by refresh");
+    })();
+  </script>
+</body>
+</html>

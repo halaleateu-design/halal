@@ -70,14 +70,21 @@ export function upsertMerchantProfile(userId, { tradingName, contactEmail, city,
   ).run(userId, tradingName, contactEmail || null, city || null, category || null, status || "pending", payloadStr);
 }
 
-export function upsertRiderProfile(userId, { fullName, phone, baseCity, vehicle, status, notes, payload }) {
+export function upsertRiderProfile(userId, { fullName, phone, baseCity, vehicle, status, notes, payload, contactEmail, country, postalCode }) {
   const existing = db.prepare("SELECT user_id FROM rider_profiles WHERE user_id = ?").get(userId);
   const payloadStr = typeof payload === "string" ? payload : JSON.stringify(payload || {});
+  const emailVal = contactEmail ? String(contactEmail).trim().toLowerCase() : null;
+  const countryVal = country ? String(country).trim().toUpperCase().slice(0, 8) : null;
+  const postalVal = postalCode ? String(postalCode).trim().slice(0, 24) : null;
+
   if (existing) {
     db.prepare(
       `UPDATE rider_profiles SET
         full_name = ?,
         phone = ?,
+        contact_email = COALESCE(?, contact_email),
+        country = COALESCE(?, country),
+        postal_code = COALESCE(?, postal_code),
         base_city = ?,
         vehicle = ?,
         status = COALESCE(?, status),
@@ -85,13 +92,25 @@ export function upsertRiderProfile(userId, { fullName, phone, baseCity, vehicle,
         payload = ?,
         updated_at = datetime('now')
        WHERE user_id = ?`
-    ).run(fullName, phone, baseCity, vehicle, status || null, notes || null, payloadStr, userId);
+    ).run(fullName, phone, emailVal, countryVal, postalVal, baseCity, vehicle, status || null, notes || null, payloadStr, userId);
     return;
   }
   db.prepare(
-    `INSERT INTO rider_profiles (user_id, full_name, phone, base_city, vehicle, status, notes, payload, updated_at)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))`
-  ).run(userId, fullName, phone, baseCity, vehicle, status || "pending", notes || null, payloadStr);
+    `INSERT INTO rider_profiles (user_id, full_name, phone, contact_email, country, postal_code, base_city, vehicle, status, notes, payload, updated_at)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))`
+  ).run(
+    userId,
+    fullName,
+    phone,
+    emailVal,
+    countryVal,
+    postalVal,
+    baseCity,
+    vehicle,
+    status || "pending",
+    notes || null,
+    payloadStr
+  );
 }
 
 export function promoteUserRole(userId, role) {
@@ -133,6 +152,9 @@ export function formatRiderProfile(row) {
   return {
     fullName: p.full_name,
     phone: p.phone,
+    contactEmail: p.contact_email || null,
+    country: p.country || null,
+    postalCode: p.postal_code || null,
     baseCity: p.base_city,
     vehicle: p.vehicle,
     status: p.status,

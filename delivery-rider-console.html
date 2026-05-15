@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rider delivery board — GO</title>
+  <link rel="icon" href="assets/halaleat-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="halaleat-premium.css">
+  <script src="site-config.js"></script>
+  <style>
+    .obox { padding: 0.95rem 1rem; margin-bottom: 0.75rem; border: 1px solid #cce0ff; border-radius: 14px; background: #fafcff; font-size: 0.93rem; }
+    .omap { width: 100%; height: min(240px, 40vh); border: 1px solid #dce3f0; border-radius: 12px; margin-top: 0.65rem; }
+    .muted { color: #566; font-size: 0.85rem; }
+    label { margin-right: 0.35rem; }
+    input.small { padding: 0.4rem 0.5rem; border-radius: 8px; border: 1px solid #aab; width: 8rem; }
+  </style>
+</head>
+<body class="prem-page ue-customer">
+  <div class="container" style="max-width: 720px; margin: 0 auto; padding: 2rem 1rem;">
+    <p><a href="delivery-hub.html" class="prem-inline-link">← Hub</a></p>
+    <h1>Rider board</h1>
+    <p class="muted" id="stream-state">SSE: …</p>
+    <button class="prem-btn prem-btn--outline" type="button" id="reload-pool">Refresh pool</button>
+    <button class="prem-btn prem-btn--outline" type="button" id="reload-mine">My jobs</button>
+    <p class="muted" style="margin-top: 0.75rem;">Simulate GPS (Porto-ish defaults)</p>
+    <div class="obox">
+      <label>lat<input class="small" id="glat"></label>
+      <label>lng<input class="small" id="glng"></label>
+      <button class="prem-btn" type="button" id="push-gps" disabled>Push GPS (active job)</button>
+    </div>
+    <section style="margin-top: 1.25rem;"><h2 style="font-size:1rem;">Available</h2><div id="pool"></div></section>
+    <section style="margin-top: 1.5rem;"><h2 style="font-size:1rem;">My delivery</h2><div id="mine"></div></section>
+    <p id="err" class="muted" style="color:#b91c1c;margin-top:.75rem" hidden></p>
+  </div>
+  <script src="api-client.js"></script>
+  <script>
+    (function () {
+      let es;
+      let activeOrderId = null;
+      const maps = window.GOSite?.maps || {};
+
+      document.getElementById("glat").value = maps.lat || "41.1579";
+      document.getElementById("glng").value = maps.lng || "-8.6291";
+
+      async function loadPool() {
+        const raw = await window.GOApi.riderPool();
+        const wrap = document.getElementById("pool");
+        wrap.innerHTML = "";
+        const orders = raw.orders || [];
+        if (!orders.length) wrap.innerHTML = `<p class="muted">Nothing in pool · wait for merchants to Accept.</p>`;
+        orders.forEach((o) => {
+          const d = document.createElement("div");
+          d.className = "obox";
+          d.innerHTML =
+            `<div><strong>${o.restaurantName}</strong></div>` +
+            `<div class="muted"><code>${o.trackingCode}</code></div>` +
+            `<div>${(o.customerDisplayName || "Customer")}</div>` +
+            `<button type="button" class="prem-btn" data-cid="${o.id}">Claim</button>`;
+          wrap.appendChild(d);
+          d.querySelector("[data-cid]").addEventListener("click", async (ev) => {
+            ev.target.disabled = true;
+            await window.GOApi.riderClaim(ev.target.getAttribute("data-cid"));
+            loadMine().catch(console.error);
+            loadPool().catch(console.error);
+          });
+        });
+      }
+
+      async function loadMine() {
+        const raw = await window.GOApi.riderMine();
+        const wrap = document.getElementById("mine");
+        wrap.innerHTML = "";
+        const orders = raw.orders || [];
+        activeOrderId = orders[0]?.id || null;
+        document.getElementById("push-gps").disabled = !activeOrderId;
+        if (!orders.length) {
+          wrap.innerHTML = `<p class="muted">No active runs.</p>`;
+          return;
+        }
+        const o = orders[0];
+        const m = o.maps || {};
+          const dir = m.riderToCustomerDirectionsUrl
+          ? `<p><a href="${m.riderToCustomerDirectionsUrl}" target="_blank" rel="noopener">Open turn-by-turn (shop → customer)</a></p>`
+          : "";
+        const shopIframe = m.shopEmbedUrl
+          ? `<iframe class="omap" title="Shop" loading="lazy" src="${m.shopEmbedUrl}"></iframe>`
+          : `<div class="omap muted" style="display:flex;align-items:center;justify-content:center;">No shop lat/lng — merchant profile</div>`;
+        const custIframe = m.customerDestinationEmbedUrl
+          ? `<iframe class="omap" title="Customer destination" loading="lazy" src="${m.customerDestinationEmbedUrl}"></iframe>`
+          : `<div class="omap muted" style="display:flex;align-items:center;justify-content:center;">Customer map needs dest lat/lng on order</div>`;
+        wrap.innerHTML =
+          `<div class="obox">` +
+          `<div><strong>${o.restaurantName}</strong> · <code>${o.trackingCode}</code></div>` +
+          `<div class="muted">Shop: ${(o.restaurantAddress || "").replace(/</g, "&lt;")}</div>` +
+          `<div><strong>Customer address</strong><br>${(o.deliveryAddress || "").replace(/</g, "&lt;")}</div>` +
+          `<div class="muted">Phone hint: ${o.guestPhone || "linked account"}</div>` +
+          dir +
+          `<div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;">` +
+          shopIframe +
+          custIframe +
+          `</div>` +
+          `<div style="margin-top:.75rem;display:flex;gap:.35rem;flex-wrap:wrap;">` +
+          `<button class="prem-btn prem-btn--outline" data-st="picked_up">Mark picked up</button>` +
+          `<button class="prem-btn prem-btn--outline" data-st="delivering">Delivering</button>` +
+          `<button class="prem-btn" data-st="delivered">Delivered</button>` +
+          `</div></div>`;
+        wrap.querySelectorAll("[data-st]").forEach((btn) =>
+          btn.addEventListener("click", async () => {
+            btn.disabled = true;
+            await window.GOApi.riderOrderStatus(o.id, btn.getAttribute("data-st"));
+            loadMine().catch(console.error);
+          })
+        );
+      }
+
+      document.getElementById("reload-pool").addEventListener("click", () =>
+        loadPool().catch((e) => showErr(e))
+      );
+      document.getElementById("reload-mine").addEventListener("click", () =>
+        loadMine().catch((e) => showErr(e))
+      );
+
+      function showErr(e) {
+        const el = document.getElementById("err");
+        el.textContent = e.message || String(e);
+        el.hidden = false;
+      }
+
+      document.getElementById("push-gps").addEventListener("click", async () => {
+        if (!activeOrderId) return;
+        const lat = Number(document.getElementById("glat").value);
+        const lng = Number(document.getElementById("glng").value);
+        await window.GOApi.riderReportLocation(activeOrderId, lat, lng);
+      });
+
+      function connectSse() {
+        const url = window.GOApi.ordersStreamUrl("rider");
+        const st = document.getElementById("stream-state");
+        if (!url) {
+          st.textContent = "SSE: no token — sign in as rider";
+          return;
+        }
+        es = new EventSource(url);
+        st.textContent = "SSE: connected";
+        es.onerror = () => (st.textContent = "SSE: retrying…");
+        es.onmessage = () => {
+          loadPool().catch(console.error);
+          loadMine().catch(console.error);
+        };
+      }
+
+      connectSse();
+      loadPool().catch(showErr);
+      loadMine().catch(showErr);
+    })();
+  </script>
+</body>
+</html>
