@@ -8,7 +8,7 @@
     brandTagline: "Halal eat EU",
     businessEmail: "halaleateu@gmail.com",
     websiteUrl: "https://fanciful-moxie-6b5bba.netlify.app/",
-    apiBaseUrl: "https://halall-dm79.onrender.com/api/v1",,
+    apiBaseUrl: "https://halall-dm79.onrender.com/api/v1",
     social: {
       instagram: "https://www.instagram.com/eathalaleu/",
       tiktok: "https://www.tiktok.com/@eathalaleu",
