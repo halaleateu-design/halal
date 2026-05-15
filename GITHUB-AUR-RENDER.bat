@@ -7,16 +7,12 @@ echo  ============================================
 echo    GO - GitHub + Render setup
 echo  ============================================
 echo.
-echo  STEP A - GitHub (browser khulega)
+echo  STEP A - GitHub push
 echo  ---------------------------------
-echo  1) Login karo
-echo  2) Repo name: go-halaleat
-echo  3) Public, README mat add karo
-echo  4) Create repository
+echo  Repo: halaleateu-design/halal
+echo  https://github.com/halaleateu-design/halal
 echo.
-start https://github.com/new?name=go-halaleat^&description=GO+Halal+EU
-echo.
-set /p GHUSER=Apna GitHub username likho: 
+start https://github.com/halaleateu-design/halal
 echo.
 where git >nul 2>&1
 if errorlevel 1 (
@@ -24,25 +20,26 @@ if errorlevel 1 (
   pause
   exit /b 1
 )
-git init
-git add .
-git commit -m "GO Halal EU marketplace"
-git branch -M main
 git remote remove origin 2>nul
-git remote add origin https://github.com/%GHUSER%/go-halaleat.git
+git remote add origin https://github.com/halaleateu-design/halal.git
+git branch -M main
+git add -A
+git diff --cached --quiet
+if errorlevel 1 git commit -m "GO Halal eat EU — site + API"
 echo.
-echo  GitHub login allow karo jab pooche...
+echo  GitHub login allow karo (token = password)...
 git push -u origin main
 if errorlevel 1 (
   echo.
-  echo  Push fail. Pehle GitHub par repo banao, phir dubara ye file chalao.
+  echo  Push fail. PUSH-GITHUB.bat chalao ya token banao:
+  echo  https://github.com/settings/tokens
   pause
   exit /b 1
 )
 echo.
 echo  STEP B - Render API (browser khulega)
 echo  ---------------------------------
-start "https://render.com/deploy?repo=https://github.com/%GHUSER%/go-halaleat"
+start "https://render.com/deploy?repo=https://github.com/halaleateu-design/halal"
 echo.
 echo  Render par: Sign in - Deploy dabao - 5 min wait
 echo.
