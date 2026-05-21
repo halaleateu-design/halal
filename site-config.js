@@ -55,4 +55,16 @@
   } else {
     applyGOSiteConfig();
   }
+
+  /** Tap vibration + press animation on all pages that load site-config */
+  (function loadHapticFeedback() {
+    const cfg = document.querySelector('script[src*="site-config.js"]');
+    if (!cfg) return;
+    const src = cfg.getAttribute("src") || "site-config.js";
+    const hapticSrc = src.replace(/site-config\.js(\?.*)?$/i, "haptic-feedback.js$1");
+    const s = document.createElement("script");
+    s.src = hapticSrc;
+    s.defer = true;
+    document.head.appendChild(s);
+  })();
 })();
