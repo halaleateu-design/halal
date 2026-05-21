@@ -1,0 +1,3 @@
+/api/v1/waitlist       /.netlify/functions/waitlist       200
+/api/v1/waitlist/*     /.netlify/functions/waitlist/:splat 200
+/api/*                 https://halall-dm79.onrender.com/api/:splat 200

@@ -20,6 +20,17 @@
       return `${location.protocol}//${h}:${port}/api/v1`;
     }
 
+    // Netlify / custom domain: same-origin proxy (waitlist function + Render for other routes)
+    if (
+      h.endsWith(".netlify.app") ||
+      h === "eathalal.pt" ||
+      h.endsWith(".eathalal.pt") ||
+      h === "www.eathalal.com" ||
+      h.endsWith(".eathalal.com")
+    ) {
+      return `${location.origin.replace(/\/$/, "")}/api/v1`;
+    }
+
     const fromSite = window.GOSite?.apiBaseUrl;
     if (fromSite) return String(fromSite).replace(/\/$/, "");
 

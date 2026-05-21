@@ -1,5 +1,5 @@
 /**
- * Subtle tap feedback — Vibration API on supported phones + press animation everywhere.
+ * Tap feedback — vibration (Android) + press friction + optional success/error pulse.
  */
 (function () {
   if (window.__ehHapticLoaded) return;
@@ -10,15 +10,17 @@
     !reducedMotion && typeof navigator !== "undefined" && typeof navigator.vibrate === "function";
 
   const PATTERNS = {
-    light: 8,
-    medium: [10, 5, 12],
-    strong: [16, 8, 18],
+    light: 14,
+    medium: [18, 10, 22],
+    strong: [28, 14, 32],
+    success: [12, 6, 12, 6, 20],
+    error: [40, 20, 40],
   };
 
   const SELECTOR =
     'button:not([disabled]), input[type="submit"]:not([disabled]), input[type="button"]:not([disabled]), ' +
     '[role="button"]:not([aria-disabled="true"]), .btn, .btn-nav-solid, .btn-nav-ghost, .btn-eats-primary, .btn-eats-secondary, ' +
-    '.eh-share-btn, .eh-wl-form button, a.eh-launch-cta-outline, a.btn, label.btn';
+    '.eh-share-btn, .eh-wl-form button, .eh-btn-primary, a.eh-launch-cta-outline, a.btn, label.btn';
 
   let lastPulse = 0;
 
@@ -29,42 +31,52 @@
     style.textContent = `
       @media (prefers-reduced-motion: no-preference) {
         ${SELECTOR.split(",").map((s) => s.trim()).join(", ")} {
-          transition: transform 0.14s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.14s ease;
+          transition: transform 0.12s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.12s ease, filter 0.12s ease;
+          touch-action: manipulation;
           -webkit-tap-highlight-color: transparent;
         }
         .eh-haptic-press {
-          transform: scale(0.96) !important;
+          transform: scale(0.95) !important;
+          box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.12);
         }
+        .eh-btn-primary.eh-haptic-press,
         .btn-eats-primary.eh-haptic-press,
-        .eh-wl-form button.eh-haptic-press,
-        .eh-share-btn.eh-haptic-press {
-          transform: scale(0.94) !important;
-          filter: brightness(1.05);
+        .eh-wl-form button.eh-haptic-press {
+          transform: scale(0.93) !important;
+          filter: brightness(1.08);
+        }
+        .eh-btn-loading {
+          opacity: 0.85;
+          pointer-events: none;
         }
       }
     `;
     document.head.appendChild(style);
   }
 
+  function vibrate(kind) {
+    if (!canVibrate) return;
+    try {
+      navigator.vibrate(PATTERNS[kind] || PATTERNS.light);
+    } catch (_) {
+      /* ignore */
+    }
+  }
+
+  window.__ehHapticPulse = function (kind) {
+    vibrate(kind === "error" ? "error" : kind === "success" ? "success" : "medium");
+  };
+
   function tier(el) {
     if (
       el.matches(
-        '[type="submit"], .btn-eats-primary, .btn-nav-solid, .eh-wl-form button, .eh-share-btn, .btn.primary'
+        '[type="submit"], .btn-eats-primary, .btn-nav-solid, .eh-wl-form button, .eh-share-btn, .eh-btn-primary, .btn.primary'
       )
     ) {
       return "medium";
     }
     if (el.matches(".btn-eats-secondary, .btn-nav-ghost, .eh-launch-cta-outline")) return "light";
     return "light";
-  }
-
-  function vibrate(t) {
-    if (!canVibrate) return;
-    try {
-      navigator.vibrate(PATTERNS[t] || PATTERNS.light);
-    } catch (_) {
-      /* ignore */
-    }
   }
 
   function pressVisual(el) {
@@ -79,21 +91,20 @@
     el.addEventListener("pointerup", clear, { once: true });
     el.addEventListener("pointercancel", clear, { once: true });
     el.addEventListener("pointerleave", clear, { once: true });
-    window.setTimeout(clear, 220);
+    window.setTimeout(clear, 240);
   }
 
   function onPointerDown(e) {
     if (e.button !== 0 && e.pointerType === "mouse") return;
     const el = e.target.closest(SELECTOR);
     if (!el || el.disabled || el.getAttribute("aria-disabled") === "true") return;
-    if (el.tagName === "A" && !el.getAttribute("href") && !el.getAttribute("role")) return;
+    if (el.tagName === "A" && !el.getAttribute("href") && el.getAttribute("role") !== "button") return;
 
     const now = Date.now();
-    if (now - lastPulse < 70) return;
+    if (now - lastPulse < 55) return;
     lastPulse = now;
 
-    const t = tier(el);
-    vibrate(t);
+    vibrate(tier(el));
     pressVisual(el);
   }
 

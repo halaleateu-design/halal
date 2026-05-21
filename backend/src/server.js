@@ -65,7 +65,8 @@ app.get("/api/v1/health", (_req, res) => {
     res.json({
       ok: true,
       service: "GO API",
-      version: "1.1.0",
+      version: "1.2.0",
+      features: { waitlist: true, orders: true },
       database: "connected",
       time: new Date().toISOString(),
     });

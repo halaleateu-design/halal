@@ -30,7 +30,7 @@
       <div class="eh-hero-copy">
         <h1>The first 100% halal delivery platform is coming to Porto!</h1>
         <p class="eh-hero-lead">
-          Get early access and be the first to order from the best halal restaurants and shops with total safety and trust.
+          Get early access and be first to order with total safety and trust — verified halal partners onboarding now.
           Join the waitlist today for your <strong>free first delivery</strong> and a <strong>1-year discount</strong>,
           exclusive to the <strong>first 100</strong> to register!
         </p>
@@ -42,7 +42,7 @@
           <label class="eh-wl-label" for="wl-name">Full name</label>
           <input id="wl-name" name="name" type="text" required autocomplete="name" placeholder="Your name">
           <input type="hidden" name="city" value="Porto">
-          <button type="submit">Get early access</button>
+          <button type="submit" class="eh-btn-primary">Get early access</button>
         </form>
         <p id="wl-err" class="eh-wl-err" hidden role="alert"></p>
         <p class="eh-wl-foot">
@@ -51,15 +51,15 @@
       </div>
 
       <div class="eh-hero-visual" aria-hidden="true">
-        <div class="eh-food-plate"></div>
+        <div class="eh-trust-glow"></div>
         <div class="eh-phone-mock">
           <div class="eh-mock-screen">
             <p class="eh-mock-brand">EatHalal</p>
-            <p class="eh-mock-tag">Verified halal · Porto</p>
+            <p class="eh-mock-tag">Porto · launching soon</p>
             <ul class="eh-mock-menu">
-              <li>Grill box</li>
-              <li>Fresh butcher</li>
-              <li>Family combos</li>
+              <li>Verified halal only</li>
+              <li>IHP certification path</li>
+              <li>Community-first launch</li>
             </ul>
           </div>
           <span class="eh-mock-badge">1st 100 exclusive: 1-year discount + free first delivery</span>
@@ -70,11 +70,11 @@
     <section class="eh-three-col eh-three-col--soft">
       <div class="eh-col-card eh-col-card--white">
         <h3>Certification partner</h3>
-        <p>Every partner is encouraged to complete <strong>Instituto Halal de Portugal (IHP)</strong> validation for full community trust.</p>
+        <p>Every future partner is encouraged to complete <strong>Instituto Halal de Portugal (IHP)</strong> validation for full community trust.</p>
       </div>
       <div class="eh-col-card eh-col-card--white">
         <h3>For businesses</h3>
-        <p>In Porto, visible halal certification on delivery apps is still rare. EatHalal is your digital shop window.</p>
+        <p>In Porto, visible halal certification on delivery apps is still rare. EatHalal is your digital shop window — join before launch.</p>
         <p class="eh-col-link"><a href="certification.html">Start certification journey →</a></p>
       </div>
       <div class="eh-col-card eh-col-card--white">
@@ -103,12 +103,13 @@
         const fd = new FormData(e.target);
         const api = window.GOApi || window.TayyApi;
         if (!api?.submitWaitlist) {
-          err.textContent = "Could not reach the server. Try again later.";
+          err.textContent = "Could not reach the server. Try again in a moment.";
           err.hidden = false;
           return;
         }
         const btn = e.target.querySelector('button[type="submit"]');
         btn.disabled = true;
+        btn.classList.add("eh-btn-loading");
         try {
           const data = await api.submitWaitlist({
             fullName: fd.get("name"),
@@ -120,16 +121,22 @@
             referredBy: sessionStorage.getItem("eh_waitlist_ref") || undefined,
           });
           sessionStorage.removeItem("eh_waitlist_ref");
+          if (window.__ehHapticPulse) window.__ehHapticPulse("success");
           location.href = `waitlist-success.html?id=${encodeURIComponent(data.signupId)}`;
         } catch (ex) {
           if (ex.status === 409 && ex.data?.existing?.signupId) {
             location.href = `waitlist-success.html?id=${encodeURIComponent(ex.data.existing.signupId)}`;
             return;
           }
-          err.textContent = ex.message || "Something went wrong.";
+          err.textContent =
+            ex.message === "Not found."
+              ? "Connection issue — please try again. If it persists, WhatsApp us at +351 920 683 637."
+              : ex.message || "Something went wrong. Please try again.";
           err.hidden = false;
+          if (window.__ehHapticPulse) window.__ehHapticPulse("error");
         } finally {
           btn.disabled = false;
+          btn.classList.remove("eh-btn-loading");
         }
       });
     })();

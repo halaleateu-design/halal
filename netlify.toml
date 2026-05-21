@@ -2,6 +2,7 @@
 # See also `_redirects` — Netlify merges both.
 
 [build]
+  command = "npm install"
   publish = "."
 
 [[headers]]
@@ -37,11 +38,28 @@
   to = "/certification.html"
   status = 200
 
+# Waitlist on Netlify (Render may lag behind — see netlify/functions/waitlist.mjs)
+[[redirects]]
+  from = "/api/v1/waitlist"
+  to = "/.netlify/functions/waitlist"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/v1/waitlist/*"
+  to = "/.netlify/functions/waitlist/:splat"
+  status = 200
+  force = true
+
 [[redirects]]
   from = "/api/*"
   to = "https://halall-dm79.onrender.com/api/:splat"
   status = 200
   force = true
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
 
 [[redirects]]
   from = "/signup"

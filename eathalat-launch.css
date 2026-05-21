@@ -183,19 +183,21 @@
   min-height: 360px;
 }
 
-.eh-food-plate {
+.eh-trust-glow {
   position: absolute;
-  right: -8%;
-  bottom: 8%;
-  width: 58%;
-  height: 52%;
-  border-radius: 50% 50% 42% 42%;
-  background:
-    radial-gradient(circle at 35% 30%, #f4c27a 0%, #c97a2e 38%, transparent 42%),
-    radial-gradient(circle at 70% 55%, #8b4513 0%, #5c2e12 55%),
-    linear-gradient(145deg, #2d1810, #1a0f0a);
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.22);
+  right: 0;
+  bottom: 12%;
+  width: 70%;
+  height: 65%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 40%, rgba(201, 162, 39, 0.35), transparent 62%),
+    radial-gradient(circle at 70% 60%, rgba(26, 92, 69, 0.45), transparent 55%);
   z-index: 0;
+  filter: blur(2px);
+}
+
+.eh-btn-primary {
+  background: var(--eh-green-mid) !important;
 }
 
 .eh-phone-mock {
