@@ -144,7 +144,39 @@ db.exec(`
   CREATE INDEX IF NOT EXISTS idx_delivery_merchant_status ON delivery_orders(merchant_user_id, status);
   CREATE INDEX IF NOT EXISTS idx_delivery_rider ON delivery_orders(rider_user_id);
   CREATE INDEX IF NOT EXISTS idx_delivery_status_pool ON delivery_orders(status);
+
+  CREATE TABLE IF NOT EXISTS waitlist_signups (
+    id TEXT PRIMARY KEY,
+    full_name TEXT NOT NULL,
+    email TEXT NOT NULL COLLATE NOCASE,
+    phone TEXT,
+    city TEXT NOT NULL,
+    country TEXT NOT NULL DEFAULT 'PT',
+    source TEXT,
+    created_at TEXT NOT NULL DEFAULT (datetime('now'))
+  );
+  CREATE INDEX IF NOT EXISTS idx_waitlist_email ON waitlist_signups(email);
 `);
+try {
+  db.exec(`ALTER TABLE waitlist_signups ADD COLUMN referral_code TEXT`);
+} catch {
+  /* exists */
+}
+try {
+  db.exec(`ALTER TABLE waitlist_signups ADD COLUMN referred_by TEXT`);
+} catch {
+  /* exists */
+}
+try {
+  db.exec(`ALTER TABLE waitlist_signups ADD COLUMN referral_count INTEGER NOT NULL DEFAULT 0`);
+} catch {
+  /* exists */
+}
+try {
+  db.exec(`CREATE UNIQUE INDEX IF NOT EXISTS idx_waitlist_ref_code ON waitlist_signups(referral_code)`);
+} catch {
+  /* exists */
+}
 
 try {
   db.exec(`ALTER TABLE users ADD COLUMN oauth_provider TEXT`);

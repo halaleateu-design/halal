@@ -92,17 +92,33 @@ document.getElementById("signup-form")?.addEventListener("submit", async (event)
   event.preventDefault();
   const form = event.target;
   const fd = new FormData(form);
-  const ok = await withApi(
-    form,
-    () =>
-      (window.GOApi || window.TayyApi).register({
-        name: fd.get("name"),
-        email: fd.get("email"),
-        phone: fd.get("phone"),
-        password: fd.get("password"),
-      }),
-    "Account created — welcome to GO."
-  );
+  const role = String(fd.get("role") || "customer");
+  const payload = {
+    name: fd.get("name"),
+    email: fd.get("email"),
+    phone: fd.get("phone"),
+    password: fd.get("password"),
+    role,
+  };
+  if (role === "merchant") {
+    payload.tradingName = fd.get("tradingName");
+    payload.city = fd.get("city");
+    payload.category = fd.get("category");
+    payload.defaultCity = fd.get("city") || fd.get("tradingName");
+    payload.country = "PT";
+  }
+  if (role === "rider") {
+    payload.baseCity = fd.get("baseCity");
+    payload.vehicle = fd.get("vehicle");
+    payload.country = fd.get("country");
+    payload.postalCode = fd.get("postalCode");
+  }
+
+  let successMsg = "Account created — welcome to GO.";
+  if (role === "merchant") successMsg = "Merchant account created — next apply on Partners page if you upload files.";
+  if (role === "rider") successMsg = "Rider account created — you've joined the courier role on GO.";
+
+  const ok = await withApi(form, () => (window.GOApi || window.TayyApi).register(payload), successMsg);
   if (ok) setTimeout(() => { window.location.href = "index.html"; }, 1400);
 });
 

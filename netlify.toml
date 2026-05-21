@@ -21,6 +21,22 @@
   [headers.values]
     Cache-Control = "public, max-age=3600"
 
+# Launch: main landing = Porto waitlist (remove or change when full site is default)
+[[redirects]]
+  from = "/"
+  to = "/waitlist.html"
+  status = 302
+
+[[redirects]]
+  from = "/waitlist"
+  to = "/waitlist.html"
+  status = 200
+
+[[redirects]]
+  from = "/certification"
+  to = "/certification.html"
+  status = 200
+
 [[redirects]]
   from = "/api/*"
   to = "https://halall-dm79.onrender.com/api/:splat"

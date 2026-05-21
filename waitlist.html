@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0d3d2e">
+  <title>EatHalal — Early access · Porto waitlist</title>
+  <meta name="description" content="The first 100% halal delivery platform coming to Porto. Join the waitlist for free first delivery and a 1-year discount — exclusive to the first 100.">
+  <link rel="icon" href="assets/halaleat-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="halaleat-premium.css">
+  <link rel="stylesheet" href="eathalat-launch.css">
+  <script src="site-config.js"></script>
+</head>
+<body class="eh-launch-page">
+  <header class="eh-launch-header">
+    <div class="container">
+      <a href="index.html?home=1" style="color:#fff;font-weight:800;text-decoration:none;">EatHalal</a>
+      <nav class="eh-launch-nav" aria-label="Launch">
+        <a href="certification.html">For businesses</a>
+        <a href="partners.html">Partner application</a>
+        <a href="rider/index.html">Couriers</a>
+      </nav>
+      <a class="eh-launch-cta-outline" href="#join">Get early access</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="eh-hero-split" id="join">
+      <div class="eh-hero-copy">
+        <h1>The first 100% halal delivery platform is coming to Porto!</h1>
+        <p class="eh-hero-lead">
+          Get early access and be the first to order from the best halal restaurants and shops with total safety and trust.
+          Join the waitlist today for your <strong>free first delivery</strong> and a <strong>1-year discount</strong>,
+          exclusive to the <strong>first 100</strong> to register!
+        </p>
+        <form id="waitlist-form" class="eh-wl-form" novalidate>
+          <label class="eh-wl-label" for="wl-email">Email</label>
+          <input id="wl-email" name="email" type="email" required autocomplete="email" placeholder="your@email.com">
+          <label class="eh-wl-label" for="wl-phone">WhatsApp / phone</label>
+          <input id="wl-phone" name="phone" type="tel" required autocomplete="tel" inputmode="tel" placeholder="+351 9xx xxx xxx">
+          <label class="eh-wl-label" for="wl-name">Full name</label>
+          <input id="wl-name" name="name" type="text" required autocomplete="name" placeholder="Your name">
+          <input type="hidden" name="city" value="Porto">
+          <button type="submit">Get early access</button>
+        </form>
+        <p id="wl-err" class="eh-wl-err" hidden role="alert"></p>
+        <p class="eh-wl-foot">
+          Porto · Portugal · <a href="certification.html">Restaurant or butcher?</a>
+        </p>
+      </div>
+
+      <div class="eh-hero-visual" aria-hidden="true">
+        <div class="eh-food-plate"></div>
+        <div class="eh-phone-mock">
+          <div class="eh-mock-screen">
+            <p class="eh-mock-brand">EatHalal</p>
+            <p class="eh-mock-tag">Verified halal · Porto</p>
+            <ul class="eh-mock-menu">
+              <li>Grill box</li>
+              <li>Fresh butcher</li>
+              <li>Family combos</li>
+            </ul>
+          </div>
+          <span class="eh-mock-badge">1st 100 exclusive: 1-year discount + free first delivery</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="eh-three-col eh-three-col--soft">
+      <div class="eh-col-card eh-col-card--white">
+        <h3>Certification partner</h3>
+        <p>Every partner is encouraged to complete <strong>Instituto Halal de Portugal (IHP)</strong> validation for full community trust.</p>
+      </div>
+      <div class="eh-col-card eh-col-card--white">
+        <h3>For businesses</h3>
+        <p>In Porto, visible halal certification on delivery apps is still rare. EatHalal is your digital shop window.</p>
+        <p class="eh-col-link"><a href="certification.html">Start certification journey →</a></p>
+      </div>
+      <div class="eh-col-card eh-col-card--white">
+        <h3>Courier network</h3>
+        <p>Community couriers · thermal bags · simple dispatch when we go live.</p>
+        <p class="eh-col-link"><a href="rider/index.html">Join rider waitlist →</a></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="eh-launch-footer">
+    <p>EatHalal · Porto pilot · <a href="mailto:halaleateu@gmail.com">halaleateu@gmail.com</a></p>
+  </footer>
+
+  <script src="api-client.js"></script>
+  <script>
+    (function () {
+      const params = new URLSearchParams(location.search);
+      const ref = params.get("ref");
+      if (ref) sessionStorage.setItem("eh_waitlist_ref", ref.toUpperCase());
+
+      document.getElementById("waitlist-form")?.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const err = document.getElementById("wl-err");
+        err.hidden = true;
+        const fd = new FormData(e.target);
+        const api = window.GOApi || window.TayyApi;
+        if (!api?.submitWaitlist) {
+          err.textContent = "Could not reach the server. Try again later.";
+          err.hidden = false;
+          return;
+        }
+        const btn = e.target.querySelector('button[type="submit"]');
+        btn.disabled = true;
+        try {
+          const data = await api.submitWaitlist({
+            fullName: fd.get("name"),
+            email: fd.get("email"),
+            phone: fd.get("phone"),
+            city: "Porto",
+            country: "PT",
+            source: "waitlist.html",
+            referredBy: sessionStorage.getItem("eh_waitlist_ref") || undefined,
+          });
+          sessionStorage.removeItem("eh_waitlist_ref");
+          location.href = `waitlist-success.html?id=${encodeURIComponent(data.signupId)}`;
+        } catch (ex) {
+          if (ex.status === 409 && ex.data?.existing?.signupId) {
+            location.href = `waitlist-success.html?id=${encodeURIComponent(ex.data.existing.signupId)}`;
+            return;
+          }
+          err.textContent = ex.message || "Something went wrong.";
+          err.hidden = false;
+        } finally {
+          btn.disabled = false;
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

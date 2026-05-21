@@ -76,6 +76,54 @@
             <label for="su-pass" data-i18n="auth_pass">Password</label>
             <input id="su-pass" name="password" type="password" autocomplete="new-password" required minlength="8" placeholder="At least 8 characters">
           </div>
+          <div class="prem-field">
+            <label for="su-role">Account type</label>
+            <select id="su-role" name="role" aria-describedby="su-role-help">
+              <option value="customer">Customer · order halal delivery</option>
+              <option value="merchant">Merchant / restaurant · list your kitchen</option>
+              <option value="rider">Rider · deliver with GO</option>
+            </select>
+            <p id="su-role-help" class="prem-muted small" style="margin: 0.35rem 0 0; font-size: 0.88rem;">
+              Merchant &amp; rider still use the same secure backend; optional — you can also apply from <a href="partners.html">Partners</a> or <a href="rider/index.html">Riders</a>.
+            </p>
+          </div>
+          <div id="su-merchant-extra" class="prem-form-grid" hidden style="grid-column: 1 / -1;">
+            <div class="prem-field">
+              <label for="su-trading">Trading / brand name</label>
+              <input id="su-trading" name="tradingName" autocomplete="organization" placeholder="Your kitchen name">
+            </div>
+            <div class="prem-field">
+              <label for="su-city">City</label>
+              <input id="su-city" name="city" autocomplete="address-level2" placeholder="Porto">
+            </div>
+            <div class="prem-field">
+              <label for="su-category">Category</label>
+              <input id="su-category" name="category" placeholder="Restaurant · grocery …">
+            </div>
+          </div>
+          <div id="su-rider-extra" class="prem-form-grid" hidden style="grid-column: 1 / -1;">
+            <div class="prem-field">
+              <label for="su-bc">Home base city</label>
+              <input id="su-bc" name="baseCity" autocomplete="address-level2" placeholder="Porto">
+            </div>
+            <div class="prem-field">
+              <label for="su-vehicle">Vehicle</label>
+              <select id="su-vehicle" name="vehicle">
+                <option value="Bicycle">Bicycle</option>
+                <option value="E-bike">E-bike</option>
+                <option value="Scooter" selected>Scooter / motorcycle</option>
+                <option value="Car">Car</option>
+              </select>
+            </div>
+            <div class="prem-field">
+              <label for="su-rcountry">Country (2+ letters)</label>
+              <input id="su-rcountry" name="country" maxlength="8" placeholder="PT" value="PT">
+            </div>
+            <div class="prem-field">
+              <label for="su-rpostal">Postal / ZIP</label>
+              <input id="su-rpostal" name="postalCode" placeholder="4000-001">
+            </div>
+          </div>
           <label class="prem-check">
             <input type="checkbox" name="terms" required>
             <span data-i18n-html="auth_terms_html">I accept the <a href="index.html#">Terms of use &amp; privacy (draft)</a> — final legal pack ships before public accounts.</span>
@@ -102,6 +150,30 @@
   <script src="site-config.js"></script>
   <script src="api-client.js"></script>
   <script src="i18n.js"></script>
+  <script>
+    document.getElementById("su-role")?.addEventListener("change", function () {
+      const m = document.getElementById("su-merchant-extra");
+      const r = document.getElementById("su-rider-extra");
+      const v = this.value;
+      if (m) m.hidden = v !== "merchant";
+      if (r) r.hidden = v !== "rider";
+      if (v === "merchant") {
+        document.getElementById("su-trading")?.setAttribute("required", "");
+        document.getElementById("su-city")?.setAttribute("required", "");
+      } else {
+        document.getElementById("su-trading")?.removeAttribute("required");
+        document.getElementById("su-city")?.removeAttribute("required");
+      }
+      if (v === "rider") {
+        document.getElementById("su-bc")?.setAttribute("required", "");
+        document.getElementById("su-rpostal")?.setAttribute("required", "");
+      } else {
+        document.getElementById("su-bc")?.removeAttribute("required");
+        document.getElementById("su-rpostal")?.removeAttribute("required");
+      }
+    });
+    document.getElementById("su-role")?.dispatchEvent(new Event("change"));
+  </script>
   <script src="forms-landing.js"></script>
 </body>
 </html>

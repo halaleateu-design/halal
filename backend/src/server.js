@@ -16,6 +16,7 @@ import adminRoutes from "./routes/admin.js";
 import profileRoutes from "./routes/profiles.js";
 import trackRoutes from "./routes/track.js";
 import orderRoutes from "./routes/orders.js";
+import waitlistRoutes from "./routes/waitlist.js";
 import { getNotifyDiagnostics } from "./notify-email.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -113,6 +114,7 @@ app.use("/api/v1/merchants", apiLimiter, merchantRoutes);
 app.use("/api/v1/riders", apiLimiter, riderRoutes);
 app.use("/api/v1/track", apiLimiter, trackRoutes);
 app.use("/api/v1/orders", apiLimiter, orderRoutes);
+app.use("/api/v1/waitlist", apiLimiter, waitlistRoutes);
 
 app.use("/api/v1/admin", apiLimiter, adminRoutes);
 
@@ -168,7 +170,21 @@ app.use((err, _req, res, _next) => {
   res.status(500).json({ ok: false, error: "Internal server error." });
 });
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`GO API + web → http://localhost:${PORT}`);
   console.log(`Static files from: ${staticRoot}`);
+});
+
+server.on("error", (err) => {
+  if (err.code === "EADDRINUSE") {
+    console.error(
+      `\nPort ${PORT} is already in use (another GO API instance or app?).\n` +
+        `Windows: netstat -ano | findstr :${PORT}\n` +
+        `Then: taskkill /PID <PID> /F\n` +
+        `Or run on another port: $env:PORT=3002; node src/server.js\n`
+    );
+  } else {
+    console.error("Server failed to listen:", err);
+  }
+  process.exit(1);
 });

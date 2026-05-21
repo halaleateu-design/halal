@@ -9,6 +9,8 @@
     businessEmail: "halaleateu@gmail.com",
     websiteUrl: "https://halall-dm79.onrender.com/",
     apiBaseUrl: "https://halall-dm79.onrender.com/api/v1",
+    /** Used only on localhost:* — api-client talks to Node here (Live Server vs static :3001). */
+    apiLocalPort: 3001,
     social: {
       instagram: "https://www.instagram.com/eathalaleu/",
       tiktok: "https://www.tiktok.com/@eathalaleu",

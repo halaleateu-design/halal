@@ -20,7 +20,27 @@ router.get("/stats", (_req, res) => {
   const merchants = db.prepare("SELECT COUNT(*) AS c FROM merchant_applications").get().c;
   const riders = db.prepare("SELECT COUNT(*) AS c FROM rider_applications").get().c;
   const tracked = db.prepare("SELECT COUNT(*) AS c FROM order_tracking").get().c;
-  res.json({ ok: true, stats: { users, merchantApplications: merchants, riderApplications: riders, trackedOrders: tracked } });
+  const waitlist = db.prepare("SELECT COUNT(*) AS c FROM waitlist_signups").get().c;
+  res.json({
+    ok: true,
+    stats: {
+      users,
+      merchantApplications: merchants,
+      riderApplications: riders,
+      trackedOrders: tracked,
+      customerWaitlist: waitlist,
+    },
+  });
+});
+
+router.get("/waitlist", (_req, res) => {
+  const rows = db
+    .prepare(
+      `SELECT id, full_name, email, phone, city, country, source, created_at
+       FROM waitlist_signups ORDER BY created_at DESC LIMIT 300`
+    )
+    .all();
+  res.json({ ok: true, signups: rows });
 });
 
 router.get("/merchants", (_req, res) => {

@@ -2,12 +2,17 @@ GO / Halal eat EU — WEBSITE HANDLE KARNE KI CHECKLIST
 ======================================================
 (Roman Urdu + English — roz / hafta use karo.)
 
+PLANEAMENTO (negócio + roadmap)
+------------------------------
+  docs/PLANEAMENTO-EATHALAL-GO.md   — visão, waitlist, pagamentos, fases
+  docs/ESTADO-TECNICO.md            — o que já está no código
+
 DAILY (5–15 min)
 ---------------
 [ ] Email inbox (halaleateu@gmail.com) — naye merchant/rider alerts [GO]
 [ ] Spam folder bhi dekho (pehle haftey mein)
 [ ] WhatsApp business (agar orders wahan aa rahe hon) — missed messages
-[ ] Admin inbox kholo:  YOUR-SITE/admin/  → Load merchants / Load riders
+[ ] Admin inbox kholo:  YOUR-SITE/admin/  → Load merchants / riders / customer waitlist
        → ADMIN_API_KEY Render se paste karna hai
 [ ] Naye leads par 24–48h ke andar reply / call / WhatsApp
 
@@ -52,6 +57,15 @@ LEADS FLOW (merchant + rider)
 [ ] Partner form: WORK email GO account email jesi ho to profile link zyada clean
 [ ] Rider form: optional "Account email" same as GO signup = auto link
 [ ] Har lead: naam, phone, email, city note karo → Sheet row ya CRM
+
+CUSTOMER WAITLIST (Brevo + site)
+--------------------------------
+[ ] Launch pages: /waitlist.html → success screen with referral link
+[ ] Render env: BREVO_API_KEY, BREVO_LIST_ID (Brevo → Contacts → list ID)
+[ ] BREVO_SENDER_EMAIL = verified sender in Brevo (welcome email)
+[ ] Optional: BREVO_WELCOME_TEMPLATE_ID = Brevo template (params: FIRSTNAME, QUEUE_POSITION, REFERRAL_URL)
+[ ] Netlify: / redirects to waitlist (netlify.toml); full home = index.html?home=1
+[ ] Test: submit form → contact in Brevo + welcome email received
 
 CUSTOMER SIDE
 -------------

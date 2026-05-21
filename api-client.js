@@ -4,13 +4,30 @@
 (function () {
   const TOKEN_KEY = "go_auth_token";
 
-  function apiBase() {
+  function resolveApiBase() {
+    if (typeof location === "undefined") return "/api/v1";
+
+    if (location.protocol === "file:") {
+      const port =
+        window.GOSite?.apiLocalPort !== undefined ? String(window.GOSite.apiLocalPort) : "3001";
+      return `http://127.0.0.1:${port}/api/v1`;
+    }
+
+    const h = location.hostname;
+    if (h === "localhost" || h === "127.0.0.1") {
+      const port =
+        window.GOSite?.apiLocalPort !== undefined ? String(window.GOSite.apiLocalPort) : "3001";
+      return `${location.protocol}//${h}:${port}/api/v1`;
+    }
+
     const fromSite = window.GOSite?.apiBaseUrl;
     if (fromSite) return String(fromSite).replace(/\/$/, "");
-    if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
-      return `${location.protocol}//${location.hostname}:3001/api/v1`;
-    }
-    return "/api/v1";
+
+    return `${location.origin.replace(/\/$/, "")}/api/v1`;
+  }
+
+  function apiBase() {
+    return resolveApiBase();
   }
 
   function getToken() {
@@ -86,11 +103,18 @@
       const body = Object.fromEntries(fd.entries());
       return request("/riders/apply", { method: "POST", body });
     },
+    async submitWaitlist(payload) {
+      return request("/waitlist", { method: "POST", body: payload });
+    },
     async health() {
       return request("/health");
     },
     async ready() {
       return request("/ready");
+    },
+    /** Same base URL used for fetch — localhost always hits local Node (:3001), not Render. */
+    apiRoot() {
+      return resolveApiBase();
     },
     async listShops() {
       return request("/orders/shops");

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0d3d2e">
+  <title>You're on the list — EatHalal</title>
+  <link rel="icon" href="assets/halaleat-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="eathalat-launch.css">
+  <script src="site-config.js"></script>
+</head>
+<body class="eh-launch-page eh-success-page">
+  <header class="eh-launch-header">
+    <div class="container">
+      <a href="index.html?home=1" style="color:#fff;font-weight:800;text-decoration:none;">EatHalal</a>
+      <a class="eh-launch-cta-outline" href="waitlist.html">Invite friends</a>
+    </div>
+  </header>
+
+  <main class="eh-success-main">
+    <h1>Thanks! Your spot on the list is secured! 💚</h1>
+    <p class="eh-success-hook">
+      Want to skip ahead of the queue and secure your <strong>1-year exclusive discount</strong>?
+    </p>
+
+    <div class="eh-community-queue" aria-hidden="true">
+      <span class="eh-avatar eh-avatar--1"></span>
+      <span class="eh-avatar eh-avatar--2"></span>
+      <span class="eh-avatar eh-avatar--3"></span>
+      <div class="eh-queue-card">
+        <p class="eh-queue-label">Your position</p>
+        <p class="eh-queue-num" id="queue-pos">You are #— in the queue!</p>
+        <p id="perks-line" class="eh-queue-perks"></p>
+      </div>
+      <span class="eh-avatar eh-avatar--4"></span>
+      <span class="eh-avatar eh-avatar--5"></span>
+      <span class="eh-avatar eh-avatar--6"></span>
+    </div>
+
+    <p class="eh-referral-copy">
+      Share with <strong>3 friends</strong> from the community. If they sign up, you jump ahead of <strong>300 people</strong>!
+    </p>
+
+    <div class="eh-ref-box">
+      <input id="ref-url" type="text" readonly aria-label="Your referral link">
+      <button type="button" id="copy-ref">Copy</button>
+    </div>
+
+    <div class="eh-share-row">
+      <a class="eh-share-btn eh-share-wa" id="share-wa" href="#" target="_blank" rel="noopener">WhatsApp</a>
+      <a class="eh-share-btn eh-share-ig" id="share-ig" href="#" target="_blank" rel="noopener">Instagram</a>
+    </div>
+
+    <p class="eh-success-foot">
+      <a href="index.html?home=1">Back to home</a>
+      · Restaurant owner? <a href="certification.html">Certification for businesses</a>
+    </p>
+  </main>
+
+  <script src="api-client.js"></script>
+  <script>
+    (function () {
+      const id = new URLSearchParams(location.search).get("id");
+      const posEl = document.getElementById("queue-pos");
+      const perksEl = document.getElementById("perks-line");
+      const refInput = document.getElementById("ref-url");
+
+      async function load() {
+        const api = window.GOApi || window.TayyApi;
+        if (!id || !api) {
+          posEl.textContent = "You are #? in the queue!";
+          return;
+        }
+        const base = api.apiRoot ? api.apiRoot() : "/api/v1";
+        const res = await fetch(`${base}/waitlist/position/${encodeURIComponent(id)}`);
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || !data.ok) {
+          posEl.textContent = "You are #? in the queue!";
+          return;
+        }
+        posEl.textContent = "You are #" + data.queuePosition + " in the queue!";
+        perksEl.textContent = data.isFirst100
+          ? "You are in the first 100 — free first delivery + 1-year discount apply."
+          : "Keep sharing to improve your position.";
+        const link = data.referralUrl || location.origin + "/waitlist.html";
+        refInput.value = link;
+
+        const text = encodeURIComponent(
+          "Join me on the EatHalal Porto waitlist — free first delivery for the first 100: " + link
+        );
+        document.getElementById("share-wa").href = "https://wa.me/?text=" + text;
+        document.getElementById("share-ig").href =
+          "https://www.instagram.com/create/story";
+      }
+
+      document.getElementById("copy-ref")?.addEventListener("click", () => {
+        refInput.select();
+        navigator.clipboard?.writeText(refInput.value).catch(() => {});
+      });
+
+      load().catch(console.error);
+    })();
+  </script>
+</body>
+</html>
