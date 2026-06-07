@@ -6,7 +6,8 @@
     "postinstall": "npm install --prefix backend",
     "build": "npm install --prefix backend",
     "start": "npm start --prefix backend",
-    "test:e2e": "node scripts/run-e2e-automated.mjs"
+    "test:e2e": "node scripts/run-e2e-automated.mjs",
+    "sync:notion": "node scripts/sync-notion-planeamento.mjs"
   },
   "engines": {
     "node": "22.10.0"
