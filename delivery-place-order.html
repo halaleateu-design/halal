@@ -119,8 +119,9 @@
           let data = await window.GOApi.createOrder(body);
           const o = data.order;
           ok.innerHTML =
-            `<strong>Order placed.</strong><br>Code: <code>${o.trackingCode}</code><br>` +
-            `<a href="track-order.html?code=${encodeURIComponent(o.trackingCode)}">Open track page</a>`;
+            `<strong>Order placed!</strong> Save your tracking code:<br>` +
+            `<code style="font-size:1.1rem;letter-spacing:.05em;">${o.trackingCode}</code><br>` +
+            `<a class="prem-btn" style="display:inline-block;margin-top:0.75rem;text-decoration:none;" href="track-order.html?code=${encodeURIComponent(o.trackingCode)}">Track your delivery →</a>`;
           ok.hidden = false;
         } catch (e) {
           err.textContent = e.message || "Failed.";

@@ -143,6 +143,13 @@
     apiRoot() {
       return resolveApiBase();
     },
+    async trackByCode(code) {
+      const c = String(code || "")
+        .trim()
+        .toUpperCase()
+        .replace(/\s+/g, "");
+      return request(`/track/${encodeURIComponent(c)}`);
+    },
     async listShops() {
       return request("/orders/shops");
     },

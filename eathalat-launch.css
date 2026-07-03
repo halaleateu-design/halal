@@ -603,3 +603,243 @@
   color: var(--eh-green);
   text-decoration: none;
 }
+
+/* Track order — customer delivery status */
+.eh-track-main {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 2rem 1rem 3rem;
+}
+
+.eh-track-main h1 {
+  color: var(--eh-green);
+  font-size: clamp(1.35rem, 4vw, 1.65rem);
+  margin: 0 0 0.35rem;
+}
+
+.eh-track-lead {
+  color: #3d5248;
+  line-height: 1.55;
+  margin: 0 0 1.25rem;
+  font-size: 0.95rem;
+}
+
+.eh-track-form {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.eh-track-form input {
+  flex: 1;
+  padding: 0.7rem 0.85rem;
+  border-radius: 10px;
+  border: 1px solid #b8cfc4;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.eh-track-form button {
+  padding: 0.7rem 1.1rem;
+  border-radius: 10px;
+  border: none;
+  background: var(--eh-green-mid);
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.eh-track-panel {
+  background: #fff;
+  border: 1px solid #c5d9ce;
+  border-radius: 14px;
+  padding: 1.1rem 1.15rem;
+  margin-bottom: 1rem;
+}
+
+.eh-track-panel[hidden] {
+  display: none !important;
+}
+
+.eh-track-code {
+  font-family: ui-monospace, monospace;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--eh-green);
+  letter-spacing: 0.06em;
+}
+
+.eh-track-restaurant {
+  margin: 0.35rem 0 0;
+  font-weight: 600;
+  color: #1a2e28;
+}
+
+.eh-track-status-pill {
+  display: inline-block;
+  margin-top: 0.65rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  background: var(--eh-green-soft);
+  color: var(--eh-green);
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.eh-track-status-pill--done {
+  background: #e8f5e9;
+  color: #1b5e20;
+}
+
+.eh-track-status-pill--cancel {
+  background: #fdecea;
+  color: #b71c1c;
+}
+
+.eh-track-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0;
+}
+
+.eh-track-steps li {
+  display: grid;
+  grid-template-columns: 1.75rem 1fr;
+  gap: 0.65rem;
+  padding: 0.55rem 0;
+  position: relative;
+  font-size: 0.9rem;
+  color: #7a8f84;
+}
+
+.eh-track-steps li::before {
+  content: "";
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  border: 2px solid #c5d9ce;
+  background: #fff;
+  box-sizing: border-box;
+  margin-top: 0.05rem;
+}
+
+.eh-track-steps li.eh-track-step--done {
+  color: #3d5248;
+}
+
+.eh-track-steps li.eh-track-step--done::before {
+  border-color: var(--eh-green-mid);
+  background: var(--eh-green-mid);
+  box-shadow: inset 0 0 0 3px #fff;
+}
+
+.eh-track-steps li.eh-track-step--active {
+  color: var(--eh-green);
+  font-weight: 700;
+}
+
+.eh-track-steps li.eh-track-step--active::before {
+  border-color: var(--eh-gold);
+  background: var(--eh-gold);
+  box-shadow: 0 0 0 3px var(--eh-gold-light);
+}
+
+.eh-track-steps li:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  left: 0.84rem;
+  top: 2.1rem;
+  bottom: -0.55rem;
+  width: 2px;
+  background: #d4e5dc;
+}
+
+.eh-track-steps li.eh-track-step--done:not(:last-child)::after {
+  background: var(--eh-green-mid);
+}
+
+.eh-track-items {
+  margin: 0.75rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.88rem;
+  color: #3d5248;
+}
+
+.eh-track-items li {
+  padding: 0.2rem 0;
+}
+
+.eh-track-map {
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid #c5d9ce;
+  background: #f0f4f2;
+  margin-top: 0.75rem;
+}
+
+.eh-track-map iframe {
+  width: 100%;
+  height: min(360px, 48vh);
+  border: 0;
+  display: block;
+}
+
+.eh-track-map-label {
+  margin: 0;
+  padding: 0.55rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--eh-green);
+  background: var(--eh-green-soft);
+}
+
+.eh-track-err {
+  color: #b91c1c;
+  font-size: 0.9rem;
+  margin: 0.75rem 0 0;
+}
+
+.eh-track-foot {
+  margin-top: 1.5rem;
+  font-size: 0.85rem;
+  color: #5a6e64;
+  line-height: 1.55;
+}
+
+.eh-track-foot a {
+  color: var(--eh-green);
+  font-weight: 600;
+}
+
+.eh-track-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.78rem;
+  color: #5a6e64;
+  margin-top: 0.5rem;
+}
+
+.eh-track-live::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+  animation: eh-track-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes eh-track-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}

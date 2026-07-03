@@ -36,11 +36,31 @@ router.get("/:code", (req, res) => {
 
       let mapsEmbedUrl = null;
       let destinationEmbedUrl = null;
+      let routeEmbedUrl = null;
       if (riderLat != null && riderLng != null && !Number.isNaN(riderLat) && !Number.isNaN(riderLng)) {
         mapsEmbedUrl = `https://www.google.com/maps?q=${encodeURIComponent(`${riderLat},${riderLng}`)}&z=14&output=embed`;
       }
       if (destLat != null && destLng != null && !Number.isNaN(destLat) && !Number.isNaN(destLng)) {
         destinationEmbedUrl = `https://www.google.com/maps?q=${encodeURIComponent(`${destLat},${destLng}`)}&z=15&output=embed`;
+      }
+      if (
+        riderLat != null &&
+        riderLng != null &&
+        destLat != null &&
+        destLng != null &&
+        !Number.isNaN(riderLat) &&
+        !Number.isNaN(riderLng) &&
+        !Number.isNaN(destLat) &&
+        !Number.isNaN(destLng)
+      ) {
+        routeEmbedUrl = `https://www.google.com/maps?saddr=${encodeURIComponent(`${riderLat},${riderLng}`)}&daddr=${encodeURIComponent(`${destLat},${destLng}`)}&output=embed`;
+      }
+
+      let items = [];
+      try {
+        items = JSON.parse(d.items_json || "[]");
+      } catch {
+        items = [];
       }
 
       return res.json({
@@ -49,10 +69,15 @@ router.get("/:code", (req, res) => {
         status: trackStatus,
         deliveryStatus: d.status,
         restaurant: d.restaurant_name,
+        restaurantAddress: d.restaurant_address || null,
         customerLabel: d.customer_display_name,
+        deliveryAddress: d.delivery_address || null,
+        items,
+        createdAt: d.created_at,
         rider: riderLat != null && riderLng != null ? { lat: riderLat, lng: riderLng } : null,
         destination: destLat != null && destLng != null ? { lat: destLat, lng: destLng } : null,
         destinationEmbedUrl,
+        routeEmbedUrl,
         updatedAt: d.updated_at,
         mapsEmbedUrl,
       });
@@ -67,8 +92,27 @@ router.get("/:code", (req, res) => {
     const riderLng = row.rider_lng != null ? Number(row.rider_lng) : null;
 
     let mapsEmbedUrl = null;
+    let destinationEmbedUrl = null;
+    let routeEmbedUrl = null;
     if (riderLat != null && riderLng != null && !Number.isNaN(riderLat) && !Number.isNaN(riderLng)) {
       mapsEmbedUrl = `https://www.google.com/maps?q=${encodeURIComponent(`${riderLat},${riderLng}`)}&z=15&output=embed`;
+    }
+    const destLat = row.dest_lat != null ? Number(row.dest_lat) : null;
+    const destLng = row.dest_lng != null ? Number(row.dest_lng) : null;
+    if (destLat != null && destLng != null && !Number.isNaN(destLat) && !Number.isNaN(destLng)) {
+      destinationEmbedUrl = `https://www.google.com/maps?q=${encodeURIComponent(`${destLat},${destLng}`)}&z=15&output=embed`;
+    }
+    if (
+      riderLat != null &&
+      riderLng != null &&
+      destLat != null &&
+      destLng != null &&
+      !Number.isNaN(riderLat) &&
+      !Number.isNaN(riderLng) &&
+      !Number.isNaN(destLat) &&
+      !Number.isNaN(destLng)
+    ) {
+      routeEmbedUrl = `https://www.google.com/maps?saddr=${encodeURIComponent(`${riderLat},${riderLng}`)}&daddr=${encodeURIComponent(`${destLat},${destLng}`)}&output=embed`;
     }
 
     return res.json({
@@ -78,15 +122,13 @@ router.get("/:code", (req, res) => {
       deliveryStatus: null,
       restaurant: row.restaurant_label,
       customerLabel: row.customer_label,
+      deliveryAddress: null,
+      items: [],
       rider: riderLat != null && riderLng != null ? { lat: riderLat, lng: riderLng } : null,
       destination:
-        row.dest_lat != null && row.dest_lng != null
-          ? { lat: Number(row.dest_lat), lng: Number(row.dest_lng) }
-          : null,
-      destinationEmbedUrl:
-        row.dest_lat != null && row.dest_lng != null
-          ? `https://www.google.com/maps?q=${encodeURIComponent(`${Number(row.dest_lat)},${Number(row.dest_lng)}`)}&z=15&output=embed`
-          : null,
+        destLat != null && destLng != null ? { lat: destLat, lng: destLng } : null,
+      destinationEmbedUrl,
+      routeEmbedUrl,
       updatedAt: row.updated_at,
       mapsEmbedUrl,
     });
