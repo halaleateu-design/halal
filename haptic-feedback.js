@@ -20,7 +20,8 @@
   const SELECTOR =
     'button:not([disabled]), input[type="submit"]:not([disabled]), input[type="button"]:not([disabled]), ' +
     '[role="button"]:not([aria-disabled="true"]), .btn, .btn-nav-solid, .btn-nav-ghost, .btn-eats-primary, .btn-eats-secondary, ' +
-    '.eh-share-btn, .eh-wl-form button, .eh-btn-primary, a.eh-launch-cta-outline, a.btn, label.btn';
+    '.eh-share-btn, .eh-wl-form button, .eh-btn-primary, .eh-track-form button, a.eh-launch-cta-outline, a.btn, label.btn, ' +
+    '.go-mobile-app__card, .go-mobile-tabbar a, a.eh-btn-primary';
 
   let lastPulse = 0;
 
@@ -40,10 +41,9 @@
           box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.12);
         }
         .eh-btn-primary.eh-haptic-press,
-        .btn-eats-primary.eh-haptic-press,
-        .eh-wl-form button.eh-haptic-press {
-          transform: scale(0.93) !important;
-          filter: brightness(1.08);
+        .eh-track-form button.eh-haptic-press,
+        .go-mobile-app__card.eh-haptic-press {
+          transform: scale(0.96) !important;
         }
         .eh-btn-loading {
           opacity: 0.85;
@@ -70,11 +70,12 @@
   function tier(el) {
     if (
       el.matches(
-        '[type="submit"], .btn-eats-primary, .btn-nav-solid, .eh-wl-form button, .eh-share-btn, .eh-btn-primary, .btn.primary'
+        '[type="submit"], .btn-eats-primary, .btn-nav-solid, .eh-wl-form button, .eh-share-btn, .eh-btn-primary, .eh-track-form button, .go-mobile-app__card--primary, .btn.primary'
       )
     ) {
       return "medium";
     }
+    if (el.matches(".go-mobile-app__card, .go-mobile-tabbar a")) return "light";
     if (el.matches(".btn-eats-secondary, .btn-nav-ghost, .eh-launch-cta-outline")) return "light";
     return "light";
   }

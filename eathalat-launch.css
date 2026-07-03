@@ -12,6 +12,16 @@
   background: var(--eh-cream);
   color: #1a2e28;
   min-height: 100vh;
+  font-family: "DM Sans", system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.eh-launch-page main h1 {
+  color: var(--eh-green);
+  font-size: clamp(1.35rem, 4vw, 1.75rem);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.5rem;
 }
 
 .eh-launch-header {
@@ -198,7 +208,34 @@
 }
 
 .eh-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.72rem 1.2rem;
+  border-radius: 12px;
+  border: none;
   background: var(--eh-green-mid) !important;
+  color: #fff !important;
+  font-weight: 700;
+  font-size: 1rem;
+  font-family: inherit;
+  cursor: pointer;
+  text-decoration: none;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-appearance: none;
+  appearance: none;
+  transition: background 0.15s ease, transform 0.12s ease;
+}
+
+.eh-btn-primary:hover {
+  background: var(--eh-green) !important;
+}
+
+.eh-btn-primary:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
 }
 
 .eh-phone-mock {
@@ -611,12 +648,6 @@
   padding: 2rem 1rem 3rem;
 }
 
-.eh-track-main h1 {
-  color: var(--eh-green);
-  font-size: clamp(1.35rem, 4vw, 1.65rem);
-  margin: 0 0 0.35rem;
-}
-
 .eh-track-lead {
   color: #3d5248;
   line-height: 1.55;
@@ -641,14 +672,33 @@
 }
 
 .eh-track-form button {
-  padding: 0.7rem 1.1rem;
-  border-radius: 10px;
+  padding: 0.7rem 1.15rem;
+  border-radius: 12px;
   border: none;
   background: var(--eh-green-mid);
   color: #fff;
   font-weight: 700;
+  font-size: 1rem;
+  font-family: inherit;
   cursor: pointer;
   white-space: nowrap;
+  min-width: 5.25rem;
+  touch-action: manipulation;
+  -webkit-appearance: none;
+  appearance: none;
+  transition: background 0.15s ease, transform 0.12s ease;
+}
+
+.eh-track-form button:hover {
+  background: var(--eh-green);
+}
+
+.eh-track-form input:focus,
+.eh-wl-form input:focus,
+.eh-wl-form select:focus {
+  outline: 2px solid var(--eh-green-mid);
+  outline-offset: 1px;
+  border-color: var(--eh-green-mid);
 }
 
 .eh-track-panel {

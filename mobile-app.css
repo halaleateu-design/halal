@@ -80,6 +80,25 @@
   padding: 0 1.25rem 1.5rem;
 }
 
+.go-mobile-app__grid--compact {
+  padding-bottom: 0.75rem;
+}
+
+.go-mobile-app__links {
+  text-align: center;
+  padding: 0 1.25rem 1.25rem;
+  margin: 0;
+  font-size: 0.82rem;
+  opacity: 0.75;
+}
+
+.go-mobile-app__links a {
+  color: inherit;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.35rem 0.5rem;
+}
+
 .go-mobile-app__card {
   display: flex;
   align-items: center;

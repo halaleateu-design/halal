@@ -7,6 +7,9 @@
   <title>Track your order — EatHalal</title>
   <meta name="description" content="Track your EatHalal delivery live — from restaurant confirmation to rider on the map.">
   <link rel="icon" href="assets/halaleat-mark.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="eathalat-launch.css">
   <script src="site-config.js"></script>
@@ -26,14 +29,12 @@
 
   <main class="eh-track-main">
     <h1>Track your delivery</h1>
-    <p class="eh-track-lead">
-      Enter the tracking code from your order confirmation (email, SMS, or WhatsApp). Updates refresh automatically while your order is on the way.
-    </p>
+    <p class="eh-track-lead">Paste your tracking code from email or WhatsApp. Live updates while your order is on the way.</p>
 
     <form class="eh-track-form" id="track-form" autocomplete="off">
       <label for="track-code" class="visually-hidden">Tracking code</label>
-      <input id="track-code" name="code" type="text" maxlength="40" placeholder="GO-ABC123" required>
-      <button type="submit">Track</button>
+      <input id="track-code" name="code" type="text" maxlength="40" placeholder="GO-ABC123" required autocapitalize="characters" spellcheck="false">
+      <button type="submit" class="eh-btn-primary" id="track-submit">Track</button>
     </form>
 
     <p id="track-error" class="eh-track-err" role="alert" hidden></p>
@@ -58,9 +59,8 @@
     </div>
 
     <p class="eh-track-foot">
-      Just placed an order? Your code appears right after checkout.
-      Need help? <a href="https://wa.me/351931430970" target="_blank" rel="noopener">WhatsApp us</a>
-      or <a href="signin.html#orders">view signed-in orders</a>.
+      Need help? <a href="https://wa.me/351931430970" target="_blank" rel="noopener">WhatsApp</a>
+      · <a href="signin.html#orders">My orders</a>
     </p>
   </main>
 
@@ -239,9 +239,15 @@
 
       document.getElementById("track-form")?.addEventListener("submit", (ev) => {
         ev.preventDefault();
+        const btn = document.getElementById("track-submit");
         const code = document.getElementById("track-code").value.trim();
+        btn.disabled = true;
+        btn.classList.add("eh-btn-loading");
         history.replaceState(null, "", "?code=" + encodeURIComponent(code));
-        refresh(true);
+        refresh(true).finally(() => {
+          btn.disabled = false;
+          btn.classList.remove("eh-btn-loading");
+        });
       });
 
       const q = new URLSearchParams(location.search).get("code");
