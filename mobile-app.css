@@ -1,0 +1,159 @@
+/* EatHalal GO — mobile app shell (Capacitor) */
+.go-native-app {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.go-mobile-app {
+  margin: 0;
+  min-height: 100dvh;
+  font-family: "DM Sans", system-ui, sans-serif;
+  background: linear-gradient(165deg, #0d3d2e 0%, #0a2a22 45%, #061a15 100%);
+  color: #fff;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) calc(88px + env(safe-area-inset-bottom)) env(safe-area-inset-left);
+}
+
+.go-mobile-app__header {
+  padding: 1.25rem 1.25rem 0.5rem;
+}
+
+.go-mobile-app__brand {
+  font-size: 1.75rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.go-mobile-app__tag {
+  margin: 0.25rem 0 0;
+  opacity: 0.85;
+  font-size: 0.95rem;
+}
+
+.go-mobile-app__hero {
+  padding: 1rem 1.25rem 1.5rem;
+}
+
+.go-mobile-app__hero h2 {
+  font-size: 1.35rem;
+  line-height: 1.25;
+  margin: 0 0 0.75rem;
+  font-weight: 700;
+}
+
+.go-mobile-app__hero p {
+  margin: 0;
+  opacity: 0.9;
+  line-height: 1.5;
+  font-size: 0.95rem;
+}
+
+.go-mobile-app__grid {
+  display: grid;
+  gap: 0.75rem;
+  padding: 0 1.25rem 1.5rem;
+}
+
+.go-mobile-app__card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.1rem;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: inherit;
+  text-decoration: none;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.go-mobile-app__card:active {
+  transform: scale(0.98);
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.go-mobile-app__card-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  font-size: 1.35rem;
+  background: rgba(255, 255, 255, 0.12);
+  flex-shrink: 0;
+}
+
+.go-mobile-app__card-body strong {
+  display: block;
+  font-size: 1rem;
+  margin-bottom: 0.15rem;
+}
+
+.go-mobile-app__card-body span {
+  font-size: 0.82rem;
+  opacity: 0.8;
+}
+
+.go-mobile-app__card--primary {
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+  border-color: transparent;
+  color: #052e16;
+}
+
+.go-mobile-app__card--primary .go-mobile-app__card-icon {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.go-mobile-tabbar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  padding: 0.35rem 0.5rem calc(0.5rem + env(safe-area-inset-bottom));
+  background: rgba(6, 26, 21, 0.96);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+}
+
+.go-mobile-tabbar a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  padding: 0.45rem 0.25rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.55);
+  text-decoration: none;
+  border-radius: 10px;
+}
+
+.go-mobile-tabbar a[aria-current="page"] {
+  color: #4ade80;
+  background: rgba(74, 222, 128, 0.12);
+}
+
+.go-mobile-tabbar a span:first-child {
+  font-size: 1.15rem;
+  line-height: 1;
+}
+
+.go-native-app .eh-launch-page,
+.go-native-app .prem-page {
+  padding-bottom: calc(72px + env(safe-area-inset-bottom));
+}
+
+.go-native-app .eh-launch-header {
+  padding-top: max(0.75rem, env(safe-area-inset-top));
+}
+
+.go-mobile-tabbar--injected {
+  display: none;
+}
+
+.go-native-app .go-mobile-tabbar--injected {
+  display: grid;
+}

@@ -1,19 +1,30 @@
 {
   "appId": "eu.halaleat.go.app",
-  "appName": "GO",
+  "appName": "EatHalal",
   "webDir": "www",
   "server": {
-    "androidScheme": "https"
+    "androidScheme": "https",
+    "cleartext": false
+  },
+  "android": {
+    "backgroundColor": "#0d3d2e"
+  },
+  "ios": {
+    "backgroundColor": "#0d3d2e",
+    "contentInset": "automatic"
   },
   "plugins": {
     "SplashScreen": {
-      "launchShowDuration": 1800,
-      "backgroundColor": "#f8fafc",
-      "androidScaleType": "CENTER_CROP"
+      "launchShowDuration": 2000,
+      "launchAutoHide": true,
+      "backgroundColor": "#0d3d2e",
+      "androidSplashResourceName": "splash",
+      "androidScaleType": "CENTER_CROP",
+      "showSpinner": false
     },
     "StatusBar": {
       "style": "DARK",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#0d3d2e"
     }
   }
 }

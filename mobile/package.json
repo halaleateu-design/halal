@@ -6,12 +6,14 @@
   "scripts": {
     "copy-web": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/sync-web.ps1",
     "sync": "npm run copy-web && npx cap sync",
+    "build:android": "npm run sync && cd android && gradlew.bat assembleDebug",
     "open:android": "npx cap open android",
     "open:ios": "npx cap open ios",
     "doctor": "npx cap doctor"
   },
   "dependencies": {
     "@capacitor/android": "^6.2.0",
+    "@capacitor/app": "^6.0.2",
     "@capacitor/core": "^6.2.0",
     "@capacitor/ios": "^6.2.0",
     "@capacitor/splash-screen": "^6.0.3",

@@ -5,7 +5,9 @@ Marketplace web + API for halal delivery (Porto pilot).
 ## Docs (planeamento)
 
 - **[docs/PLANEAMENTO-EATHALAL-GO.md](docs/PLANEAMENTO-EATHALAL-GO.md)** — visão, waitlist, pagamentos, roadmap, PONTOS 1–5  
+- **[planeamento.html](planeamento.html)** — mesma informação no site (PT)  
 - **[docs/ESTADO-TECNICO.md](docs/ESTADO-TECNICO.md)** — o que já está implementado no código  
+- **[mobile/README.md](mobile/README.md)** — **Android/iOS app** (Capacitor)  
 - **[OPERATOR-CHECKLIST.txt](OPERATOR-CHECKLIST.txt)** — operação diária  
 - **[RENDER-SETUP.txt](RENDER-SETUP.txt)** — deploy Render + env vars  
 
@@ -27,4 +29,16 @@ npm run test:e2e
 
 ## Live
 
+https://eathalaleu.netlify.app/waitlist.html  
 https://halall-dm79.onrender.com
+
+## Mobile app (Android / iOS)
+
+```powershell
+cd mobile
+npm install
+npm run sync
+npx cap open android
+```
+
+Entry screen: **app.html** · Package: `eu.halaleat.go.app` · See [mobile/README.md](mobile/README.md).

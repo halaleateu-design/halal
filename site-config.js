@@ -7,8 +7,10 @@
     brandLegal: "HalalEat EU",
     brandTagline: "Halal eat EU",
     businessEmail: "halaleateu@gmail.com",
-    websiteUrl: "https://halall-dm79.onrender.com/",
+    websiteUrl: "https://eathalaleu.netlify.app/",
     apiBaseUrl: "https://halall-dm79.onrender.com/api/v1",
+    /** Set true in Capacitor WebView (mobile-native.js). */
+    isNativeApp: false,
     /** Used only on localhost:* — api-client talks to Node here (Live Server vs static :3001). */
     apiLocalPort: 3001,
     social: {

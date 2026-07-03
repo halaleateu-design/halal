@@ -17,6 +17,7 @@
     <div class="container">
       <a href="index.html?home=1" style="color:#fff;font-weight:800;text-decoration:none;">EatHalal</a>
       <nav class="eh-launch-nav" aria-label="Launch">
+        <a href="planeamento.html">Como funciona</a>
         <a href="certification.html">For businesses</a>
         <a href="partners.html">Partner application</a>
         <a href="rider/index.html">Couriers</a>
@@ -41,12 +42,18 @@
           <input id="wl-phone" name="phone" type="tel" required autocomplete="tel" inputmode="tel" placeholder="+351 9xx xxx xxx">
           <label class="eh-wl-label" for="wl-name">Full name</label>
           <input id="wl-name" name="name" type="text" required autocomplete="name" placeholder="Your name">
-          <input type="hidden" name="city" value="Porto">
+          <label class="eh-wl-label" for="wl-city">City</label>
+          <select id="wl-city" name="city" required>
+            <option value="Porto" selected>Porto</option>
+            <option value="Lisboa">Lisboa</option>
+            <option value="Braga">Braga</option>
+            <option value="Outra">Other / Outra</option>
+          </select>
           <button type="submit" class="eh-btn-primary">Get early access</button>
         </form>
         <p id="wl-err" class="eh-wl-err" hidden role="alert"></p>
         <p class="eh-wl-foot">
-          Porto · Portugal · <a href="certification.html">Restaurant or butcher?</a>
+          Porto · Portugal · <a href="planeamento.html">Como funciona</a> · <a href="certification.html">Restaurant or butcher?</a>
         </p>
       </div>
 
@@ -115,7 +122,7 @@
             fullName: fd.get("name"),
             email: fd.get("email"),
             phone: fd.get("phone"),
-            city: "Porto",
+            city: fd.get("city") || "Porto",
             country: "PT",
             source: "waitlist.html",
             referredBy: sessionStorage.getItem("eh_waitlist_ref") || undefined,

@@ -4,8 +4,24 @@
 (function () {
   const TOKEN_KEY = "go_auth_token";
 
+  function isNativeApp() {
+    try {
+      if (window.Capacitor?.isNativePlatform?.()) return true;
+      if (window.GOSite?.isNativeApp) return true;
+    } catch {
+      /* ignore */
+    }
+    return false;
+  }
+
   function resolveApiBase() {
     if (typeof location === "undefined") return "/api/v1";
+
+    if (isNativeApp()) {
+      const fromSite = window.GOSite?.apiBaseUrl;
+      if (fromSite) return String(fromSite).replace(/\/$/, "");
+      return "https://halall-dm79.onrender.com/api/v1";
+    }
 
     if (location.protocol === "file:") {
       const port =
@@ -14,7 +30,7 @@
     }
 
     const h = location.hostname;
-    if (h === "localhost" || h === "127.0.0.1") {
+    if ((h === "localhost" || h === "127.0.0.1") && !isNativeApp()) {
       const port =
         window.GOSite?.apiLocalPort !== undefined ? String(window.GOSite.apiLocalPort) : "3001";
       return `${location.protocol}//${h}:${port}/api/v1`;

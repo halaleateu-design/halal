@@ -1,69 +1,51 @@
-# GO — Android & iOS (Capacitor)
+# EatHalal GO — Android & iOS (Capacitor)
 
-This folder wraps your **static GO website** (`../`) inside native shells using [Capacitor](https://capacitorjs.com/). You get real **Android** and **iOS** projects you can open in Android Studio and Xcode, ship to Play Store / App Store, and add native plugins later (push, biometrics, etc.).
+Native **EatHalal** app wrapping the same web codebase (`../`) via [Capacitor](https://capacitorjs.com/).
 
-## Business contact (in-app)
+| Item | Value |
+|------|--------|
+| App name | **EatHalal** |
+| Package / bundle | `eu.halaleat.go.app` |
+| Entry screen | `app.html` (home hub + bottom tabs) |
+| API (native) | `https://halall-dm79.onrender.com/api/v1` |
 
-The bundled site shows **HalalEat EU business email** on footers and trust sections: **[halaleateu@gmail.com](mailto:halaleateu@gmail.com)** — same as the desktop web build after you run `npm run copy-web` / `npm run sync`.
-
-## What you need
-
-| Platform | Requirements |
-|----------|----------------|
-| **All** | [Node.js](https://nodejs.org/) **LTS** (v18+), npm |
-| **Android** | [Android Studio](https://developer.android.com/studio) (SDK + platform tools), JDK 17 |
-| **iOS** | **macOS** + Xcode + CocoaPods (`sudo gem install cocoapods`) — Apple does not allow iOS builds on Windows |
-
-## One-time setup (from this `mobile/` folder)
+## Quick start (Windows → Android)
 
 ```powershell
 cd mobile
 npm install
-npm run copy-web
-npx cap add android
-npx cap add ios
-npx cap sync
-```
-
-- `npm run copy-web` runs `scripts/sync-web.ps1` and copies `*.html`, `*.css`, `*.js`, `assets/`, `rider/`, etc. from the repo root into `www/`.
-- After `cap add`, folders `android/` and `ios/` appear (they are listed in `.gitignore` here — commit them if your team wants them in git).
-
-## Run on device / emulator
-
-```powershell
+npm run sync
 npx cap open android
-npx cap open ios
 ```
 
-Then use **Run** in Android Studio or Xcode.
+In **Android Studio**: Run ▶ on emulator or USB device.
 
-## After you change the website
-
-From `mobile/`:
+Debug APK (after `android/` exists + JDK 17):
 
 ```powershell
+npm run build:android
+```
+
+APK: `android\app\build\outputs\apk\debug\app-debug.apk`
+
+## After website changes
+
+```powershell
+cd mobile
 npm run sync
 ```
 
-This recopies the web files and pushes them into the native projects.
+Then rebuild in Android Studio or `npm run build:android`.
 
-## Debug APK (Android, command line)
+## iOS
 
-After `android/` exists:
+Requires **macOS + Xcode**. Same `npm run sync`, then `npx cap open ios`.
 
-```powershell
-cd android
-.\gradlew.bat assembleDebug
-```
+## Files (repo root)
 
-APK path (typical): `android\app\build\outputs\apk\debug\app-debug.apk`
+- `app.html` — mobile home (waitlist, menu, track, partners)
+- `mobile-native.js` — Capacitor splash, status bar, back button
+- `mobile-app.css` — safe areas + bottom tab bar
+- `api-client.js` — detects native app → uses production API
 
-## Notes (Roman Urdu / English)
-
-- **Windows par sirf Android** build/debug asaan hai. **iPhone (iOS) ke liye Mac + Xcode zaroori** hai — yeh Apple ki policy hai, Capacitor isko change nahi karta.
-- Play Store / App Store par publish karne ke liye **developer accounts**, **signing keys**, aur **privacy policy** alag se tayar karni hoti hain.
-- Agar aap site ko Netlify / server par host karte ho aur app mein sirf **URL** kholna ho to baad mein `capacitor.config.json` mein `server.url` add kar sakte ho (online-first mode). Abhi default **offline bundled** `www/` hai taake app bina internet ke bhi homepage dikha sake (static assets).
-
-## App ID
-
-Bundle ID: `eu.halaleat.app` — change in `capacitor.config.json` if you use another id before store submission.
+See also [PLAYSTORE.md](./PLAYSTORE.md) for Google Play listing.
