@@ -2,11 +2,10 @@
 
 Marketplace web + API for halal delivery (Porto pilot).
 
-## Docs (planeamento)
+## Docs (internal)
 
-- **[docs/PLANEAMENTO-EATHALAL-GO.md](docs/PLANEAMENTO-EATHALAL-GO.md)** — visão, waitlist, pagamentos, roadmap, PONTOS 1–5  
-- **[planeamento.html](planeamento.html)** — mesma informação no site (PT)  
-- **[docs/ESTADO-TECNICO.md](docs/ESTADO-TECNICO.md)** — o que já está implementado no código  
+- **[docs/PLANEAMENTO-EATHALAL-GO.md](docs/PLANEAMENTO-EATHALAL-GO.md)** — internal Notion sync only (not published on site)
+- **[docs/ESTADO-TECNICO.md](docs/ESTADO-TECNICO.md)** — o que já está implementado no código
 - **[mobile/README.md](mobile/README.md)** — **Android/iOS app** (Capacitor)  
 - **[OPERATOR-CHECKLIST.txt](OPERATOR-CHECKLIST.txt)** — operação diária  
 - **[RENDER-SETUP.txt](RENDER-SETUP.txt)** — deploy Render + env vars  

@@ -1,6 +1,6 @@
 # Estado técnico — GO / EatHalal (código vs planeamento)
 
-Resumo para alinhar [PLANEAMENTO-EATHALAL-GO.md](./PLANEAMENTO-EATHALAL-GO.md) e [planeamento.html](../planeamento.html) com o repositório `halal-food-website`.
+Resumo para alinhar [PLANEAMENTO-EATHALAL-GO.md](./PLANEAMENTO-EATHALAL-GO.md) (Notion/internal) com o repositório `halal-food-website`.
 
 ## Já implementado
 

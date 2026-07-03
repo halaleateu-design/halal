@@ -47,6 +47,33 @@
   font-size: 0.95rem;
 }
 
+.go-mobile-app__flow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  padding: 0 1.25rem 1.25rem;
+}
+
+.go-mobile-app__flow article {
+  padding: 0.65rem 0.5rem;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+  font-size: 0.72rem;
+  line-height: 1.35;
+}
+
+.go-mobile-app__flow strong {
+  display: block;
+  font-size: 0.78rem;
+  margin-bottom: 0.2rem;
+}
+
+.go-mobile-app__flow span {
+  opacity: 0.85;
+}
+
 .go-mobile-app__grid {
   display: grid;
   gap: 0.75rem;
