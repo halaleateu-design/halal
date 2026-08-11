@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>HalalEat POC — User guide demo video</title>
+  <meta name="description" content="Proof of concept user guide for HalalEat: how customers, riders, and shops use the Porto platform." />
+  <link rel="canonical" href="https://eathalaleu.netlify.app/poc-demo.html" />
+  <link rel="icon" href="assets/halaleat-mark.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,800&family=DM+Sans:opsz,wght@9..40,500;9..40,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="demos/publicity.css" />
+  <style>
+    .poc-grid { max-width: 960px; margin: 0 auto 2.5rem; padding: 0 1.25rem; display: grid; gap: .85rem; }
+    @media (min-width:720px){ .poc-grid { grid-template-columns: repeat(3,1fr); } }
+    .poc-card { background:#fff; border:1px solid var(--line); border-radius:18px; padding:1.25rem; text-decoration:none; color:inherit; display:block; }
+    .poc-card h3 { font-family: Fraunces, Georgia, serif; color: var(--green-deep); margin-bottom:.35rem; }
+    .poc-card p { color: var(--muted); font-size:.92rem; margin-bottom:.85rem; }
+    .poc-card .go { font-weight:700; color: var(--green); }
+  </style>
+</head>
+<body class="pub">
+  <header class="pub-nav">
+    <a class="pub-logo" href="index.html">
+      <img src="assets/halaleat-mark.svg" width="36" height="36" alt="" />
+      <span>EatHalal</span>
+    </a>
+    <nav class="pub-nav-links">
+      <a href="#video">Video</a>
+      <a href="#demos">Live demos</a>
+      <a href="#join">Join</a>
+    </nav>
+    <a class="pub-nav-cta" href="waitlist.html">Waitlist</a>
+  </header>
+
+  <main>
+    <section class="pub-hero" style="grid-template-columns:1fr;text-align:center;max-width:840px;">
+      <div class="pub-hero__copy" style="margin:0 auto;">
+        <p class="pub-eyebrow">Proof of concept · Porto</p>
+        <h1>User guide demo for HalalEat</h1>
+        <p class="pub-lead" style="margin-left:auto;margin-right:auto;">
+          Step-by-step business demo: how customers order, how shops sell, how riders deliver —
+          then try the live interactive demos.
+        </p>
+        <div class="pub-hero__actions" style="justify-content:center;">
+          <a class="pub-btn pub-btn--primary" href="#video">Play POC video</a>
+          <a class="pub-btn pub-btn--ghost" href="demos/assets/go-poc-user-guide.mp4" download>Download MP4</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="pub-video" id="video">
+      <div class="pub-video__inner">
+        <p class="pub-eyebrow">~70 seconds · Music on</p>
+        <h2>POC user guide</h2>
+        <p class="pub-section-lead">Watch once — then open Customer / Rider / Shop demos below.</p>
+        <div class="pub-player">
+          <video controls playsinline preload="metadata" poster="demos/assets/poc-poster.jpg" src="demos/assets/go-poc-user-guide.mp4"></video>
+        </div>
+        <div class="pub-share-row">
+          <button type="button" class="pub-btn pub-btn--primary" id="poc-share">Share POC</button>
+          <a class="pub-btn pub-btn--ghost" href="https://wa.me/?text=HalalEat%20POC%20user%20guide%20https%3A%2F%2Feathalaleu.netlify.app%2Fpoc-demo.html" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+          <a class="pub-btn pub-btn--ghost" href="platform-film.html">Business logic film</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="demos" style="padding:2rem 0 1rem;">
+      <h2 style="text-align:center;font-family:Fraunces,Georgia,serif;color:var(--green-deep);margin-bottom:1rem;">Try live demos</h2>
+      <div class="poc-grid">
+        <a class="poc-card" href="demos/customer.html">
+          <h3>Customer</h3>
+          <p>Browse → order → track. Interactive walkthrough.</p>
+          <span class="go">Open customer demo →</span>
+        </a>
+        <a class="poc-card" href="demos/rider.html">
+          <h3>Rider</h3>
+          <p>Go online → deliver → earn. Interactive walkthrough.</p>
+          <span class="go">Open rider demo →</span>
+        </a>
+        <a class="poc-card" href="demos/shop.html">
+          <h3>Shop</h3>
+          <p>Apply → menu → orders. Interactive walkthrough.</p>
+          <span class="go">Open shop demo →</span>
+        </a>
+      </div>
+    </section>
+
+    <section id="join" class="pub-close">
+      <h2>Join the Porto POC</h2>
+      <p>Customer waitlist · Rider apply · Shop partner</p>
+      <div style="display:flex;flex-wrap:wrap;gap:.65rem;justify-content:center;">
+        <a class="pub-btn pub-btn--primary" href="waitlist.html">Customer waitlist</a>
+        <a class="pub-btn pub-btn--ghost" href="rider/index.html#apply" style="background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.25)">Rider apply</a>
+        <a class="pub-btn pub-btn--ghost" href="partners.html#apply" style="background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.25)">Shop partner</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="pub-foot">
+    <p>HalalEat · GO · Porto pilot</p>
+    <p><a href="index.html">Home</a> · <a href="demos/index.html">All demos</a> · <a href="platform-film.html">Logic film</a></p>
+  </footer>
+  <script>
+    document.getElementById('poc-share')?.addEventListener('click', async function () {
+      var url = 'https://eathalaleu.netlify.app/poc-demo.html';
+      try {
+        if (navigator.share) await navigator.share({ title: 'HalalEat POC user guide', url: url });
+        else { await navigator.clipboard.writeText(url); this.textContent = 'Link copied'; }
+      } catch (e) {}
+    });
+  </script>
+</body>
+</html>
