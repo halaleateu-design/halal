@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GO demo — Rider (deliver with GO)</title>
+  <meta name="description" content="Video-style demo: how riders join GO and deliver halal orders." />
+  <link rel="icon" href="../assets/halaleat-mark.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,650;9..144,800&family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="demo.css" />
+</head>
+<body>
+  <header class="go-demo-top">
+    <a class="go-demo-brand" href="index.html">
+      <img src="../assets/halaleat-mark.svg" alt="" width="36" height="36" />
+      <span>GO demos</span>
+    </a>
+    <nav class="go-demo-nav" aria-label="Demo types">
+      <a href="index.html">All</a>
+      <a href="customer.html">Customer</a>
+      <a class="is-active" href="rider.html">Rider</a>
+      <a href="shop.html">Shops</a>
+    </nav>
+  </header>
+
+  <main class="go-demo-stage" data-go-demo data-step-ms="4000">
+    <div class="go-demo-copy">
+      <span class="eyebrow">Rider side demo</span>
+      <h1>Deliver with GO — earn on every drop</h1>
+      <p class="lead">See the courier flow: waitlist, go online, accept a job, pick up from a partner, deliver to the customer.</p>
+
+      <div class="go-demo-caption" data-caption>
+        <div class="step-kicker" data-step>Step 1 / 5</div>
+        <h2 data-title>Join as a rider</h2>
+        <p data-body>Apply from the GO rider portal — Porto &amp; EU cities.</p>
+      </div>
+
+      <div class="go-demo-controls">
+        <button type="button" class="go-btn-play" data-play aria-pressed="true">Pause</button>
+        <button type="button" class="go-btn-ghost" data-restart>Restart</button>
+        <div class="go-demo-progress" aria-hidden="true"><i data-progress></i></div>
+      </div>
+      <div class="go-demo-dots" data-dots></div>
+
+      <div class="go-demo-cta">
+        <a class="go-cta-primary" href="../rider/index.html#apply">Join rider waitlist</a>
+        <a class="go-cta-secondary" href="../rider/index.html">Open rider portal</a>
+      </div>
+    </div>
+
+    <div class="go-phone-wrap" aria-hidden="true">
+      <div class="go-phone">
+        <div class="go-phone__notch"></div>
+        <div class="go-phone__screen">
+          <div class="go-scene is-active" data-title="Join as a rider" data-body="Sign up on the GO rider portal — bike, scooter, or car.">
+            <div class="go-ui-bar"><span>GO Rider</span><span class="go-ui-chip">Porto</span></div>
+            <div class="go-ui-title">Deliver halal. Get paid.</div>
+            <p class="go-ui-sub">Flexible hours · Partner pickups · Fair fees</p>
+            <div class="go-ui-stats">
+              <div class="go-ui-stat"><b>€/job</b><small>Clear payouts</small></div>
+              <div class="go-ui-stat"><b>EU</b><small>City rollout</small></div>
+            </div>
+            <div class="go-ui-btn go-ui-btn--gold">Apply to ride</div>
+          </div>
+
+          <div class="go-scene" data-title="Go online" data-body="Toggle availability when you’re ready to take delivery jobs.">
+            <div class="go-ui-bar"><span>Status</span><span class="go-ui-chip">Offline → Online</span></div>
+            <div class="go-ui-title">You’re online</div>
+            <div class="go-ui-badge">Receiving offers</div>
+            <div class="go-ui-map"><span class="go-ui-pin" style="left:48%;top:52%"></span></div>
+            <div class="go-ui-card"><strong>Zone: Cedofeita</strong><span>Waiting for the next order…</span></div>
+          </div>
+
+          <div class="go-scene" data-title="Accept a job" data-body="See pickup shop, drop-off area, distance, and estimated earnings.">
+            <div class="go-ui-bar"><span>New offer</span><span class="go-ui-chip">30s</span></div>
+            <div class="go-ui-title">Pickup ready</div>
+            <div class="go-ui-card"><strong>Halal Kitchen Porto</strong><span>2.1 km · bag ×1</span></div>
+            <div class="go-ui-card"><strong>Drop-off</strong><span>Boavista · ETA 18 min</span></div>
+            <div class="go-ui-card"><strong>Earn</strong><span>€4.80 this trip</span></div>
+            <div class="go-ui-btn">Accept delivery</div>
+          </div>
+
+          <div class="go-scene" data-title="Pick up at the shop" data-body="Navigate to the partner, confirm order code, collect the sealed bag.">
+            <div class="go-ui-bar"><span>Pickup</span><span class="go-ui-chip">#GO-1842</span></div>
+            <div class="go-ui-title">Collect at counter</div>
+            <div class="go-ui-map"><span class="go-ui-pin" style="left:35%;top:42%"></span></div>
+            <div class="go-ui-card"><strong>Show code to shop</strong><span>Sealed · hot bag ready</span></div>
+            <div class="go-ui-btn go-ui-btn--gold">Picked up</div>
+          </div>
+
+          <div class="go-scene" data-title="Complete &amp; earn" data-body="Hand off to the customer, mark delivered, see trip earnings.">
+            <div class="go-ui-bar"><span>Delivered</span><span class="go-ui-chip">Done ✓</span></div>
+            <div class="go-ui-title">Nice work!</div>
+            <div class="go-ui-badge">Trip complete</div>
+            <div class="go-ui-stats">
+              <div class="go-ui-stat"><b>+€4.80</b><small>This trip</small></div>
+              <div class="go-ui-stat"><b>€62</b><small>Today</small></div>
+            </div>
+            <div class="go-ui-btn">Find next order</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="demo.js"></script>
+</body>
+</html>

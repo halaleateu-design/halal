@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GO demo — Customer (order halal food)</title>
+  <meta name="description" content="Video-style demo: how customers order verified halal food on GO." />
+  <link rel="icon" href="../assets/halaleat-mark.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,650;9..144,800&family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="demo.css" />
+</head>
+<body>
+  <header class="go-demo-top">
+    <a class="go-demo-brand" href="index.html">
+      <img src="../assets/halaleat-mark.svg" alt="" width="36" height="36" />
+      <span>GO demos</span>
+    </a>
+    <nav class="go-demo-nav" aria-label="Demo types">
+      <a href="index.html">All</a>
+      <a class="is-active" href="customer.html">Customer</a>
+      <a href="rider.html">Rider</a>
+      <a href="shop.html">Shops</a>
+    </nav>
+  </header>
+
+  <main class="go-demo-stage" data-go-demo data-step-ms="4000">
+    <div class="go-demo-copy">
+      <span class="eyebrow">Client side demo</span>
+      <h1>Order 100% halal — in a few taps</h1>
+      <p class="lead">Watch how a customer finds verified partners, builds a basket, and orders via WhatsApp on GO.</p>
+
+      <div class="go-demo-caption" data-caption>
+        <div class="step-kicker" data-step>Step 1 / 5</div>
+        <h2 data-title>Open GO</h2>
+        <p data-body>Halal-only marketplace · Porto pilot · EU expansion.</p>
+      </div>
+
+      <div class="go-demo-controls">
+        <button type="button" class="go-btn-play" data-play aria-pressed="true">Pause</button>
+        <button type="button" class="go-btn-ghost" data-restart>Restart</button>
+        <div class="go-demo-progress" aria-hidden="true"><i data-progress></i></div>
+      </div>
+      <div class="go-demo-dots" data-dots></div>
+
+      <div class="go-demo-cta">
+        <a class="go-cta-primary" href="../index.html#menu">Try the live menu</a>
+        <a class="go-cta-secondary" href="../signup.html">Create account</a>
+      </div>
+    </div>
+
+    <div class="go-phone-wrap" aria-hidden="true">
+      <div class="go-phone">
+        <div class="go-phone__notch"></div>
+        <div class="go-phone__screen">
+          <div class="go-scene is-active" data-title="Open GO" data-body="Welcome screen — 100% halal partners in Porto and across the EU.">
+            <div class="go-ui-bar"><span>GO</span><span class="go-ui-chip">Porto · PT</span></div>
+            <div class="go-ui-title">Hungry for halal?</div>
+            <p class="go-ui-sub">Restaurants · groceries · butcher · bakery</p>
+            <div class="go-ui-card">
+              <strong>Verified partners only</strong>
+              <span>No mixed baskets. Trust-first menus.</span>
+            </div>
+            <div class="go-ui-btn go-ui-btn--gold">Browse near me</div>
+          </div>
+
+          <div class="go-scene" data-title="Pick a category" data-body="Customer chooses restaurants, groceries, butcher, or snacks.">
+            <div class="go-ui-bar"><span>Categories</span><span class="go-ui-chip">Halal ✓</span></div>
+            <div class="go-ui-title">What do you need?</div>
+            <div class="go-ui-card go-ui-row"><div class="go-ui-thumb">R</div><div><strong>Restaurants</strong><span>Hot meals · rice · grills</span></div></div>
+            <div class="go-ui-card go-ui-row"><div class="go-ui-thumb go-ui-thumb--gold">G</div><div><strong>Groceries</strong><span>Pantry &amp; fresh</span></div></div>
+            <div class="go-ui-card go-ui-row"><div class="go-ui-thumb">B</div><div><strong>Butcher</strong><span>Halal meat counters</span></div></div>
+          </div>
+
+          <div class="go-scene" data-title="Build the order" data-body="Add dishes from a verified partner menu — prices clear before checkout.">
+            <div class="go-ui-bar"><span>Menu</span><span class="go-ui-chip">Partner ★ 4.8</span></div>
+            <div class="go-ui-badge">Halal verified</div>
+            <div class="go-ui-title">Tonight’s favourites</div>
+            <div class="go-ui-card go-ui-row"><div class="go-ui-thumb">🍗</div><div><strong>Chicken biryani</strong><span>€9.90 · Add +</span></div></div>
+            <div class="go-ui-card go-ui-row"><div class="go-ui-thumb go-ui-thumb--gold">🥗</div><div><strong>Mixed grill</strong><span>€14.50 · Add +</span></div></div>
+            <div class="go-ui-btn">Cart · €24.40</div>
+          </div>
+
+          <div class="go-scene" data-title="Checkout on WhatsApp" data-body="Confirm address and send the order to a GO partner in one tap.">
+            <div class="go-ui-bar"><span>Checkout</span><span class="go-ui-chip">2 items</span></div>
+            <div class="go-ui-title">Almost there</div>
+            <div class="go-ui-card"><strong>Deliver to</strong><span>Cedofeita, Porto</span></div>
+            <div class="go-ui-card"><strong>Total</strong><span>€24.40 + delivery</span></div>
+            <div class="go-ui-btn">Send on WhatsApp</div>
+          </div>
+
+          <div class="go-scene" data-title="Track the rider" data-body="Live tracking link when the kitchen confirms — hot food to the door.">
+            <div class="go-ui-bar"><span>Tracking</span><span class="go-ui-chip">On the way</span></div>
+            <div class="go-ui-title">Rider nearby</div>
+            <div class="go-ui-map"><span class="go-ui-pin" style="left:62%;top:38%"></span></div>
+            <div class="go-ui-card"><strong>ETA 12 min</strong><span>Order #GO-1842 · Enjoy!</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="demo.js"></script>
+</body>
+</html>

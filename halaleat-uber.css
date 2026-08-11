@@ -2228,3 +2228,97 @@ body.ue-partners .merchant-shell-footer .ue-business-mail__hint {
 body.ue-partners .merchant-shell-footer .ue-business-mail__email:hover {
   color: #fde68a !important;
 }
+
+/* —— GO product demos strip (homepage, mobile-first) —— */
+.go-demos-strip {
+  background: linear-gradient(165deg, #eef2fb 0%, #f7f9fc 55%, #fff8e6 100%);
+}
+
+.go-demos-strip__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.go-demos-strip__card {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  grid-template-rows: auto auto;
+  column-gap: 14px;
+  row-gap: 2px;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  background: #fff;
+  border: 1px solid rgba(0, 51, 153, 0.12);
+  border-radius: 16px;
+  padding: 16px 18px;
+  min-height: 72px;
+  box-shadow: 0 8px 20px rgba(11, 18, 32, 0.06);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.go-demos-strip__card:active {
+  transform: scale(0.98);
+}
+
+.go-demos-strip__play {
+  grid-row: 1 / span 2;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #003399;
+  color: #ffcc00;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.go-demos-strip__label {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: #0b1220;
+}
+
+.go-demos-strip__hint {
+  font-size: 0.88rem;
+  color: #5b6b7c;
+}
+
+.go-demos-strip__all {
+  text-align: center;
+  margin: 18px 0 0;
+}
+
+.go-demos-strip__all a {
+  font-weight: 700;
+  color: #003399;
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 10px 8px;
+  display: inline-block;
+}
+
+@media (min-width: 720px) {
+  .go-demos-strip__grid {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: none;
+  }
+
+  .go-demos-strip__card {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    text-align: center;
+    justify-items: center;
+    padding: 22px 16px;
+    min-height: 140px;
+  }
+
+  .go-demos-strip__play {
+    grid-row: auto;
+    margin-bottom: 8px;
+  }
+}
