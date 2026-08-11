@@ -1,0 +1,13 @@
+file 'frame1.jpg'
+duration 5
+file 'frame2.jpg'
+duration 5
+file 'frame3.jpg'
+duration 5
+file 'frame4.jpg'
+duration 5
+file 'frame5.jpg'
+duration 5
+file 'frame6.jpg'
+duration 6
+file 'frame6.jpg'
