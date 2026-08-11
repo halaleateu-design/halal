@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>EatHalal platform film — Customers · Riders · Shops</title>
+  <meta name="description" content="Watch how EatHalal works for customers, riders, and shops — Porto pilot, EU expansion." />
+  <meta property="og:title" content="EatHalal — The platform film" />
+  <meta property="og:description" content="One platform. Three sides. Customers order. Riders earn. Shops grow." />
+  <meta property="og:image" content="https://eathalaleu.netlify.app/demos/assets/city-night.jpg" />
+  <link rel="canonical" href="https://eathalaleu.netlify.app/platform-film.html" />
+  <link rel="icon" href="assets/halaleat-mark.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="demos/publicity.css" />
+  <style>
+    .film-chapters {
+      max-width: 820px;
+      margin: 0 auto 2.5rem;
+      padding: 0 1.25rem;
+      display: grid;
+      gap: 0.75rem;
+    }
+    .film-chapters h2 {
+      font-family: Fraunces, Georgia, serif;
+      text-align: center;
+      color: var(--green-deep);
+      margin-bottom: 0.5rem;
+      font-size: 1.6rem;
+    }
+    .film-chapter {
+      display: grid;
+      grid-template-columns: 88px 1fr auto;
+      gap: 0.85rem;
+      align-items: center;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 0.9rem 1rem;
+      text-decoration: none;
+      color: inherit;
+    }
+    .film-chapter strong { display: block; color: var(--green-deep); }
+    .film-chapter span { color: var(--muted); font-size: 0.9rem; }
+    .film-chapter em {
+      font-style: normal;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: rgba(212, 175, 55, 0.2);
+      padding: 0.35rem 0.5rem;
+      border-radius: 8px;
+      text-align: center;
+    }
+    .film-cta-grid {
+      max-width: 900px;
+      margin: 0 auto 3rem;
+      padding: 0 1.25rem;
+      display: grid;
+      gap: 0.85rem;
+    }
+    @media (min-width: 720px) {
+      .film-cta-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    .film-cta-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 1.35rem 1.2rem;
+      text-align: center;
+    }
+    .film-cta-card h3 {
+      font-family: Fraunces, Georgia, serif;
+      color: var(--green-deep);
+      margin-bottom: 0.4rem;
+    }
+    .film-cta-card p {
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin-bottom: 1rem;
+      min-height: 3.2em;
+    }
+  </style>
+</head>
+<body class="pub">
+  <header class="pub-nav">
+    <a class="pub-logo" href="index.html">
+      <img src="assets/halaleat-mark.svg" width="36" height="36" alt="" />
+      <span>EatHalal</span>
+    </a>
+    <nav class="pub-nav-links">
+      <a href="#film">Watch</a>
+      <a href="#chapters">Chapters</a>
+      <a href="#join">Join</a>
+    </nav>
+    <a class="pub-nav-cta" href="waitlist.html">Get started</a>
+  </header>
+
+  <main>
+    <section class="pub-hero" style="grid-template-columns:1fr; text-align:center; max-width:820px;">
+      <div class="pub-hero__copy" style="margin:0 auto;">
+        <p class="pub-eyebrow">Platform film · Uber-style walkthrough</p>
+        <h1>One platform. Three sides. Everyone wins.</h1>
+        <p class="pub-lead" style="margin-left:auto;margin-right:auto;">
+          Customers order trusted halal food. Riders earn on every drop.
+          Shops grow with verified demand — starting in Porto, built for the EU.
+        </p>
+        <div class="pub-hero__actions" style="justify-content:center;">
+          <a class="pub-btn pub-btn--primary" href="#film">Play the film</a>
+          <a class="pub-btn pub-btn--ghost" href="demos/assets/go-platform-film.mp4" download>Download MP4</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="pub-video" id="film">
+      <div class="pub-video__inner">
+        <p class="pub-eyebrow">~70 seconds</p>
+        <h2>EatHalal — how it works</h2>
+        <p class="pub-section-lead">Detailed demo for customers, riders, and shops.</p>
+        <div class="pub-player">
+          <video
+            id="platform-film"
+            controls
+            playsinline
+            preload="metadata"
+            poster="demos/assets/city-night.jpg"
+            src="demos/assets/go-platform-film.mp4"
+          ></video>
+        </div>
+        <div class="pub-share-row">
+          <button type="button" class="pub-btn pub-btn--primary" id="film-share">Share film</button>
+          <a class="pub-btn pub-btn--ghost" href="https://wa.me/?text=EatHalal%20platform%20film%20%E2%80%94%20customers%2C%20riders%2C%20shops.%20https%3A%2F%2Feathalaleu.netlify.app%2Fplatform-film.html" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+          <a class="pub-btn pub-btn--ghost" href="publicity.html">Customer page</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="film-chapters" id="chapters">
+      <h2>What’s in the film</h2>
+      <div class="film-chapter"><em>01</em><div><strong>The city opportunity</strong><span>Why Porto needs a halal-only platform</span></div></div>
+      <div class="film-chapter"><em>02</em><div><strong>For customers</strong><span>Trust, browse, order, receive</span></div></div>
+      <div class="film-chapter"><em>03</em><div><strong>For riders</strong><span>Go online, accept jobs, earn</span></div></div>
+      <div class="film-chapter"><em>04</em><div><strong>For shops</strong><span>List, get orders, grow</span></div></div>
+      <div class="film-chapter"><em>05</em><div><strong>Join EatHalal</strong><span>Three clear next steps</span></div></div>
+    </section>
+
+    <section class="film-cta-grid" id="join">
+      <article class="film-cta-card">
+        <h3>Customers</h3>
+        <p>Order verified halal food near you — waitlist open in Porto.</p>
+        <a class="pub-btn pub-btn--primary" href="waitlist.html">Join waitlist</a>
+      </article>
+      <article class="film-cta-card">
+        <h3>Riders</h3>
+        <p>Deliver with flexible hours and clear trip earnings.</p>
+        <a class="pub-btn pub-btn--primary" href="rider/index.html#apply">Apply to ride</a>
+      </article>
+      <article class="film-cta-card">
+        <h3>Shops</h3>
+        <p>Connect your kitchen to customers looking only for halal.</p>
+        <a class="pub-btn pub-btn--primary" href="partners.html#apply">Partner with us</a>
+      </article>
+    </section>
+  </main>
+
+  <footer class="pub-foot">
+    <p>EatHalal · GO · <a href="mailto:halaleateu@gmail.com">halaleateu@gmail.com</a></p>
+    <p><a href="index.html">Home</a> · <a href="publicity.html">Customer promo</a> · <a href="demos/index.html">All demos</a></p>
+  </footer>
+
+  <script>
+    document.getElementById("film-share")?.addEventListener("click", async function () {
+      var url = "https://eathalaleu.netlify.app/platform-film.html";
+      try {
+        if (navigator.share) {
+          await navigator.share({ title: "EatHalal platform film", text: "Customers · Riders · Shops", url: url });
+        } else {
+          await navigator.clipboard.writeText(url);
+          this.textContent = "Link copied";
+          var t = this;
+          setTimeout(function () { t.textContent = "Share film"; }, 1600);
+        }
+      } catch (e) {}
+    });
+  </script>
+</body>
+</html>
